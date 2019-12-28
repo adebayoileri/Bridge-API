@@ -36,10 +36,10 @@
     "express": "^4.17.1",
     "jsonwebtoken": "^8.5.1",
     "pg": "^7.16.0",
-    "pg-connection-string": "^2.1.0"
+    "pg-connection-string": "^2.1.0",
+    "@babel/register": "^7.7.7"
   },
   "devDependencies": {
-    "@babel/register": "^7.7.7",
     "chai": "^4.2.0",
     "chai-http": "^4.3.0",
     "coveralls": "^3.0.9",
