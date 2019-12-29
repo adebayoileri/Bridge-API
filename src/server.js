@@ -1,16 +1,19 @@
 import express from 'express';
 import { json, urlencoded } from 'body-parser';
 import { config } from 'dotenv';
+import taskRoutes from './routes/taskRoutes';
 
 const app = express()
 config();
 
-app.use('/',(req, res)=>{
+app.get('/',(req, res)=>{
     res.status(200).json('Welcome to API')
 });
 
 app.use(json());
 app.use(urlencoded({extended: false}));
+
+app.use('/api/v1',taskRoutes);
 
 const PORT = process.env.PORT;
 
