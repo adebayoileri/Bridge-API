@@ -1,7 +1,7 @@
 import express from 'express';
 import { json, urlencoded } from 'body-parser';
 import { config } from 'dotenv';
-import morgan, { logger } from 'morgan';
+import { logger } from 'morgan';
 import taskRoutes from './routes/taskRoutes';
 
 const app = express()
@@ -11,7 +11,7 @@ app.get('/',(req, res)=>{
     res.status(200).json('Welcome to API')
 });
 
-app.use(logger('dev'));
+// app.use(logger.dev());
 app.use(json());
 app.use(urlencoded({extended: false}));
 
