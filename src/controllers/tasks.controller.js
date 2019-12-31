@@ -15,6 +15,11 @@ class taskController {
             "message":"New task created"
         })
     }
+    static updateTask(req, res){
+        res.status(200).json({
+            "message":"Update task"
+        })
+    }
     static deleteTask(req, res){
         res.status(200).json({
             "message":"Task with id deleted"
