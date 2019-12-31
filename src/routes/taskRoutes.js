@@ -3,14 +3,14 @@ import taskController from '../controllers/tasks.controller';
 
 const router = express.Router();
 
-router.get('/tasks',taskController.getAllTasks);
+router.get('/tasks', taskController.getAllTasks);
 
-router.get('/tasks/:id',taskController.getSingleTask)
+router.get('/tasks/:id', taskController.getSingleTask)
 
-router.get('/tasks/:id',taskController.updateTask)
+router.get('/tasks/:id', taskController.updateTask)
 
-router.post('/tasks/create',taskController.createNewTask)
+router.post('/tasks/create', taskController.createNewTask)
 
-router.delete('/tasks/:id',taskController.deleteTask);
+router.delete('/tasks/:id', taskController.deleteTask);
 
 export default router;
