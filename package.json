@@ -3,6 +3,9 @@
   "version": "1.0.0",
   "description": "An online marketplace to outsource physical and remote tasks ",
   "main": "server.js",
+  "engines": {
+    "node": "12.13.0"
+  },
   "scripts": {
     "start": "npm run build && node ./src/server.js",
     "start:dev": "nodemon --exec babel-node src/server.js",
