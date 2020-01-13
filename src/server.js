@@ -16,8 +16,8 @@ app.get('/',(req, res)=>{
 app.use(json());
 app.use(urlencoded({extended: false}));
 
-app.use('/api/v1',taskRoutes);
-app.use('/api/v1/auth',authRoutes);
+// app.use('/api/v1',taskRoutes);
+// app.use('/api/v1/auth',authRoutes);
 
 const PORT = process.env.PORT;
 
