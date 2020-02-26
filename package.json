@@ -14,7 +14,7 @@
     "clean": "rm -rf build && mkdir build",
     "build": "npm run clean && npm run build-babel",
     "build-babel": "babel -d ./build ./src -s",
-    "debug": "babel-node debug server.js",
+    "debug": "babel-node debug ./src/server.js",
   },
   "repository": {
     "type": "git",
