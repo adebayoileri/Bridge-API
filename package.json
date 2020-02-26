@@ -7,7 +7,7 @@
     "node": "12.13.0"
   },
   "scripts": {
-    "start": "npm run build && node ./src/server.js",
+    "start": "npm run build && babel-node ./src/server.js",
     "start:dev": "nodemon --exec babel-node src/server.js",
     "test": "./node_modules/.bin/nyc mocha --require @babel/register ./src/tests/**/*.test.js --exit",
     "coverage": "nyc report --reporter=text-lcov | coveralls",
