@@ -34,4 +34,4 @@ app.all('*', (req, res) => res.status(404).json({
   }));
 
  export default const server = app;
- export deafault = app;
+ export default server;
