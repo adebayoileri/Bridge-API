@@ -33,5 +33,5 @@ app.all('*', (req, res) => res.status(404).json({
     message: 'Route unavailable on server.',
   }));
 
-const server = app;
-module.exports=app;
+export const server = app;
+export default app;
