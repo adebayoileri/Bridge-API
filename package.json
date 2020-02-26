@@ -13,7 +13,7 @@
     "coverage": "nyc report --reporter=text-lcov | coveralls",
     "clean": "rm -rf build && mkdir build",
     "build": "npm run clean && npm run build-babel",
-    "build-babel": "babel -d ./build ./src -s",
+    "build-babel": "babel -d ./build ./src -s"
   },
   "repository": {
     "type": "git",
