@@ -1,9 +1,9 @@
 const express = require('express');
-import { json, urlencoded } from 'body-parser';
-import { config } from 'dotenv';
-import { logger } from 'morgan';
-import taskRoutes from './routes/taskRoutes';
-import authRoutes from './routes/authRoutes';
+const { json, urlencoded } = require('body-parser');
+const { config } = require('dotenv');
+const { logger } = require('morgan');
+const taskRoutes = require('./routes/taskRoutes');
+const authRoutes =require('./routes/authRoutes');
 
 const app = express()
 config();
@@ -34,4 +34,4 @@ app.all('*', (req, res) => res.status(404).json({
   }));
 
 export const server = app;
-export default app;
+module.exports=app;
