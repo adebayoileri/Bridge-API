@@ -12,7 +12,7 @@ app.get('/',(req, res)=>{
     res.status(200).json('Welcome to API')
 });
 
-// app.use(logger.dev());
+app.use(logger.dev());
 app.use(json());
 app.use(urlencoded({extended: false}));
 
