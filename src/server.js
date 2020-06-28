@@ -18,11 +18,10 @@ app.use(json());
 app.use(urlencoded({extended: false}));
 
 // app.use('/api/v1',taskRoutes);
-// app.use('/api/v1/auth',authRoutes);
+app.use('/api/v1/auth', AuthRouters);
 
-app.use(AuthRouters)
 
-const PORT = process.env.PORT || 3000;
+const PORT = process.env.PORT;
 
 app.listen(PORT, ()=>{
    console.log(`Server up and running on ${PORT}`);
