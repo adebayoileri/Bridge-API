@@ -25,6 +25,11 @@ class taskController {
             "message":"Task with id deleted"
         })
     }
+    static applyTask(req, res){
+        res.status(200).json({
+            "message":"Application Success"
+        })
+    }
 }
 
 export default taskController;
