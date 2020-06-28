@@ -18,17 +18,24 @@
 
 // checking if header is not undefined, if request is undefined return (403) bad request
 const checkToken = (req, res, next) =>{
-    const header = req.headers['authorization'];
-    if(typeof header !== 'undefined'){
-        const bearer = header.split(' ');
-        const token = bearer[1];
-
-        req.token = token;
-
-        next();
-    }else{
-        // if header is undefined , return bad request
-        res.sendStatus(403)
+    try {
+        const header = req.headers['authorization'];
+        if(typeof header !== 'undefined'){
+            const bearer = header.split(' ');
+            const token = bearer[1];
+    
+            req.token = token;
+    
+            next();
+        }else{
+            // if header is undefined , return bad request
+            res.sendStatus(403).json({
+                "message" : "Not Authorized"
+            })
+        }
+        
+    } catch (error) {
+        console.log(error)
     }
 }
 
