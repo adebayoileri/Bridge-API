@@ -102,12 +102,11 @@ class Authentication {
        const first_name = req.body.first_name;
        const last_name = req.body.last_name;
        const phonenumber = req.body.phonenumber;
-       const category = req.body.category;
        const admin = req.body.admin;
        const password  = req.body.password;
 
        try {
-         if(!email || !first_name || !last_name  || !phonenumber || !category || !admin || !password){
+         if(!email || !first_name || !last_name  || !phonenumber  || !admin || !password){
                return res.json("All fields are required {email, first_name, last_name, phonenumber, category, admin, password}")
           }
          const confirmUniqueEmailQuery = `SELECT * FROM users WHERE email=$1`;
@@ -120,9 +119,9 @@ class Authentication {
            const salt = await bcrypt.genSalt(10);
            const hashedPassword = await bcrypt.hash(password, salt);
 
-          const userSignupQuery = `INSERT INTO users (email, first_name, last_name, phonenumber, category, admin, password)
-                  VALUES ($1, $2, $3, $4, $5, $6, $7) RETURNING *`;
-                const values = [email, first_name, last_name, phonenumber, category, admin, hashedPassword];
+          const userSignupQuery = `INSERT INTO users (email, first_name, last_name, phonenumber, admin, password)
+                  VALUES ($1, $2, $3, $4, $5, $6) RETURNING *`;
+                const values = [email, first_name, last_name, phonenumber, admin, hashedPassword];
                 const signedUser = await pool.query(userSignupQuery, values);
                 jwt.sign({email, password} , process.env.AUTHKEY, {expiresIn : '30d'} , (err, token)=>{
                     if(err){
@@ -136,7 +135,6 @@ class Authentication {
                             first_name: signedUser.rows[0]["first_name"],
                             last_name : signedUser.rows[0]["last_name"],
                             phonenumber: signedUser.rows[0]["phonenumber"],
-                            category : signedUser.rows[0]["category"],
                             createdat : signedUser.rows[0]["createdat"],
                             admin: signedUser.rows[0]["admin"],
                             auth_provider: signedUser.rows[0]["auth_provider"],
