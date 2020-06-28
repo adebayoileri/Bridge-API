@@ -71,6 +71,7 @@ const createReviewTable = `
         )
 `;
 const createTaskUsersTable =`
+DROP TABLE IF EXISTS task_user CASCADE;
 CREATE TABLE task_user (
         task_id int REFERENCES tasks (id) ON UPDATE CASCADE ON DELETE CASCADE,
         user_id int REFERENCES users (id) ON UPDATE CASCADE,
