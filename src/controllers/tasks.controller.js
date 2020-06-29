@@ -37,6 +37,13 @@ class taskController {
       const getSingleTaskQuery = `SELECT * FROM tasks WHERE id = $1`;
       const values = [id];
       const singleTask = await pool.query(getSingleTaskQuery, values);
+      if(!singleTask.rows[0]){
+        return res.status(400).json({
+            status: "failed",
+            code: 400,
+            message: "Task doesn\'t exists in db"
+        })
+    }
       return res.status(200).json({
           status: 'success',
           code: 200,
@@ -119,6 +126,13 @@ class taskController {
       });
     }
   }
+ /**
+  * @description - Update a specific task
+  * @param {object} req - request object recieved
+  * @param {object} res - response object sent
+  *  @returns {object} - Task upadted
+  */
+
   static async updateTask(req, res) {
     const { id } = parseInt(req.params);
     const {
@@ -165,6 +179,13 @@ class taskController {
         id,
       ];
       const updatedTask = await pool.query(updateTaskQuery, values);
+      if(!updatedTask.rows[0]){
+        return res.status(400).json({
+            status: "failed",
+            code: 400,
+            message: "Task doesn\'t exists in db"
+        })
+    }
       return res.status(200).json({
         status: 'success',
         code: 200,
@@ -179,6 +200,12 @@ class taskController {
       });
     }
   }
+
+  /**
+   * @description - delete a specific task
+   * @param { object } req - requesr object recieved
+   * @param { object } res - response object sent
+   */
   static async deleteTask(req, res) {
     const {id} = req.params;
     try {
