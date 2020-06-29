@@ -3,6 +3,8 @@ import { json, urlencoded } from 'body-parser';
 import { config } from 'dotenv';
 import expressFileUpload from 'express-fileupload';
 import AuthRouters from './routes/authRoutes';
+import logger from 'morgan';
+import taskRoutes from './routes/taskRoutes';
 import UploadRouter from './routes/uploadRoute';
 // import { logger } from 'morgan';
 // import taskRoutes from './routes/taskRoutes';
@@ -15,14 +17,15 @@ app.get('/',(req, res)=>{
     res.status(200).json('Welcome to API')
 });
 
-// app.use(logger.dev());
+app.use(logger('dev'));
 app.use(json());
 app.use(urlencoded({extended: false}));
 
+
+app.use('/api/v1/',taskRoutes);
 app.use(expressFileUpload({
   useTempFiles: true
 }))
-// app.use('/api/v1',taskRoutes);
 app.use('/api/v1/auth', AuthRouters);
 
 app.use(AuthRouters)

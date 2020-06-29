@@ -7,9 +7,9 @@ router.get('/tasks', taskController.getAllTasks);
 
 router.get('/tasks/:id', taskController.getSingleTask)
 
-router.get('/tasks/:id', taskController.updateTask)
-
 router.post('/tasks/create', taskController.createNewTask)
+
+router.put('/tasks/update/:id', taskController.updateTask);
 
 router.delete('/tasks/:id', taskController.deleteTask);
 
