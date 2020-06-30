@@ -30,7 +30,7 @@ const checkToken = (req, res, next) =>{
         }else{
             // if header is undefined , return bad request
             res.sendStatus(403).json({
-                "message" : "Not Authorized"
+                message : "Not Authorized"
             })
         }
         
