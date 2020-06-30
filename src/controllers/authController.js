@@ -122,7 +122,7 @@ class Authentication {
         !admin ||
         !password
       ) {
-        return res.json(
+        return res.status(400).json(
           'All fields are required {email, first_name, last_name, phonenumber, category, admin, password}',
         );
       }
