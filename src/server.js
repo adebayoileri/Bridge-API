@@ -6,6 +6,7 @@ import AuthRouters from './routes/authRoutes';
 import logger from 'morgan';
 import taskRoutes from './routes/taskRoutes';
 import UploadRouter from './routes/uploadRoute';
+import categoryRouter from './routes/categoryRoute';
 
 const app = express()
 config();
@@ -30,6 +31,8 @@ app.use('/api/v1/',taskRoutes);
 app.use('/api/v1/auth', AuthRouters);
 
 app.use('/api/v1/', UploadRouter)
+
+app.use('/api/v1/', categoryRouter);
 
 const PORT = process.env.PORT;
 
