@@ -190,8 +190,8 @@ class categoryController {
   }
 
   /**
-   * @description - delete a specific task
-   * @param { object } req - requesr object recieved
+   * @description - delete a specific category
+   * @param { object } req - request object recieved
    * @param { object } res - response object sent
    */
   static async deleteCategory(req, res) {
