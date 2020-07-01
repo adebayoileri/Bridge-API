@@ -12,7 +12,7 @@ chai.should();
 describe('POST /signup', ()=> {
     it('it should signup users', ()=>{
         chai.request(server)
-        .post('/signup')
+        .post('/api/v1/auth/signup')
         .send({
             email: "test@mail.com",
             first_name: "adams",
@@ -31,7 +31,7 @@ describe('POST /signup', ()=> {
 describe('POST /signup', ()=> {
     it('it should throw an error for empty fields', ()=>{
         chai.request(server)
-        .post('/signup')
+        .post('/api/v1/auth/signup')
         .send({
             first_name: "adams",
             last_name: "Moll"
@@ -46,7 +46,7 @@ describe('POST /signup', ()=> {
 describe('POST /login', ()=> {
     it('it should login users', ()=>{
         chai.request(server)
-        .post('/login')
+        .post('/api/v1/auth/login')
         .send({
             email: "test@mail.com",
             password: '12345'
