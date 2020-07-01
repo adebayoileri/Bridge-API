@@ -3,14 +3,24 @@ import pool from '../models/db';
 class taskController {
   /**
    *  @description   Get tasks for all authenticated users
-   *  @param { object } - request object recieved
-   *  @param { object } - response object sent
+   *  @param { object } - request [start -> number of page] [count -> number of tasks to return]
+   *  @param query - /v1/tasks?start=1&count=10
    *  @returns { object } - all tasks in db
    **/
   static async getAllTasks(req, res) {
+
+    const{ start , count} = req.query
+
+    if(!req.query || !start || !count) return res.status(400).json({
+      status: 'failed',
+      code: 400,
+      message: 'query [start, count] are needed to fetch tasks'
+    })
+
     try {
-      const getAllTaskQuery = `SELECT * FROM tasks`;
-      const allTasks = await pool.query(getAllTaskQuery);
+      const getAllTaskQuery = `SELECT * FROM tasks ORDER BY createdat OFFSET($1) LIMIT($2)`;
+      const values = [start, count]
+      const allTasks = await pool.query(getAllTaskQuery, values);
       return res.status(200).json({
           status: 'success',
           code: 200,
