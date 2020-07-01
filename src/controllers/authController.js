@@ -59,6 +59,7 @@ class Authentication {
             } else {
               return res.status(200).json({
                 status: 'ok',
+                code: 200,
                 message: 'signed in successfully',
                 id: returnedEmail.rows[0]['userid'],
                 email: returnedEmail.rows[0]['email'],
@@ -123,7 +124,7 @@ class Authentication {
         !password
       ) {
         return res.status(400).json(
-          'All fields are required {email, first_name, last_name, phonenumber, category, admin, password}',
+          'All fields are required',
         );
       }
       const confirmUniqueEmailQuery = `SELECT * FROM users WHERE email=$1`;
@@ -133,7 +134,7 @@ class Authentication {
       if (existedUser.rows[0])
         return res
           .status(400)
-          .json({ status: 'bad request', message: 'email has been taken' });
+          .json({ status: 'bad request', code: 400 , message: 'email has been taken' });
 
       //  hash the incoming password
       const salt = await bcrypt.genSalt(10);
@@ -160,6 +161,7 @@ class Authentication {
           } else {
             return res.status(200).json({
               status: 'ok',
+              code: 200,
               message: 'Signed up successful',
               id: signedUser.rows[0]['id'],
               email: signedUser.rows[0]['email'],
