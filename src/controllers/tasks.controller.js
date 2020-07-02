@@ -169,18 +169,6 @@ class taskController {
 
   static async updateTask(req, res) {
     const { id } = req.params;
-    // const {
-    //   title,
-    //   bannerImg,
-    //   category,
-    //   description,
-    //   category_id,
-    //   location,
-    //   minbudget,
-    //   maxbudget,
-    //   startdate,
-    //   enddate,
-    // } = req.body;
  
       jwt.verify(req.token, process.env.AUTHKEY, async (err, authorizedData)=> {
         if(err){
@@ -260,8 +248,18 @@ class taskController {
           })
       }else{
         try {
+          const getSingleTaskQuery = `SELECT * FROM tasks WHERE id = $1`;
+          const values = [parseInt(id)];
+          const singleTask = await pool.query(getSingleTaskQuery, values);
+              if(!singleTask.rows[0]){
+                return res.status(400).json({
+                    status: "failed",
+                    code: 400,
+                    message: "Task doesn\'t exists in db"
+                })
+            }
             const deleteTaskQuery =`DELETE FROM tasks WHERE id = $1`;
-            const value = [id];
+            const value = [parseInt(id)];
              await pool.query(deleteTaskQuery, value);
             return res.status(200).json({
              status:"sucess",
