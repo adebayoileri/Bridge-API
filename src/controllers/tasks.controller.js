@@ -6,7 +6,7 @@ class taskController {
   /**
    *  @description   Get tasks for all authenticated users
    *  @param { object } - request [start -> number of page] [count -> number of tasks to return]
-   *  @param query - /v1/tasks?start=1&count=10
+   *  @param query - /v1/tasks?start=0&count=20 default start=0&count=20
    *  @returns { object } - all tasks in db
    **/
   static async getAllTasks(req, res) {
@@ -154,7 +154,6 @@ class taskController {
             data: newTask.rows[0],
           });
         } catch (error) {
-          console.log(error)
           return res.status(500).json({
             message: 'Server Error' + error,
           });
