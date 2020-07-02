@@ -7,7 +7,7 @@ class categoryController {
   /**
    *  @description   Get tasks for all authenticated users
    *  @param { object } - request [start -> number of page] [count -> number of category to return]
-   *  @param query - /v1/category?start=0&count=10
+   *  @param query - /v1/category?start=0&count=20 default start=0&count=20
    *  @returns { object } - all category in db
    **/
 
@@ -23,12 +23,6 @@ class categoryController {
                 message: err
             })
         }else{
-            // if(!req.query || !start || !count) return res.status(400).json({
-            //   status: 'failed',
-            //   code: 400,
-            //   message: 'query [start, count] are needed to fetch categories'
-            // })
-        
             try {
               const getAllTaskQuery = `SELECT * FROM categories ORDER BY createdat DESC OFFSET($1) LIMIT($2)`;
               const values = [start, count]
