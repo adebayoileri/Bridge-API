@@ -1,25 +1,38 @@
 import express from 'express';
 import { json, urlencoded } from 'body-parser';
 import { config } from 'dotenv';
+import expressFileUpload from 'express-fileupload';
 import AuthRouters from './routes/authRoutes';
-// import { logger } from 'morgan';
-// import taskRoutes from './routes/taskRoutes';
-// import authRoutes from './routes/authRoutes';
+import logger from 'morgan';
+import taskRoutes from './routes/taskRoutes';
+import UploadRouter from './routes/uploadRoute';
+import categoryRouter from './routes/categoryRoute';
 
 const app = express()
 config();
+
+app.use(logger('dev'));
+
+app.use(json());
+
+app.use(urlencoded({extended: false}));
+
+app.use(expressFileUpload({
+  useTempFiles: true
+}))
+
 
 app.get('/',(req, res)=>{
     res.status(200).json('Welcome to API')
 });
 
-// app.use(logger.dev());
-app.use(json());
-app.use(urlencoded({extended: false}));
+app.use('/api/v1/',taskRoutes);
 
-// app.use('/api/v1',taskRoutes);
 app.use('/api/v1/auth', AuthRouters);
 
+app.use('/api/v1/', UploadRouter)
+
+app.use('/api/v1/', categoryRouter);
 
 const PORT = process.env.PORT;
 
