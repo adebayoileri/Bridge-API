@@ -245,7 +245,6 @@ class taskController {
               data: updatedTask.rows[0],
             });
           } catch (error) {
-            // console.log(error)
             res.status({
               message: 'Server error' + error,
               status: 'failed',
