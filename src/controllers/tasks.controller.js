@@ -161,14 +161,16 @@ class taskController {
       }})
   }
  /**
-  * @description - Update a specific task
-  * @param {object} req - request object recieved
+  * @description - Only the owner of the task can update the task
+  * @param {object} req - /tasks/update/taskId?userId=1
   * @param {object} res - response object sent
   *  @returns {object} - Task upadted
   */
 
   static async updateTask(req, res) {
-    const { id } = parseInt(req.params);
+    const { id } = req.params;
+    const {userid} = req.query;
+
     const {
       title,
       bannerImg,
@@ -195,7 +197,12 @@ class taskController {
         return res.status(400).json({
           message: 'All fields are required',
         });
+      }else if(!req.query || !userid){
+        return res.status(400).json({
+          message: 'query userid is required',
+        });
       }
+
       jwt.verify(req.token, process.env.AUTHKEY, async (err, authorizedData)=> {
         if(err){
             return res.status(403).json({
@@ -205,8 +212,19 @@ class taskController {
             })
         }else{
           try {
-            const updateTaskQuery = `UPDATE tasks SET title = $1, bannerImg = $2, category = $3, description = $4, category_id = $5,location = $6, minbudget = $7, maxbudget = $8, startdate = $9, enddate = $10 WHERE id = $11 RETURNING id, title;`;
-            const values = [
+            const getSingleTaskQuery = `SELECT * FROM tasks WHERE id = $1 AND user_id=$2`;
+            const values = [parseInt(id), parseInt(userid)];
+            const singleTask = await pool.query(getSingleTaskQuery, values);
+
+            if(!singleTask.rows[0]){
+              return res.status(400).json({
+                  status: "failed",
+                  code: 400,
+                  message: "Task doesn\'t exists in db or task is not associated with this user"
+              })
+           }
+            const updateTaskQuery = `UPDATE tasks SET title = $1, bannerImg = $2, category = $3, description = $4, category_id = $5,location = $6, minbudget = $7, maxbudget = $8, startdate = $9, enddate = $10, updatedat=CURRENT_TIMESTAMP WHERE id = $11 RETURNING id, title`;
+            const valuesToUpdate = [
               title,
               bannerImg,
               category,
@@ -219,14 +237,7 @@ class taskController {
               enddate,
               id,
             ];
-            const updatedTask = await pool.query(updateTaskQuery, values);
-            if(!updatedTask.rows[0]){
-              return res.status(400).json({
-                  status: "failed",
-                  code: 400,
-                  message: "Task doesn\'t exists in db"
-              })
-          }
+            const updatedTask = await pool.query(updateTaskQuery, valuesToUpdate);
             return res.status(200).json({
               status: 'success',
               code: 200,
@@ -234,6 +245,7 @@ class taskController {
               data: updatedTask.rows[0],
             });
           } catch (error) {
+            // console.log(error)
             res.status({
               message: 'Server error' + error,
               status: 'failed',
