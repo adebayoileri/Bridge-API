@@ -4,31 +4,11 @@ import chaiHttp from 'chai-http';
 import dotenv from 'dotenv';
 import {server} from '../../server';
 
-let request = require('supertest')(server);
 dotenv.config();
 chai.use(chaiHttp);
 chai.should();
 
  describe('TEST Category controllers', ()=> {
-
-    var token;
-    before((done)=> {
-       request.post('/api/v1/auth/signup')
-       .send({
-            email: "mrtest@mail.com",
-            first_name: "adams",
-            last_name: "kolawole",
-            phonenumber: "+23412321212",
-            admin: 'FALSE',
-            password: '12345'
-        })
-        .end((err, res) =>{
-        if (err) throw err;
-        token =  res.body.token;
-    });
-    done();
-  });
-  
 
     it('POST create category', (done) => {
        let newCategory = {
@@ -51,8 +31,6 @@ chai.should();
             .get('/api/v1/category')
             .set('Authorization', `bearer ${process.env.TEST_TOKEN}`)
             .end((err, res) => {
-                expect(res.body.state).to.be.true;
-                res.body.should.have.property('token');
                 res.should.have.status(200);
                 res.body.should.be.a('object');
             })
