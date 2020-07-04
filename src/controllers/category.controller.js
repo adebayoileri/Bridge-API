@@ -7,13 +7,13 @@ class categoryController {
   /**
    *  @description   Get tasks for all authenticated users
    *  @param { object } - request [start -> number of page] [count -> number of category to return]
-   *  @param query - /v1/category?page=0&limit=10
+   *  @param query - /v1/category?start=0&count=20 default start=0&count=20
    *  @returns { object } - all category in db
    **/
 
   static async getAllCategory(req, res) {
-
-    const{ start , count} = req.query;
+    const start = req.query.start || 0;
+    const count = req.query.count || 20;
 
     jwt.verify(req.token, process.env.AUTHKEY, async (err, authorizedData)=> {
         if(err){
@@ -23,14 +23,8 @@ class categoryController {
                 message: err
             })
         }else{
-            if(!req.query || !start || !count) return res.status(400).json({
-              status: 'failed',
-              code: 400,
-              message: 'query [start, count] are needed to fetch categories'
-            })
-        
             try {
-              const getAllTaskQuery = `SELECT * FROM categories ORDER BY createdat OFFSET($1) LIMIT($2)`;
+              const getAllTaskQuery = `SELECT * FROM categories ORDER BY createdat DESC OFFSET($1) LIMIT($2)`;
               const values = [start, count]
               const allCategory = await pool.query(getAllTaskQuery, values);
               return res.status(200).json({
