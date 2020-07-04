@@ -13,7 +13,7 @@ chai.should();
     it('POST create category', (done) => {
        let newCategory = {
          name: 'testing',
-        slug: 'test'
+         slug: 'test'
        }
         chai.request(server)
         .post('/api/v1/category/create')
