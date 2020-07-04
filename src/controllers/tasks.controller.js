@@ -277,6 +277,50 @@ class taskController {
       }})
   }
 
+
+    /**
+   *  @description   Get tasks for all authenticated users
+   *  @param  - request [start -> number of page] [count -> number of tasks to return] category, status
+   *  @param query - /v1/tasks?start=0&category=pending&status=one-time 
+   *  @param default - default start=0, count=20, category=one-time, status=pending
+   * @returns { object } - all tasks in db
+   **/
+
+  static async filterTask(req, res) {
+
+    const status = req.query.status || 'pending';
+    const category = req.query.category || 'one-time';
+    const start = req.query.start || 0;
+    const count = req.query.count || 20;
+
+    jwt.verify(req.token, process.env.AUTHKEY, async (err, authorizedData)=> {
+      if(err){
+          return res.status(403).json({
+              status: 'jwt error',
+              code: 403,
+              message: err
+          })
+      }else{
+        try {
+          const getFilteredTaskQuery = `SELECT * FROM tasks
+                                          WHERE status=$1 AND category=$2
+                                          ORDER BY createdat DESC OFFSET($3) LIMIT($4)`;
+          const values = [status,category, start, count];
+          const allFiltered = await pool.query(getFilteredTaskQuery, values);
+          return res.status(200).json({
+              status: 'success',
+              code: 200,
+              message: `showing results for tasks with status - ${status} and category - ${category}`,
+              data: allFiltered.rows,
+          });
+        } catch (error) {
+          res.status(500).json({
+            message: ' Error from server' + error,
+          });
+        }
+      }})
+  }
+
   static applyTask(req, res) {
     res.status(200).json({
       message: 'Application Success',
