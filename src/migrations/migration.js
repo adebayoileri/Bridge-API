@@ -13,11 +13,13 @@ const createUserTable = `
     pro BOOLEAN NOT NULL DEFAULT FALSE,
     suspend_status BOOLEAN NOT NULL DEFAULT FALSE,
     email_verified BOOLEAN NOT NULL DEFAULT FALSE,
+    auth_id int NULL, 
     auth_provider VARCHAR(40) NULL,
     gender_id int NULL,
     FOREIGN KEY (gender_id) REFERENCES "genders" (id) ON UPDATE CASCADE ON DELETE CASCADE
     );
-`;
+    `;
+    // auth_id int NULL, remember to add this in new migrated DB
 
 const createTaskTable = `
   DROP TABLE IF EXISTS tasks CASCADE;
@@ -66,10 +68,17 @@ const createReviewTable = `
             id SERIAL NOT NULL PRIMARY KEY,
             rating int NOT NULL,
             review VARCHAR(255) NULL,
+            reviewer int NOT NULL,
+            reviewee int NOT NULL,
             createdat TIMESTAMP NOT NULL DEFAULT NOW(),
-            updatedat TIMESTAMP NOT NULL DEFAULT NOW()
+            updatedat TIMESTAMP NOT NULL DEFAULT NOW(),
+            FOREIGN KEY (reviewer) REFERENCES "users" (id) ON UPDATE CASCADE ON DELETE CASCADE,
+            FOREIGN KEY (reviewee) REFERENCES "users" (id) ON UPDATE CASCADE ON DELETE CASCADE
         )
 `;
+
+// ,FOREIGN KEY (reviwee) REFERENCES "users" (id) ON UPDATE CASCADE ON DELETE CASCADE
+
 const createTaskUsersTable =`
 DROP TABLE IF EXISTS task_user CASCADE;
 CREATE TABLE task_user (

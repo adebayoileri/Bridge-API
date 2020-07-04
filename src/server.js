@@ -2,6 +2,7 @@ import express from 'express';
 import { json, urlencoded } from 'body-parser';
 import { config } from 'dotenv';
 import expressFileUpload from 'express-fileupload';
+import passport from 'passport';
 import AuthRouters from './routes/authRoutes';
 import logger from 'morgan';
 import taskRoutes from './routes/taskRoutes';
@@ -14,6 +15,10 @@ config();
 app.use(logger('dev'));
 
 app.use(json());
+
+
+app.use(passport.initialize());
+app.use(passport.session());
 
 app.use(urlencoded({extended: false}));
 
