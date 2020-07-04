@@ -32,7 +32,27 @@ const checkToken = (req, res, next) => {
       res.sendStatus(403).json({
         message: 'Not Authorized',
       });
-    }
+      //     try {
+//         const header = req.headers['authorization'];
+//         if (typeof header !== 'undefined') {
+//             const bearer = header.split(' ');
+//             const token = bearer[1];
+
+//             req.token = token;
+
+//             next();
+//         } else {
+//             // if header is undefined , return bad request
+//             res.status(403).json({
+//                 status: "forbidden",
+//                 code: 403,
+//                 message: "Token needed"
+//             })
+//         }
+
+//     } catch (error) {
+//         console.log(error)
+//     }
   } catch (error) {
     console.log(error);
   }
