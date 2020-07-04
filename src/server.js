@@ -34,7 +34,7 @@ app.use('/api/v1/', UploadRouter)
 
 app.use('/api/v1/', categoryRouter);
 
-const PORT = process.env.PORT;
+const PORT = process.env.PORT || 4000;
 
 app.listen(PORT, ()=>{
    console.log(`Server up and running on ${PORT}`);
