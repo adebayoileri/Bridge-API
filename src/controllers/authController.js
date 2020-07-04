@@ -38,7 +38,7 @@ class Authentication {
           status: 'bad request',
           message: 'incorrect email or password',
         });
-      } else if (returnedEmail.rows[0]['suspend_status'] === 'FALSE') {
+      } else if (returnedEmail.rows[0]['suspend_status'] === 'TRUE') {
         return res.status(400).json({
           status: 'bad request',
           message: 'user has been suspended',
