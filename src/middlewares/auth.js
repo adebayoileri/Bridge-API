@@ -1,20 +1,4 @@
-// import jwt from 'jsonwebtoken';
-
-// const secret = process.env.JWT_KEY;
-//  const checkAuth = (req, res, next) =>{
-// try {
-//     const decoded = req.headers.authorization.split(' ')[1]||req.body.token;
-//     const decoded = jwt.verify(token, secret);
-//     req.userData = decoded;
-//     next();
-// } catch (error) {
-//     return res.status(401).json({
-//         "message":"Not Authorized"
-//     })
-// }
-//  }
-
-//  export default checkAuth;
+import Joi from '@hapi/joi';
 
 // checking if header is not undefined, if request is undefined return (403) bad request
 const checkToken = (req, res, next) => {
@@ -41,4 +25,36 @@ const checkToken = (req, res, next) => {
     }
 }
 
-export default checkToken;
+const validateUserSignup = user => {
+    const JoiSchema = Joi.object({
+        first_name: Joi.string().min(3).max(30).required(),
+        last_name: Joi.string().min(3).max(30).required(),
+        email: Joi.string().email().min(5).max(50).required(),
+        phonenumber: Joi.string().min(10).max(15).required(),
+        password: Joi.string().min(5).max(30).required(),
+        admin: Joi.string().valid('TRUE')
+            .valid('FALSE').optional(),
+    }).options({
+        abortEarly: false
+    });
+
+    return JoiSchema.validate(user)
+}
+
+const validateLogin = user => {
+    const JoiSchema = Joi.object({
+        email: Joi.string().email().min(5).max(50).required(),
+        password: Joi.string().min(5).max(30).required(),
+    }).options({
+        abortEarly: false
+    });
+
+    return JoiSchema.validate(user)
+}
+
+
+export {
+    checkToken,
+    validateUserSignup,
+    validateLogin
+};
