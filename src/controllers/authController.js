@@ -2,6 +2,7 @@ import jwt from 'jsonwebtoken';
 import 'dotenv/config';
 import bcrypt from 'bcryptjs';
 import pool from '../models/db';
+import {validateUserSignup, validateLogin} from '../middlewares/auth';
 
 /****
  * @class Authentication
@@ -30,6 +31,13 @@ class Authentication {
       if (!email || !password) {
         return res.json('email and password are required');
       }
+
+      const responseValidation = validateLogin({email, password});
+      
+      if(responseValidation.error){
+        return res.status(400).json({Error: `${responseValidation.error}`});
+      }
+      
       const checkEmail = `SELECT * FROM users WHERE email=$1`;
       const value = [email];
       const returnedEmail = await pool.query(checkEmail, value);
@@ -55,7 +63,7 @@ class Authentication {
           { expiresIn: '30d' },
           (err, token) => {
             if (err) {
-              console.log(err);
+              return res.status(400).json(err);
             } else {
               return res.status(200).json({
                 status: 'ok',
@@ -127,6 +135,12 @@ class Authentication {
           'All fields are required',
         );
       }
+
+      const responseValidation = validateUserSignup({first_name, last_name, email, phonenumber, password, admin})
+      if(responseValidation.error){
+        return res.status(400).json({Error: `${responseValidation.error}`});
+      }
+
       const confirmUniqueEmailQuery = `SELECT * FROM users WHERE email=$1`;
       const value = [email];
       const existedUser = await pool.query(confirmUniqueEmailQuery, value);

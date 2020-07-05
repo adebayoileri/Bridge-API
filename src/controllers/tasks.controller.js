@@ -1,6 +1,10 @@
 import jwt from 'jsonwebtoken';
 import dotenv  from 'dotenv';
 import pool from '../models/db';
+import queryValidator from '../middlewares/queryValidator';
+import idValidator from '../middlewares/idValidator';
+import {validateCreateNewTask, validateUpdateTask, filterTask} from '../middlewares/taskValidator';
+
 dotenv.config();
 class taskController {
   /**
@@ -13,7 +17,10 @@ class taskController {
     const start = req.query.start || 0;
     const count = req.query.count || 20;
 
-    jwt.verify(req.token, process.env.AUTHKEY, async (err, authorizedData)=> {
+    const responseValidation = queryValidator({start, count})
+    if(responseValidation.error) return res.status(400).json({Error: `${responseValidation.error}`})
+
+   jwt.verify(req.token, process.env.AUTHKEY, async (err, authorizedData)=> {
       if(err){
           return res.status(403).json({
               status: 'jwt error',
@@ -48,6 +55,9 @@ class taskController {
 
   static async getSingleTask(req, res) {
     const { id } = req.params;
+
+    const responseValidation = idValidator({id})
+    if(responseValidation.error) return res.status(400).json({Error: `${responseValidation.error}`})
 
     jwt.verify(req.token, process.env.AUTHKEY, async (err, authorizedData)=> {
       if(err){
@@ -121,6 +131,7 @@ class taskController {
             !description ||
             !user_id ||
             !category_id ||
+            !location ||
             !minbudget ||
             !maxbudget ||
             !startdate ||
@@ -131,6 +142,9 @@ class taskController {
             });
           }
     
+          const responseValidation = validateCreateNewTask({title, bannerImg, category, description, user_id, category_id,location, minbudget, maxbudget, startdate, enddate})
+          if(responseValidation.error) return res.status(400).json({Error: `${responseValidation.error}`})
+      
           const createTaskQuery = `INSERT INTO tasks (title, bannerImg, category, description, user_id, category_id, status,location, minbudget, maxbudget, startdate, enddate) VALUES($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11, $12) RETURNING *`;
           const values = [
             title,
@@ -170,6 +184,40 @@ class taskController {
   static async updateTask(req, res) {
     const { id } = req.params;
  
+    const{
+      title,
+     bannerImg,
+     category ,
+     description ,
+     category_id ,
+     location ,
+     minbudget,
+     maxbudget ,
+     startdate,
+     enddate} = req.body;
+
+     if (
+      !title ||
+      !bannerImg ||
+      !category ||
+      !description ||
+      !category_id ||
+      !minbudget ||
+      !location ||
+      !maxbudget ||
+      !startdate ||
+      !enddate
+    ) {
+      return res.status(400).json({
+        message: 'All fields are required',
+      });
+    }
+
+    const responseIdValidation = idValidator({id})
+    if(responseIdValidation.error) return res.status(400).json({Error: responseIdValidation.error})
+    const responseBodyValidation = validateUpdateTask({title, bannerImg, category, description, category_id, location, minbudget, maxbudget,startdate, enddate})
+    if(responseBodyValidation.error) return res.status(400).json({Error: responseBodyValidation.error })
+
       jwt.verify(req.token, process.env.AUTHKEY, async (err, authorizedData)=> {
         if(err){
             return res.status(403).json({
@@ -180,7 +228,7 @@ class taskController {
         }else{
           try {
             const getSingleTaskQuery = `SELECT * FROM tasks WHERE id = $1`;
-            const values = [parseInt(id)];
+            const values = [id];
             const singleTask = await pool.query(getSingleTaskQuery, values);
             const TaskToUpdate = singleTask.rows[0];
             if(!singleTask.rows[0]){
@@ -190,28 +238,28 @@ class taskController {
                   message: "Task doesn\'t exists in db"
               })
            }
-            const title = req.body.title || TaskToUpdate.title;
-            const bannerImg = req.body.category || TaskToUpdate.bannerImg;
-            const category = req.body.picture || TaskToUpdate.category;
-            const description = req.body.description || TaskToUpdate.description;
-            const category_id = req.body.category_id || TaskToUpdate.category_id;
-            const location = req.body.location || TaskToUpdate.location;
-            const minbudget = req.body.minbudget || TaskToUpdate.minbudget;
-            const maxbudget = req.body.maxbdget || TaskToUpdate.maxbudget;
-            const startdate = req.body.startdate || TaskToUpdate.startdate;
-            const enddate = req.body.enddate || TaskToUpdate.enddate;
+            const newTitle = title || TaskToUpdate.title;
+            const newBannerImg = category || TaskToUpdate.bannerImg;
+            const newCategory = picture || TaskToUpdate.category;
+            const newDescription = description || TaskToUpdate.description;
+            const newCategory_id = category_id || TaskToUpdate.category_id;
+            const newLocation = location || TaskToUpdate.location;
+            const newMinbudget = minbudget || TaskToUpdate.minbudget;
+            const newMaxbudget = maxbdget || TaskToUpdate.maxbudget;
+            const newStartdate = startdate || TaskToUpdate.startdate;
+            const newEnddate = enddate || TaskToUpdate.enddate;
             const updateTaskQuery = `UPDATE tasks SET title = $1, bannerImg = $2, category = $3, description = $4, category_id = $5,location = $6, minbudget = $7, maxbudget = $8, startdate = $9, enddate = $10, updatedat=CURRENT_TIMESTAMP WHERE id = $11 RETURNING id, title`;
             const valuesToUpdate = [
-              title,
-              bannerImg,
-              category,
-              description,
-              category_id,
-              location,
-              minbudget,
-              maxbudget,
-              startdate,
-              enddate,
+              newTitle,
+              newBannerImg,
+              newCategory,
+              newDescription,
+              newCategory_id,
+              newLocation,
+              newMinbudget,
+              newMaxbudget,
+              newStartdate,
+              newEnddate,
               id,
             ];
             const updatedTask = await pool.query(updateTaskQuery, valuesToUpdate);
@@ -238,6 +286,9 @@ class taskController {
    */
   static async deleteTask(req, res) {
     const {id} = req.params;
+
+    const responseValidation = idValidator({id})
+    if(responseValidation.error) return res.status(400).json({Error: `${responseValidation.error}`})
 
     jwt.verify(req.token, process.env.AUTHKEY, async (err, authorizedData)=> {
       if(err){
@@ -292,6 +343,11 @@ class taskController {
     const category = req.query.category || 'one-time';
     const start = req.query.start || 0;
     const count = req.query.count || 20;
+
+    const responseQueryValidation = queryValidator({start, count});
+    if(responseQueryValidation.error) return res.status(400).json({Error: `${responseQueryValidation.error}`})
+    const responseFilterValidation = filterTask({status, category});
+    if(responseFilterValidation.error) return res.status(400).json({Error: `${responseFilterValidation.error}`})
 
     jwt.verify(req.token, process.env.AUTHKEY, async (err, authorizedData)=> {
       if(err){
