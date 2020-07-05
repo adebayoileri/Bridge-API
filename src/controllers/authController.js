@@ -3,16 +3,17 @@ import 'dotenv/config';
 import bcrypt from 'bcryptjs';
 import pool from '../models/db';
 import EmailSender from "../services/emailSender";
+import checkAdmin from "../middlewares/checkAdmin";
 
-/****
+/**
  * @class Authentication
  *
  * @description Sign up and login users
  *
- ****/
+ **/
 
 class Authentication {
-  /*******
+  /**
    * @static
    *
    * @param {object} request - {email, password} -> The request payload sent to the controller
@@ -23,7 +24,7 @@ class Authentication {
    * @description This method is used to login in users
    * @memberOf Authentication
    *
-   ********/
+   **/
 
   static async login(req, res) {
     const { email, password } = req.body;
@@ -50,6 +51,26 @@ class Authentication {
         returnedEmail.rows[0].password,
       );
       if (match) {
+        if(checkAdmin(returnedEmail.rows[0]['suspend_status'])){
+          jwt.sign(
+            { email, password },
+            process.env.ADMINKEY,
+            { expiresIn: '72h' },
+            (err, token) => {
+              if (err) {
+                console.log(err);
+              } else {
+                return res.status(200).json({
+                  status: 'ok',
+                  code: 200,
+                  message: 'admin login successful',
+                  data: returnedEmail.rows[0],
+                  token: token,
+                });
+              }
+            },
+          );
+        }
         jwt.sign(
           { email, password },
           process.env.AUTHKEY,
@@ -79,7 +100,7 @@ class Authentication {
     }
   }
 
-  /****
+  /**
    * @static
    *
    * @param {object} request - {email, first_name, last_name, phonenumber, category, admin, password} -> The request payload sent to the controller
@@ -90,7 +111,7 @@ class Authentication {
    * @description Sign up users
    * @memberOf Authentication
    *
-   *****/
+   **/
 
   static async signUp(req, res) {
     const {
