@@ -10,7 +10,7 @@ chai.use(chaiHttp);
 chai.should();
 
 describe('POST /signup', ()=> {
-    it('it should signup users', ()=>{
+    it('it should signup users', (done)=>{
         chai.request(server)
         .post('/api/v1/auth/signup')
         .send({
@@ -25,11 +25,12 @@ describe('POST /signup', ()=> {
             res.should.have.status(200);
             res.body.should.be.a('object');
         })
+        done();
     })
 })
 
 describe('POST /signup', ()=> {
-    it('it should throw an error for empty fields', ()=>{
+    it('it should throw an error for empty fields', (done)=>{
         chai.request(server)
         .post('/api/v1/auth/signup')
         .send({
@@ -39,12 +40,13 @@ describe('POST /signup', ()=> {
         .end((err, res)=>{
             res.should.have.status(400);
         })
+        done();
     })
 })
 
 // test for signing in users
 describe('POST /login', ()=> {
-    it('it should login users', ()=>{
+    it('it should login users', (done)=>{
         chai.request(server)
         .post('/api/v1/auth/login')
         .send({
@@ -56,5 +58,6 @@ describe('POST /login', ()=> {
             res.body.should.be.a('object');
             res.body.should.contains.message('signed in successfully');
         })
+        done();
     })
 })
