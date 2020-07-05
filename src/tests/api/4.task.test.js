@@ -48,7 +48,7 @@ chai.should();
             done();
         })
 
-        it('GET get a category', (done) => {
+        it('GET get a task', (done) => {
             chai.request(server)
             .get('/api/v1/tasks/1')
             .set('Authorization', `bearer ${process.env.TEST_TOKEN}`)
@@ -60,7 +60,7 @@ chai.should();
         })
 
 
-        it('PUT update a category', (done) => {
+        it('PUT update a task', (done) => {
             let updateTask = {
                 title: 'buy stuffs (updated)',
                 bannerImg: 'https://cdn.sample.png',
@@ -86,7 +86,7 @@ chai.should();
         })
     
 
-        it('DELETE deleting a category', (done) => {
+        it('DELETE deleting a task', (done) => {
             chai.request(server)
             .delete('/api/v1/tasks/1')
             .set('Authorization', `bearer ${process.env.TEST_TOKEN}`)
