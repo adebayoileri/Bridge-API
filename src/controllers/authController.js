@@ -2,17 +2,19 @@ import jwt from 'jsonwebtoken';
 import 'dotenv/config';
 import bcrypt from 'bcryptjs';
 import pool from '../models/db';
+import EmailSender from "../services/emailSender";
+import checkAdmin from "../middlewares/checkAdmin";
 import {validateUserSignup, validateLogin} from '../middlewares/auth';
 
-/****
+/**
  * @class Authentication
  *
  * @description Sign up and login users
  *
- ****/
+ **/
 
 class Authentication {
-  /*******
+  /**
    * @static
    *
    * @param {object} request - {email, password} -> The request payload sent to the controller
@@ -23,10 +25,10 @@ class Authentication {
    * @description This method is used to login in users
    * @memberOf Authentication
    *
-   ********/
+   **/
 
   static async login(req, res) {
-  const { email, password } = req.body;
+    const { email, password } = req.body;
     try {
       if (!email || !password) {
         return res.json('email and password are required');
@@ -57,6 +59,26 @@ class Authentication {
         returnedEmail.rows[0].password,
       );
       if (match) {
+        if(checkAdmin(returnedEmail.rows[0]['suspend_status'])){
+          jwt.sign(
+            { email, password },
+            process.env.ADMINKEY,
+            { expiresIn: '72h' },
+            (err, token) => {
+              if (err) {
+                console.log(err);
+              } else {
+                return res.status(200).json({
+                  status: 'ok',
+                  code: 200,
+                  message: 'admin login successful',
+                  data: returnedEmail.rows[0],
+                  token: token,
+                });
+              }
+            },
+          );
+        }
         jwt.sign(
           { email, password },
           process.env.AUTHKEY,
@@ -69,37 +91,24 @@ class Authentication {
                 status: 'ok',
                 code: 200,
                 message: 'signed in successfully',
-                id: returnedEmail.rows[0]['userid'],
-                email: returnedEmail.rows[0]['email'],
-                first_name: returnedEmail.rows[0]['first_name'],
-                last_name: returnedEmail.rows[0]['last_name'],
-                phonenumber: returnedEmail.rows[0]['phonenumber'],
-                createdat: returnedEmail.rows[0]['createdat'],
-                email_verified: returnedEmail.rows[0]['email_verified'],
-                gender_id: returnedEmail.rows[0]['gender_id'],
-                admin: returnedEmail.rows[0]['admin'],
-                auth_provider: returnedEmail.rows[0]['auth_provider'],
-                suspend_status: returnedEmail.rows[0]['suspend_status'],
-                pro: returnedEmail.rows[0]['pro'],
+                data: returnedEmail.rows[0],
                 token: token,
               });
             }
           },
         );
       } else {
-        res
-          .status(400)
-          .json({
-            status: 'bad request',
-            message: 'incorrect email or password',
-          });
+        res.status(400).json({
+          status: 'bad request',
+          message: 'incorrect email or password',
+        });
       }
     } catch (err) {
       console.log(err);
     }
   }
 
-  /****
+  /**
    * @static
    *
    * @param {object} request - {email, first_name, last_name, phonenumber, category, admin, password} -> The request payload sent to the controller
@@ -110,17 +119,17 @@ class Authentication {
    * @description Sign up users
    * @memberOf Authentication
    *
-   *****/
+   **/
 
   static async signUp(req, res) {
     const {
-        email,
-        first_name,
-        last_name,
-        phonenumber,
-        admin,
-        password
-    } = req.body
+      email,
+      first_name,
+      last_name,
+      phonenumber,
+      admin,
+      password,
+    } = req.body;
 
     try {
       if (
@@ -131,9 +140,7 @@ class Authentication {
         !admin ||
         !password
       ) {
-        return res.status(400).json(
-          'All fields are required',
-        );
+        return res.status(400).json('All fields are required');
       }
 
       const responseValidation = validateUserSignup({first_name, last_name, email, phonenumber, password, admin})
@@ -148,7 +155,11 @@ class Authentication {
       if (existedUser.rows[0])
         return res
           .status(400)
-          .json({ status: 'bad request', code: 400 , message: 'email has been taken' });
+          .json({
+            status: 'bad request',
+            code: 400,
+            message: 'email has been taken',
+          });
 
       //  hash the incoming password
       const salt = await bcrypt.genSalt(10);
@@ -173,18 +184,12 @@ class Authentication {
           if (err) {
             return res.status(400).json(err);
           } else {
+            EmailSender.sendEmail(signedUser.rows[0]['email'], signedUser.rows[0]['first_name'], "Welcome to Bridge", "Your signup was sucessful. Please verify your email")
             return res.status(200).json({
               status: 'ok',
               code: 200,
               message: 'Signed up successful',
-              id: signedUser.rows[0]['id'],
-              email: signedUser.rows[0]['email'],
-              first_name: signedUser.rows[0]['first_name'],
-              last_name: signedUser.rows[0]['last_name'],
-              phonenumber: signedUser.rows[0]['phonenumber'],
-              createdat: signedUser.rows[0]['createdat'],
-              admin: signedUser.rows[0]['admin'],
-              auth_provider: signedUser.rows[0]['auth_provider'],
+              data: signedUser.rows[0],
               token: token,
             });
           }
