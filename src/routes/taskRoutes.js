@@ -1,5 +1,5 @@
 import express from 'express';
-import checkToken from '../middlewares/auth';
+import {checkToken} from '../middlewares/auth';
 import taskController from '../controllers/tasks.controller';
 
 const router = express.Router();
