@@ -1,4 +1,5 @@
 import Joi from '@hapi/joi';
+import jwt from 'jsonwebtoken';
 
 // checking if header is not undefined, if request is undefined return (403) bad request
 const checkToken = (req, res, next) => {
@@ -7,7 +8,7 @@ const checkToken = (req, res, next) => {
     if (typeof header !== 'undefined') {
       const bearer = header.split(' ');
       const token = bearer[1] || req.token;
-      jwt.verify(token, process.env.JWT_KEY)
+      jwt.verify(token, process.env.AUTHKEY)
       req.token = token;
 
       next();
