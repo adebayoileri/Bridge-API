@@ -8,6 +8,8 @@ import logger from 'morgan';
 import taskRoutes from './routes/taskRoutes';
 import UploadRouter from './routes/uploadRoute';
 import categoryRouter from './routes/categoryRoute';
+import reviewRouter from './routes/reviewRoutes';
+import userRouter from './routes/userRoutes';
 
 const app = express()
 config();
@@ -38,6 +40,10 @@ app.use('/api/v1/auth', AuthRouters);
 app.use('/api/v1/', UploadRouter)
 
 app.use('/api/v1/', categoryRouter);
+
+app.use('/api/v1/', reviewRouter);
+
+app.use('/api/v1/', userRouter);
 
 const PORT = process.env.PORT || 4000;
 

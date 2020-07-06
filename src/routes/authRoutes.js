@@ -26,15 +26,16 @@ router.get(
     // console.log(user['email'])
     const admin = false;
     const password = 'fhurfhiruef87420840ytgfy93rfjw$33)*6$#';
+    const auth_provider ="google";
 
     try {
       const checkEmail = `SELECT * FROM users WHERE email=$1`;
       const value = [email];
       const returnedEmail = await pool.query(checkEmail, value);
       if (!returnedEmail.rows[0]) {
-        const userSignupQuery = `INSERT INTO users (email, first_name, last_name, admin, password)
+        const userSignupQuery = `INSERT INTO users (email, first_name, last_name, admin, password, auth_provider)
       VALUES ($1, $2, $3, $4, $5, $6) RETURNING *`;
-        const values = [email, first_name, last_name, admin, password];
+        const values = [email, first_name, last_name, admin, password, auth_provider];
         const newUser = await pool.query(userSignupQuery, values);
         return res.send({
           data: newUser.rows[0],
@@ -48,6 +49,10 @@ router.get(
         return res.status(400).json({
           status: 'bad request',
           message: 'user has been suspended',
+        });
+      }else{
+        return res.send({
+          data: returnedEmail.rows[0],
         });
       }
     } catch (error) {
