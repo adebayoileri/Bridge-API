@@ -10,9 +10,10 @@ chai.use(chaiHttp);
 chai.should();
 
 describe('Testing server',()=>{
-    it('should respond with a status 200',()=>{
+    it('should respond with a status 200',(done)=>{
         chai.request(server).get('/').end((req, res)=>{
             res.should.have.status(200);
         });
+        done();
     })
 })
