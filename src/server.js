@@ -3,6 +3,9 @@ import { json, urlencoded } from 'body-parser';
 import { config } from 'dotenv';
 import expressFileUpload from 'express-fileupload';
 import passport from 'passport';
+import helmet from "helmet";
+import compression from "compression";
+import rateLimit from "express-rate-limit";
 import AuthRouters from './routes/authRoutes';
 import logger from 'morgan';
 import taskRoutes from './routes/taskRoutes';
@@ -15,6 +18,8 @@ const app = express()
 config();
 
 app.use(logger('dev'));
+app.use(helmet())
+app.use(compression())
 
 app.use(json());
 
@@ -28,6 +33,15 @@ app.use(expressFileUpload({
   useTempFiles: true
 }))
 
+ 
+ 
+const limiter = rateLimit({
+  windowMs: 15 * 60 * 1000, // 15 minutes
+  max: 100 // limit each IP to 100 requests per windowMs
+});
+ 
+//  apply to all requests
+app.use(limiter);
 
 app.get('/',(req, res)=>{
     res.status(200).json('Welcome to API')
