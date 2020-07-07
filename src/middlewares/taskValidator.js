@@ -43,8 +43,9 @@ const validateUpdateTask = task => {
 
 const filterTask = task => {
     const JoiSchema = Joi.object({
-        status: Joi.string().min(3),
-        category: Joi.string().min(3)
+        status: Joi.string().min(1),
+        category: Joi.string().min(1),
+        location: Joi.string().min(1).max(150).required()
     }).options({
         abortEarly: false
     });
