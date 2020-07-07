@@ -16,4 +16,6 @@ router.put('/tasks/update/:id', checkToken ,taskController.updateTask);
 
 router.delete('/tasks/:id', checkToken ,taskController.deleteTask);
 
+router.post('/apply/:taskId', checkToken, taskController.applyTask);
+
 export default router;

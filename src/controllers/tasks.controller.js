@@ -377,10 +377,53 @@ class taskController {
       }})
   }
 
-  static applyTask(req, res) {
-    res.status(200).json({
-      message: 'Application Success',
-    });
+  static  async applyTask(req, res) {
+    const {taskId} = req.params;
+    const {
+      proposal,
+      applicantId,
+      posterId
+    } = req.body;
+    try{
+      const getTaskQuery = `SELECT * FROM tasks WHERE id = $1`;
+      const taskValue = [taskId];
+      const singleTask = await pool.query(getTaskQuery, taskValue);
+      if(!singleTask.rows[0]){
+        return res.status(400).json({
+            status: "failed",
+            code: 400,
+            message: "Task doesn\'t exists in db"
+        })
+     }
+     const getUserQuery = `SELECT * FROM task_user WHERE taskId = $1 AND applicant_id =$2`;
+     const theValue = [taskId, applicantId];
+     const userTaskQuery = await pool.query(getUserQuery, theValue);
+     if(userTaskQuery.rows[0]){
+      return res.status(400).json({
+        status: "failed",
+        code: 400,
+        message: "user already applied for task"
+    })
+     }
+      const applytaskQuery = `INSERT INTO task_user (proposal, applicant_id, task_id, user_id) VALUES($1, $2, $3, $4) RETURNING *`;
+      const values = [
+        proposal,
+        applicantId,
+        taskId,
+        posterId
+      ];
+      const appliedTask = await pool.query(applytaskQuery, values)
+
+     return res.status(200).json({
+       status: "success",
+       code: 200,
+      message: "Application Success",
+      data: appliedTask.rows[0]
+      });
+    }catch(err){
+
+    }
+
   }
 }
 
