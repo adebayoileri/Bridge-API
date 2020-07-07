@@ -341,12 +341,13 @@ class taskController {
 
     const status = req.query.status || 'pending';
     const category = req.query.category || 'one-time';
+    const location = req.query.location || 'lagos';
     const start = req.query.start || 0;
     const count = req.query.count || 20;
 
     const responseQueryValidation = queryValidator({start, count});
     if(responseQueryValidation.error) return res.status(400).json({Error: `${responseQueryValidation.error}`})
-    const responseFilterValidation = filterTask({status, category});
+    const responseFilterValidation = filterTask({status, category, location});
     if(responseFilterValidation.error) return res.status(400).json({Error: `${responseFilterValidation.error}`})
 
     jwt.verify(req.token, process.env.AUTHKEY, async (err, authorizedData)=> {
@@ -359,14 +360,14 @@ class taskController {
       }else{
         try {
           const getFilteredTaskQuery = `SELECT * FROM tasks
-                                          WHERE status=$1 AND category=$2
-                                          ORDER BY createdat DESC OFFSET($3) LIMIT($4)`;
-          const values = [status,category, start, count];
+                                          WHERE location LIKE $1 OR status LIKE $2 OR category LIKE $3
+                                          ORDER BY createdat DESC OFFSET($4) LIMIT($5)`;
+          const values = [`%${location}%`, `%${status}%`, `%${category}%`, start, count];
           const allFiltered = await pool.query(getFilteredTaskQuery, values);
           return res.status(200).json({
               status: 'success',
               code: 200,
-              message: `showing results for tasks with status - ${status} and category - ${category}`,
+              message: `showing results for tasks with location - ${location}, status - ${status} and category - ${category}`,
               data: allFiltered.rows,
           });
         } catch (error) {
