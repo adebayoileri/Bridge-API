@@ -31,7 +31,7 @@ const saveInfo = async() => {
         })
 
 
-       } else if (returnedEmail.rows[0]['suspend_status'] === 'TRUE') {
+       } else if (returnedEmail.rows[0]['suspend_status'] === true) {
          return res.status(400).json({
            status: 'bad request',
            message: 'user has been suspended',
@@ -39,7 +39,7 @@ const saveInfo = async() => {
        } 
          
      } catch (error) {
-        res
+      return  res
         .status(400)
         .json({
           status: 'Passport error',
