@@ -17,10 +17,6 @@ import adminRouter from './routes/adminRoutes';
 import cluster from "cluster";
 import os from "os";
 
-
-
-
-
 const app = express()
 config();
 
