@@ -13,6 +13,7 @@ import UploadRouter from './routes/uploadRoute';
 import categoryRouter from './routes/categoryRoute';
 import reviewRouter from './routes/reviewRoutes';
 import userRouter from './routes/userRoutes';
+import adminRouter from './routes/adminRoutes';
 
 const app = express()
 config();
@@ -58,6 +59,8 @@ app.use('/api/v1/', categoryRouter);
 app.use('/api/v1/', reviewRouter);
 
 app.use('/api/v1/', userRouter);
+
+app.use('/api/v1/', adminRouter);
 
 const PORT = process.env.PORT || 4000;
 
