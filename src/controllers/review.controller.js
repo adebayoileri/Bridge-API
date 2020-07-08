@@ -1,9 +1,11 @@
 import pool from '../models/db';
 
 class reviewControlller {
-  static async reviewUser() {
+  static async reviewUser(req, res) {
     const { id } = req.params;
     const { rating, review } = req.body;
+    const userId = req.user.id;
+    
     try {
       if (!rating || !review || !id) {
         return res.status(400).json({
@@ -23,7 +25,13 @@ class reviewControlller {
         code: 201,
         data: newReview.rows[0],
       });
-    } catch (error) {}
+    } catch (error) {
+      return  res.status(500).json({
+        status: "failed",
+        code: 500,
+        message:  `Error occured ${error}`
+    })
+    }
   }
 }
 export default reviewControlller;
