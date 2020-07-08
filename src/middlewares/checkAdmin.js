@@ -1,11 +1,11 @@
-import {pool} from "pg";
+import pool from "../models/db";
 
-const checkAdmin = async(id)=>{
+const checkAdmin = async(email)=>{
     try {
-        const adminQuery = `SELECT * users WHERE id=$1`;
-        const value = [id]
+        const adminQuery = `SELECT * FROM users WHERE email=$1`;
+        const value = [email]
         const result = await pool.query(adminQuery, value);
-        if(result && result.rows[0]['admin'] === 'TRUE'){
+        if(result && result.rows[0]['admin'] === true){
             return true
         }
 
