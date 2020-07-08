@@ -201,14 +201,14 @@ class Authentication {
       const value = [email];
       const existedUser = await pool.query(confirmUniqueEmailQuery, value);
 
-      if (existedUser.rows[0])
-        return res
-          .status(400)
-          .json({
+      if (existedUser.rows[0]){
+        return res.status(400).json({
             status: 'bad request',
             code: 400,
             message: 'email has been taken',
           });
+
+      }
 
       //  hash the incoming password
       const salt = await bcrypt.genSalt(10);
