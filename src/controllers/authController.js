@@ -48,7 +48,7 @@ class Authentication {
           status: 'bad request',
           message: 'incorrect email or password',
         });
-      } else if (returnedEmail.rows[0]['suspend_status'] === 'TRUE') {
+      } else if (returnedEmail.rows[0]['suspend_status'] === true) {
         return res.status(400).json({
           status: 'bad request',
           message: 'user has been suspended',
@@ -59,28 +59,46 @@ class Authentication {
         returnedEmail.rows[0].password,
       );
       if (match) {
-        if(checkAdmin(returnedEmail.rows[0]['suspend_status'])){
-          jwt.sign(
-            { email, password },
-            process.env.ADMINKEY,
-            { expiresIn: '72h' },
-            (err, token) => {
+        //check if user is an admin and await the result
+        const isAdmin = await checkAdmin(returnedEmail.rows[0]['email']);
+
+        // if isAdmin id true give the user an admin token
+        if(isAdmin){
+          jwt.sign({ email, password, id: returnedEmail.rows[0].id }, process.env.ADMINKEY, { expiresIn: '72h' }, (err, token) => {
               if (err) {
-                console.log(err);
+                return res.status(400).json(err);
               } else {
                 return res.status(200).json({
                   status: 'ok',
                   code: 200,
                   message: 'admin login successful',
-                  data: returnedEmail.rows[0],
+                  data: {
+                      id : returnedEmail.rows[0].id,
+                      first_name: returnedEmail.rows[0].first_name,
+                      last_name : returnedEmail.rows[0].last_name,
+                      phonenumber: returnedEmail.rows[0].phonenumber,
+                      admin : returnedEmail.rows[0].admin,
+                      createdat: returnedEmail.rows[0].createdat,
+                      updatedat: returnedEmail.rows[0].updatedat,
+                      pro : returnedEmail.rows[0].pro,
+                      suspend_status : returnedEmail.rows[0].suspend_status,
+                      email_verified : returnedEmail.rows[0].email_verified,
+                      auth_id : returnedEmail.rows[0].auth_id,
+                      auth_provider : returnedEmail.rows[0].auth_provider,
+                      gender_id: returnedEmail.rows[0].gender_id
+                  },
                   token: token,
                 });
               }
             },
           );
         }
-        jwt.sign(
-          { email, password },
+
+        // else give the user a user token
+        jwt.sign({ email,
+                  password,
+                  id: returnedEmail.rows[0].id,
+                  admin: returnedEmail.rows[0].admin },
           process.env.AUTHKEY,
           { expiresIn: '30d' },
           (err, token) => {
@@ -91,7 +109,21 @@ class Authentication {
                 status: 'ok',
                 code: 200,
                 message: 'signed in successfully',
-                data: returnedEmail.rows[0],
+                data: {
+                  id : returnedEmail.rows[0].id,
+                  first_name: returnedEmail.rows[0].first_name,
+                  last_name : returnedEmail.rows[0].last_name,
+                  phonenumber: returnedEmail.rows[0].phonenumber,
+                  admin : returnedEmail.rows[0].admin,
+                  createdat: returnedEmail.rows[0].createdat,
+                  updatedat: returnedEmail.rows[0].updatedat,
+                  pro : returnedEmail.rows[0].pro,
+                  suspend_status : returnedEmail.rows[0].suspend_status,
+                  email_verified : returnedEmail.rows[0].email_verified,
+                  auth_id : returnedEmail.rows[0].auth_id,
+                  auth_provider : returnedEmail.rows[0].auth_provider,
+                  gender_id: returnedEmail.rows[0].gender_id
+                },
                 token: token,
               });
             }
@@ -127,8 +159,8 @@ class Authentication {
       first_name,
       last_name,
       phonenumber,
-      admin,
       password,
+      adminSignature
     } = req.body;
 
     try {
@@ -137,10 +169,27 @@ class Authentication {
         !first_name ||
         !last_name ||
         !phonenumber ||
-        !admin ||
         !password
       ) {
-        return res.status(400).json('All fields are required');
+        return res.status(400).json({
+          status: 'bad request',
+          code: 400,
+          message: 'All fields are required'
+        });
+      }
+
+      let admin;
+      if(adminSignature){
+          if(adminSignature === process.env.ADMIN_SIGNATURE){
+            admin = 'true';
+          }else{
+            return res.status(400).json({
+              status: 'bad request',
+              message: 'Incorrect Admin signature'
+            })
+          }
+      }else{
+         admin = 'false';
       }
 
       const responseValidation = validateUserSignup({first_name, last_name, email, phonenumber, password, admin})
@@ -176,25 +225,76 @@ class Authentication {
         hashedPassword,
       ];
       const signedUser = await pool.query(userSignupQuery, values);
-      jwt.sign(
-        { email, password },
-        process.env.AUTHKEY,
-        { expiresIn: '30d' },
-        (err, token) => {
-          if (err) {
-            return res.status(400).json(err);
-          } else {
-            EmailSender.sendEmail(signedUser.rows[0]['email'], signedUser.rows[0]['first_name'], "Welcome to Bridge", "Your signup was sucessful. Please verify your email")
-            return res.status(200).json({
-              status: 'ok',
-              code: 200,
-              message: 'Signed up successful',
-              data: signedUser.rows[0],
-              token: token,
-            });
-          }
-        },
-      );
+      if(admin === 'false'){
+        // admin is false, signed up as user and recieved user token
+        jwt.sign(
+          { email, password, id: signedUser.rows[0].id , admin: signedUser.rows[0].admin},
+          process.env.AUTHKEY,
+          { expiresIn: '30d' },
+          (err, token) => {
+            if (err) {
+              return res.status(400).json(err);
+            } else {
+              EmailSender.sendEmail(signedUser.rows[0]['email'], signedUser.rows[0]['first_name'], "Welcome to Bridge", "Your signup was sucessful. Please verify your email")
+              return res.status(200).json({
+                status: 'ok',
+                code: 200,
+                message: 'Signed up successful',
+                data: {
+                  id : signedUser.rows[0].id,
+                  first_name: signedUser.rows[0].first_name,
+                  last_name : signedUser.rows[0].last_name,
+                  phonenumber: signedUser.rows[0].phonenumber,
+                  admin : signedUser.rows[0].admin,
+                  createdat: signedUser.rows[0].createdat,
+                  updatedat: signedUser.rows[0].updatedat,
+                  pro : signedUser.rows[0].pro,
+                  suspend_status : signedUser.rows[0].suspend_status,
+                  email_verified : signedUser.rows[0].email_verified,
+                  auth_id : signedUser.rows[0].auth_id,
+                  auth_provider : signedUser.rows[0].auth_provider,
+                  gender_id: signedUser.rows[0].gender_id
+                },
+                token: token,
+              });
+            }
+          },
+        );
+      }else{
+        // signed up as an admin and recieved an admin token
+        jwt.sign(
+          { email, password, id: signedUser.rows[0].id, admin: signedUser.rows[0].admin },
+          process.env.ADMINKEY,
+          { expiresIn: '72h' },
+          (err, token) => {
+            if (err) {
+              return res.status(400).json(err);
+            } else {
+              return res.status(200).json({
+                status: 'ok',
+                code: 200,
+                message: 'Admin Signed up successful',
+                data: {
+                  id : signedUser.rows[0].id,
+                  first_name: signedUser.rows[0].first_name,
+                  last_name : signedUser.rows[0].last_name,
+                  phonenumber: signedUser.rows[0].phonenumber,
+                  admin : signedUser.rows[0].admin,
+                  createdat: signedUser.rows[0].createdat,
+                  updatedat: signedUser.rows[0].updatedat,
+                  pro : signedUser.rows[0].pro,
+                  suspend_status : signedUser.rows[0].suspend_status,
+                  email_verified : signedUser.rows[0].email_verified,
+                  auth_id : signedUser.rows[0].auth_id,
+                  auth_provider : signedUser.rows[0].auth_provider,
+                  gender_id: signedUser.rows[0].gender_id
+                },
+                token: token
+              });
+            }
+          },
+        );
+      }
     } catch (err) {
       console.log(err);
     }
