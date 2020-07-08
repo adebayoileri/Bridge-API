@@ -13,6 +13,12 @@ import UploadRouter from './routes/uploadRoute';
 import categoryRouter from './routes/categoryRoute';
 import reviewRouter from './routes/reviewRoutes';
 import userRouter from './routes/userRoutes';
+import cluster from "cluster";
+import os from "os";
+
+
+
+
 
 const app = express()
 config();
@@ -33,8 +39,14 @@ app.use(expressFileUpload({
   useTempFiles: true
 }))
 
- 
- 
+if(cluster.isMaster && process.env === "development"){
+  const numCPUs = os.cpus().length;
+  for (let i = 0; i < numCPUs; i++) {
+    cluster.fork();
+  }
+}
+
+
 const limiter = rateLimit({
   windowMs: 15 * 60 * 1000, // 15 minutes
   max: 100 // limit each IP to 100 requests per windowMs

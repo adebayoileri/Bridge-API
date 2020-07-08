@@ -421,7 +421,7 @@ class taskController {
       data: appliedTask.rows[0]
       });
     }catch(err){
-
+      console.log('Error' + err)
     }
 
   }
