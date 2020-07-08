@@ -92,7 +92,6 @@ class adminController {
 
 
   static async getallTasksCount(req, res) {
- 
             try {
               const getTaskCount = `SELECT COUNT(*) FROM tasks`;
               const count = await pool.query(getTaskCount);
