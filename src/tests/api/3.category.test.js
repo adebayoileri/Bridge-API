@@ -18,7 +18,7 @@ chai.should();
         chai.request(server)
         .post('/api/v1/category/create')
         .send(newCategory)
-        .set('Authorization', `bearer ${process.env.TEST_TOKEN}`)
+        .set('Authorization', `bearer ${process.env.USER_TEST_TOKEN}`)
         .end((err, res) => {
             res.should.have.status(201);
             res.body.should.be.a('object');
@@ -29,7 +29,7 @@ chai.should();
         it('GET get all categories', (done) => {
             chai.request(server)
             .get('/api/v1/category')
-            .set('Authorization', `bearer ${process.env.TEST_TOKEN}`)
+            .set('Authorization', `bearer ${process.env.USER_TEST_TOKEN}`)
             .end((err, res) => {
                 res.should.have.status(200);
                 res.body.should.be.a('object');
@@ -40,7 +40,7 @@ chai.should();
         it('GET get a category', (done) => {
             chai.request(server)
             .get('/api/v1/category/1')
-            .set('Authorization', `bearer ${process.env.TEST_TOKEN}`)
+            .set('Authorization', `bearer ${process.env.USER_TEST_TOKEN}`)
             .end((err, res) => {
                 res.should.have.status(200);
                 res.body.should.be.a('object');
@@ -57,7 +57,7 @@ chai.should();
             chai.request(server)
             .put('/api/v1/category/update/1')
             .send(updateCategory)
-            .set('Authorization', `bearer ${process.env.TEST_TOKEN}`)
+            .set('Authorization', `bearer ${process.env.USER_TEST_TOKEN}`)
             .end((err, res) => {
                 res.should.have.status(200);
                 res.body.should.be.a('object');
@@ -69,7 +69,7 @@ chai.should();
         it('DELETE deleting a category', (done) => {
             chai.request(server)
             .delete('/api/v1/category/1')
-            .set('Authorization', `bearer ${process.env.TEST_TOKEN}`)
+            .set('Authorization', `bearer ${process.env.USER_TEST_TOKEN}`)
             .end((err, res) => {
                 res.should.have.status(200);
                 res.body.should.be.a('object');
