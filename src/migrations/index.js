@@ -1,10 +1,12 @@
 import migrate from "./migration";
 import pool from "../models/db";
+import seed from "./seed";
 
 const migrateDatabase = async() =>{
    try {
        await migrate(pool);
-       console.log("Database Migrated SucessFully");
+       await seed(pool);
+       console.log("Database Migrated & Seeded  SucessFully");
        process.exit()
        
    } catch (error) {

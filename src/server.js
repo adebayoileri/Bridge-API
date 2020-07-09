@@ -36,24 +36,18 @@ app.use(expressFileUpload({
   useTempFiles: true
 }))
 
-if(cluster.isMaster && process.env === "development"){
-  const numCPUs = os.cpus().length;
-  for (let i = 0; i < numCPUs; i++) {
-    cluster.fork();
-  }
-}
 
 
 const limiter = rateLimit({
   windowMs: 15 * 60 * 1000, // 15 minutes
   max: 100 // limit each IP to 100 requests per windowMs
 });
- 
+
 //  apply to all requests
 app.use(limiter);
 
 app.get('/',(req, res)=>{
-    res.status(200).json('Welcome to API')
+  res.status(200).json('Welcome to Bridge API')
 });
 
 app.use('/api/v1/',taskRoutes);
@@ -70,11 +64,23 @@ app.use('/api/v1/', userRouter);
 
 app.use('/api/v1/', adminRouter);
 
-const PORT = process.env.PORT || 4000;
+const PORT = process.env.PORT || 3200;
+if(cluster.isMaster){
+  const numCPUs = os.cpus().length;
+  for (let i = 0; i < numCPUs; i++) {
+    cluster.fork();
+  }
+  cluster.on('exit', (worker, code, signal) => {
+    console.log(`worker ${worker.process.pid} died`);
+  });
+  
+}else{
+  app.listen(PORT, ()=>{
+    console.log(`Server up and running on ${PORT}`);
+    console.log(`Worker ${process.pid} started`);
+  });
+}
 
-app.listen(PORT, ()=>{
-   console.log(`Server up and running on ${PORT}`);
-});
 
 
 // Invalid Routes
