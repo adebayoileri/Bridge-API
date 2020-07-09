@@ -7,8 +7,7 @@ const migrateDatabase = async() =>{
        await migrate(pool);
        await seed(pool);
        console.log("Database Migrated & Seeded  SucessFully");
-       process.exit()
-       
+       process.exit()     
    } catch (error) {
        console.log("An Error occured,for more details" + error)
    }

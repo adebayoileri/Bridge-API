@@ -18,8 +18,8 @@ router.delete('/tasks/:id', checkToken ,taskController.deleteTask);
 
 router.post('/tasks/apply/:taskId', checkToken, taskController.applyTask);
 
-// router.put('/tasks/approve/:taskId', checkToken, taskController.approveTask);
+router.put('/tasks/approve/:taskId', checkToken, taskController.approveTask);
 
-// router.put('/tasks/close/:taskId', checkToken, taskController.closeTask);
+router.put('/tasks/close/:taskId', checkToken, taskController.closeTask);
 
 export default router;
