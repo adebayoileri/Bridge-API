@@ -332,9 +332,10 @@ class taskController {
 
   static  async applyTask(req, res) {
     const {taskId} = req.params;
+    const applicantId = req.user.id;
+    
     const {
       proposal,
-      applicantId,
       posterId
     } = req.body;
     try{
