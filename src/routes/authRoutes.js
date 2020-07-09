@@ -3,7 +3,7 @@ import Authentication from '../controllers/authController';
 import socialAuth from '../controllers/socialauth.controller';
 import '../services/passport';
 import passport from 'passport';
-import { bcrypt, genSalt } from 'bcryptjs';
+import bcrypt from 'bcryptjs';
 import { signInGoogle, saveInfo } from '../controllers/socialauth.controller';
 import pool from '../models/db';
 
@@ -25,11 +25,11 @@ router.get(
     const last_name = user['family_name'];
     // console.log(user['email'])
     const admin = false;
-    const password = bcrypt.hash(process.env.DEFAULT_KEY, 10);
     // const password = 'fhurfhiruef87420840ytgfy93rfjw$33)*6$#';
     const auth_provider ="google";
-
+    
     try {
+      const password = await bcrypt.hash(process.env.DEFAULT_KEY, 10);
       const checkEmail = `SELECT * FROM users WHERE email=$1`;
       const value = [email];
       const returnedEmail = await pool.query(checkEmail, value);

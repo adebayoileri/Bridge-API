@@ -9,12 +9,12 @@ if (process.env.NODE_ENV === "development"){
     server:process.env.DB_SERVER,
     port:process.env.DB_PORT,
     database:process.env.DB_NAME,
-    rejectUnauthorized: false
+
 })}else{
     let connectionString = process.env.DB_URL;
     pool = new Pool({
       connectionString,
-        ssl:true,
+      rejectUnauthorized: false
     })
   }
 
