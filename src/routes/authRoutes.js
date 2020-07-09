@@ -25,7 +25,8 @@ router.get(
     const last_name = user['family_name'];
     // console.log(user['email'])
     const admin = false;
-    const password = 'fhurfhiruef87420840ytgfy93rfjw$33)*6$#';
+    const password = bcrypt.hash(process.env.DEFAULT_KEY, 10);
+    // const password = 'fhurfhiruef87420840ytgfy93rfjw$33)*6$#';
     const auth_provider ="google";
 
     try {
@@ -37,14 +38,14 @@ router.get(
       VALUES ($1, $2, $3, $4, $5, $6) RETURNING *`;
         const values = [email, first_name, last_name, admin, password, auth_provider];
         const newUser = await pool.query(userSignupQuery, values);
-        return res.send({
-          data: newUser.rows[0],
-        });
-        // return res.status(201).json({
-        //   status: 'success',
-        //   code: 201,
+        // return res.send({
         //   data: newUser.rows[0],
         // });
+        return res.status(201).json({
+          status: 'success',
+          code: 201,
+          data: newUser.rows[0],
+        });
       } else if (returnedEmail.rows[0]['suspend_status'] === true) {
         return res.status(400).json({
           status: 'bad request',
@@ -61,7 +62,7 @@ router.get(
         message: 'error' + error,
       });
     }
-    // res.rsend()
+    
   },
 );
 
