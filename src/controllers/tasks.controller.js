@@ -371,10 +371,15 @@ class taskController {
     }
   }
 
-  static async applyTask(req, res) {
-    const { taskId } = req.params;
-    const { proposal, applicantId, posterId } = req.body;
-    try {
+  static  async applyTask(req, res) {
+    const {taskId} = req.params;
+    const applicantId = req.user.id;
+    
+    const {
+      proposal,
+      posterId
+    } = req.body;
+    try{
       const getTaskQuery = `SELECT * FROM tasks WHERE id = $1`;
       const taskValue = [taskId];
       const singleTask = await pool.query(getTaskQuery, taskValue);

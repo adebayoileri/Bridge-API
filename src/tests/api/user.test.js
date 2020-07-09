@@ -24,6 +24,8 @@ chai.should();
         it('PUT update profile', (done) => {
             let updateProfile = {
                 first_name: 'Name updated',
+                last_name : 'test',
+                 phonenumber: '090283774784'
                }
             chai.request(server)
             .put('/api/v1/user/edit')
