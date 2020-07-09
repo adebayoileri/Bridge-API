@@ -1,4 +1,3 @@
-import jwt from 'jsonwebtoken';
 import dotenv from 'dotenv';
 import pool from '../models/db';
 import idValidator from '../middlewares/idValidator';
@@ -20,15 +19,6 @@ class categoryController {
 
     const responseValidation = queryValidator({start, count})
     if(responseValidation.error) return res.status(400).json({Error: `${responseValidation.error}`})
-
-    jwt.verify(req.token, process.env.AUTHKEY, async (err, authorizedData)=> {
-        if(err){
-            return res.status(403).json({
-                status: 'jwt error',
-                code: 403,
-                message: err
-            })
-        }else{
             try {
               const getAllTaskQuery = `SELECT * FROM categories ORDER BY createdat DESC OFFSET($1) LIMIT($2)`;
               const values = [start, count]
@@ -44,8 +34,6 @@ class categoryController {
                 message: ' Error from server' + error,
               });
             }
-        }
-    })
   }
 
   /**
@@ -61,14 +49,6 @@ class categoryController {
     const responseValidation = idValidator({id})
     if(responseValidation.error) return res.status(400).json({Error: `${responseValidation.error}`})
 
-    jwt.verify(req.token, process.env.AUTHKEY, async (err, authorizedData) => {
-        if(err){
-            return res.status(403).json({
-                status: 'failed',
-                code: 403,
-                message: err
-            })
-        }else{
             try {
               const getSingleTaskQuery = `SELECT * FROM categories WHERE id=$1`;
               const values = [id];
@@ -93,7 +73,6 @@ class categoryController {
                 status: failed,
               });
             }
-        }})
   }
 
   /**
@@ -104,17 +83,6 @@ class categoryController {
    **/
   static async createNewCategory(req, res) {
     const { slug, name } = req.body;
-
-    
-    jwt.verify(req.token, process.env.AUTHKEY, async(err, authorizedData)=> {
-      if(err){
-        return res.status(403).json({
-                status: 'jwt error',
-                code: 403,
-                message: err
-            })
-        }else{
-
             try {
               if (!slug || !name ) {
                 return res.status(400).json({
@@ -139,7 +107,6 @@ class categoryController {
                 message: 'Server Error' + error,
               });
             }
-        }})
 }
 
  /**
@@ -155,15 +122,6 @@ class categoryController {
 
     const responseValidation = idValidator({id})
     if(responseValidation.error) return res.status(400).json({Error: `${responseValidation.error}`})
-
-    jwt.verify(req.token, process.env.AUTHKEY, async(err, authorizedData)=> {
-        if(err){
-            return res.status(403).json({
-                status: 'jwt error',
-                code: 403,
-                message: err
-            })
-        }else{
             try {
                 if ( !slug || !name ) {
                     return res.status(400).json({
@@ -194,14 +152,12 @@ class categoryController {
                 data: updatedCategory.rows[0],
               });
             } catch (error) {
-                console.log(error)
-              res.status({
+              return res.status({
                 message: 'Server error' + error,
                 status: 'failed',
                 code: 500,
               });
             }
-        }})
   }
 
   /**
@@ -214,15 +170,6 @@ class categoryController {
 
     const responseValidation = idValidator({id})
     if(responseValidation.error) return res.status(400).json({Error: `${responseValidation.error}`})
-
-    jwt.verify(req.token, process.env.AUTHKEY, async(err, authorizedData)=> {
-        if(err){
-            return res.status(403).json({
-                status: 'jwt error',
-                code: 403,
-                message: err
-            })
-        }else{
             try {
                 const checkCategoryQuery = `SELECT * from categories WHERE id=$1`
                 const checkIdValue = [id]
@@ -244,13 +191,12 @@ class categoryController {
                 });
         
             } catch (error) {
-                res.status(500).json({
+              return  res.status(500).json({
                     status: "failed",
                     code: 500,
                     message:  `Error occured ${error}`
                 })
             }
-        }})
     }
 }
 

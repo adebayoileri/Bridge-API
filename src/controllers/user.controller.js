@@ -1,57 +1,97 @@
-import { pool } from "../models/db";
+import  pool  from "../models/db";
 
 class userController {
     static async getProfile(req, res){
-        const {id}=  req.body;
+        const {email} = req.user;
         try {
-            const getUserQuery = `SELECT * FROM users WHERE id=$1`;
-            const value = [id];
+            const getUserQuery = `SELECT * FROM users WHERE email=$1`;
+            const value = [email];
             const userData = await pool.query(getUserQuery, value);
             if(userData.rows[0]){
                 return res.status(200).json({
                     status: "success",
                     code: 200,
-                    data: userData.rows[0]
+                    data: {
+                        id : userData.rows[0].id,
+                        first_name: userData.rows[0].first_name,
+                        last_name : userData.rows[0].last_name,
+                        phonenumber: userData.rows[0].phonenumber,
+                        admin : userData.rows[0].admin,
+                        createdat: userData.rows[0].createdat,
+                        updatedat: userData.rows[0].updatedat,
+                        pro : userData.rows[0].pro,
+                        suspend_status : userData.rows[0].suspend_status,
+                        email_verified : userData.rows[0].email_verified,
+                        auth_id : userData.rows[0].auth_id,
+                        auth_provider : userData.rows[0].auth_provider,
+                        gender_id: userData.rows[0].gender_id
+                    }
+                })
+            }else{
+                return res.status(404).json({
+                    status: "error",
+                    code: 404,
+                    message: "user does not exist"
                 })
             }
-        } catch (error) {
+        } catch (err) {
             console.log('Error'+ err)
         }
     }
 
     static async editProfile(req, res){
-        const {id}=  req.params;
+        const {email} = req.user;
         const {
-            // email,
             first_name,
             last_name,
             phonenumber,
             gender_id,
         } = req.body;
         try {
-            const getUserQuery = `SELECT * FROM users WHERE id=$1`;
-            const value = [id];
+            const getUserQuery = `SELECT * FROM users WHERE email=$1`;
+            const value = [email];
             const userData = await pool.query(getUserQuery, value);
             const user = userData.rows[0];
-            // const newEmail = email || user.email;
+
             const newFirstname = first_name || user.first_name;
             const newLastname = last_name || user.last_name;
             const newNumber = phonenumber || user.phonenumber;
             const newGender = gender_id || user.gender_id;
 
-            const editQuery = `UPDATE users SET  first_name=$1, last_name=$2, phonenumber=$3, password=$4, gender_id=$5`;
+            const editQuery = `UPDATE users SET  first_name=$1, last_name=$2, phonenumber=$3, gender_id=$4 WHERE email=$5 RETURNING *`;
             const values = [
                 newFirstname,
                 newLastname,
                 newNumber,
-                newGender
+                newGender,
+                email
             ];
             const editedUser = await pool.query(editQuery, values);
             if(editedUser.rows[0]){
                 return res.status(200).json({
                     status: "success",
                     code: 200,
-                    data: editedUser.rows[0]
+                    data: {
+                        id : editedUser.rows[0].id,
+                        first_name: editedUser.rows[0].first_name,
+                        last_name : editedUser.rows[0].last_name,
+                        phonenumber: editedUser.rows[0].phonenumber,
+                        admin : editedUser.rows[0].admin,
+                        createdat: editedUser.rows[0].createdat,
+                        updatedat: editedUser.rows[0].updatedat,
+                        pro : editedUser.rows[0].pro,
+                        suspend_status : editedUser.rows[0].suspend_status,
+                        email_verified : editedUser.rows[0].email_verified,
+                        auth_id : editedUser.rows[0].auth_id,
+                        auth_provider : editedUser.rows[0].auth_provider,
+                        gender_id: editedUser.rows[0].gender_id
+                    }
+                })
+            }else{
+                return res.status(404).json({
+                    status: "error",
+                    code: 404,
+                    message: "user does not exist"
                 })
             }
         } catch (error) {

@@ -4,8 +4,8 @@ import { checkToken } from "../middlewares/auth";
 const router = Router();
 
 
-router.get('/user/:id', checkToken, userController.getProfile);
+router.get('/user', checkToken, userController.getProfile);
 
-router.put('/user/edit/:id', checkToken, userController.editProfile);
+router.put('/user/edit', checkToken, userController.editProfile);
 
 module.exports = router;

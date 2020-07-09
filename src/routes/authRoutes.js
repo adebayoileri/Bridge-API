@@ -45,7 +45,7 @@ router.get(
         //   code: 201,
         //   data: newUser.rows[0],
         // });
-      } else if (returnedEmail.rows[0]['suspend_status'] === 'TRUE') {
+      } else if (returnedEmail.rows[0]['suspend_status'] === true) {
         return res.status(400).json({
           status: 'bad request',
           message: 'user has been suspended',

@@ -8,7 +8,8 @@ const checkToken = (req, res, next) => {
     if (typeof header !== 'undefined') {
       const bearer = header.split(' ');
       const token = bearer[1] || req.token;
-      jwt.verify(token, process.env.AUTHKEY)
+      const decodedToken = jwt.verify(token, process.env.AUTHKEY);
+      req.user = decodedToken;
       req.token = token;
 
       next();
@@ -19,7 +20,12 @@ const checkToken = (req, res, next) => {
       });
     }
   } catch (error) {
-    console.log(error);
+    return res.status(403).json({
+      status: "bad request",
+      message: "Not Authorized",
+      code: 403,
+      error
+    })
   }
 };
 
@@ -30,8 +36,8 @@ const validateUserSignup = user => {
     email: Joi.string().email().min(5).max(50).required(),
     phonenumber: Joi.string().min(10).max(15).required(),
     password: Joi.string().min(5).max(30).required(),
-    admin: Joi.string().valid('TRUE')
-      .valid('FALSE').optional(),
+    admin: Joi.string().valid('true')
+      .valid('false').optional(),
   }).options({
     abortEarly: false
   });

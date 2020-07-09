@@ -1,4 +1,3 @@
-import jwt from 'jsonwebtoken';
 import dotenv  from 'dotenv';
 import pool from '../models/db';
 import queryValidator from '../middlewares/queryValidator';
@@ -20,14 +19,6 @@ class taskController {
     const responseValidation = queryValidator({start, count})
     if(responseValidation.error) return res.status(400).json({Error: `${responseValidation.error}`})
 
-   jwt.verify(req.token, process.env.AUTHKEY, async (err, authorizedData)=> {
-      if(err){
-          return res.status(403).json({
-              status: 'jwt error',
-              code: 403,
-              message: err
-          })
-      }else{
         try {
           const getAllTaskQuery = `SELECT * FROM tasks ORDER BY createdat DESC OFFSET($1) LIMIT($2)`;
           const values = [start, count]
@@ -39,11 +30,10 @@ class taskController {
             data: allTasks.rows,
           });
         } catch (error) {
-          res.status(500).json({
+          return res.status(500).json({
             message: ' Error from server' + error,
           });
         }
-      }})
   }
 
   /**
@@ -58,15 +48,6 @@ class taskController {
 
     const responseValidation = idValidator({id})
     if(responseValidation.error) return res.status(400).json({Error: `${responseValidation.error}`})
-
-    jwt.verify(req.token, process.env.AUTHKEY, async (err, authorizedData)=> {
-      if(err){
-          return res.status(403).json({
-              status: 'jwt error',
-              code: 403,
-              message: err
-          })
-      }else{
         try {
           const getSingleTaskQuery = `SELECT * FROM tasks WHERE id = $1`;
           const values = [id];
@@ -91,7 +72,6 @@ class taskController {
             status: failed,
           });
         }
-      }})
   }
 
   /**
@@ -106,7 +86,6 @@ class taskController {
       bannerImg,
       category,
       description,
-      user_id,
       category_id,
       location,
       minbudget,
@@ -115,14 +94,8 @@ class taskController {
       enddate,
     } = req.body;
 
-    jwt.verify(req.token, process.env.AUTHKEY, async (err, authorizedData)=> {
-      if(err){
-          return res.status(403).json({
-              status: 'jwt error',
-              code: 403,
-              message: err
-          })
-      }else{
+    const user_id = req.user.id;
+
         try {
           if (
             !title ||
@@ -172,7 +145,6 @@ class taskController {
             message: 'Server Error' + error,
           });
         }
-      }})
   }
  /**
   * @description - Update a specific task
@@ -183,7 +155,8 @@ class taskController {
 
   static async updateTask(req, res) {
     const { id } = req.params;
- 
+    const user_id = req.user.id;
+
     const{
       title,
      bannerImg,
@@ -196,36 +169,11 @@ class taskController {
      startdate,
      enddate} = req.body;
 
-     if (
-      !title ||
-      !bannerImg ||
-      !category ||
-      !description ||
-      !category_id ||
-      !minbudget ||
-      !location ||
-      !maxbudget ||
-      !startdate ||
-      !enddate
-    ) {
-      return res.status(400).json({
-        message: 'All fields are required',
-      });
-    }
-
     const responseIdValidation = idValidator({id})
     if(responseIdValidation.error) return res.status(400).json({Error: responseIdValidation.error})
     const responseBodyValidation = validateUpdateTask({title, bannerImg, category, description, category_id, location, minbudget, maxbudget,startdate, enddate})
     if(responseBodyValidation.error) return res.status(400).json({Error: responseBodyValidation.error })
-
-      jwt.verify(req.token, process.env.AUTHKEY, async (err, authorizedData)=> {
-        if(err){
-            return res.status(403).json({
-                status: 'jwt error',
-                code: 403,
-                message: err
-            })
-        }else{
+    
           try {
             const getSingleTaskQuery = `SELECT * FROM tasks WHERE id = $1`;
             const values = [id];
@@ -238,17 +186,20 @@ class taskController {
                   message: "Task doesn\'t exists in db"
               })
            }
+
+           if(singleTask.rows[0].user_id === user_id){
+
             const newTitle = title || TaskToUpdate.title;
-            const newBannerImg = category || TaskToUpdate.bannerImg;
-            const newCategory = picture || TaskToUpdate.category;
+            const newBannerImg = bannerImg || TaskToUpdate.bannerimg;
+            const newCategory = category || TaskToUpdate.category;
             const newDescription = description || TaskToUpdate.description;
             const newCategory_id = category_id || TaskToUpdate.category_id;
             const newLocation = location || TaskToUpdate.location;
             const newMinbudget = minbudget || TaskToUpdate.minbudget;
-            const newMaxbudget = maxbdget || TaskToUpdate.maxbudget;
+            const newMaxbudget = maxbudget || TaskToUpdate.maxbudget;
             const newStartdate = startdate || TaskToUpdate.startdate;
             const newEnddate = enddate || TaskToUpdate.enddate;
-            const updateTaskQuery = `UPDATE tasks SET title = $1, bannerImg = $2, category = $3, description = $4, category_id = $5,location = $6, minbudget = $7, maxbudget = $8, startdate = $9, enddate = $10, updatedat=CURRENT_TIMESTAMP WHERE id = $11 RETURNING id, title`;
+            const updateTaskQuery = `UPDATE tasks SET title = $1, bannerImg = $2, category = $3, description = $4, category_id = $5,location = $6, minbudget = $7, maxbudget = $8, startdate = $9, enddate = $10, updatedat=CURRENT_TIMESTAMP WHERE id = $11 RETURNING *`;
             const valuesToUpdate = [
               newTitle,
               newBannerImg,
@@ -268,15 +219,22 @@ class taskController {
               code: 200,
               message: 'task updated succesfully',
               data: updatedTask.rows[0],
-            });
+            })}
+            else{
+              return res.status(400).json({
+                status:"bad request",
+                code: 400,
+                message: 'Task is not owned by this user',
+             });
+            };
           } catch (error) {
-            res.status({
+            console.log(error)
+           return res.status({
               message: 'Server error' + error,
               status: 'failed',
               code: 500,
             });
           }
-        }})
   }
 
   /**
@@ -287,18 +245,13 @@ class taskController {
   static async deleteTask(req, res) {
     const {id} = req.params;
 
+    // id of the user that wants to delete the task
+    const userId = req.user.id;
+
     const responseValidation = idValidator({id})
     if(responseValidation.error) return res.status(400).json({Error: `${responseValidation.error}`})
-
-    jwt.verify(req.token, process.env.AUTHKEY, async (err, authorizedData)=> {
-      if(err){
-          return res.status(403).json({
-              status: 'jwt error',
-              code: 403,
-              message: err
-          })
-      }else{
-        try {
+        
+    try {
           const getSingleTaskQuery = `SELECT * FROM tasks WHERE id = $1`;
           const values = [parseInt(id)];
           const singleTask = await pool.query(getSingleTaskQuery, values);
@@ -309,23 +262,31 @@ class taskController {
                     message: "Task doesn\'t exists in db"
                 })
             }
-            const deleteTaskQuery =`DELETE FROM tasks WHERE id = $1`;
-            const value = [parseInt(id)];
-             await pool.query(deleteTaskQuery, value);
-            return res.status(200).json({
-             status:"sucess",
-             code: 200,
-              message: 'Task with id deleted',
-            });
+            if(singleTask.rows[0].user_id === userId){
+              const deleteTaskQuery =`DELETE FROM tasks WHERE id = $1`;
+              const value = [parseInt(id)];
+               await pool.query(deleteTaskQuery, value);
+              return res.status(200).json({
+               status:"sucess",
+               code: 200,
+                message: 'Task with id deleted',
+              });
+            }else{
+              return res.status(400).json({
+                  status:"bad request",
+                  code: 400,
+                 message: 'Task is not owned by this user',
+               });
+            }
     
         } catch (error) {
-            res.status(500).json({
+           return res.status(500).json({
                 status: "failed",
                 code: 500,
                 message:  `Error occured ${error}`
             })
         }
-      }})
+    
   }
 
 
@@ -350,14 +311,6 @@ class taskController {
     const responseFilterValidation = filterTask({status, category, location});
     if(responseFilterValidation.error) return res.status(400).json({Error: `${responseFilterValidation.error}`})
 
-    jwt.verify(req.token, process.env.AUTHKEY, async (err, authorizedData)=> {
-      if(err){
-          return res.status(403).json({
-              status: 'jwt error',
-              code: 403,
-              message: err
-          })
-      }else{
         try {
           const getFilteredTaskQuery = `SELECT * FROM tasks
                                           WHERE location LIKE $1 OR status LIKE $2 OR category LIKE $3
@@ -371,11 +324,10 @@ class taskController {
               data: allFiltered.rows,
           });
         } catch (error) {
-          res.status(500).json({
+         return res.status(500).json({
             message: ' Error from server' + error,
           });
         }
-      }})
   }
 
   static  async applyTask(req, res) {
