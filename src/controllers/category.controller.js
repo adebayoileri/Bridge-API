@@ -1,36 +1,26 @@
-import jwt from 'jsonwebtoken';
 import dotenv from 'dotenv';
 import pool from '../models/db';
+import idValidator from '../middlewares/idValidator';
+import queryValidator from '../middlewares/queryValidator';
+import {validateCategory} from '../middlewares/categoryValidator';
 dotenv.config();
 
 class categoryController {
   /**
    *  @description   Get tasks for all authenticated users
    *  @param { object } - request [start -> number of page] [count -> number of category to return]
-   *  @param query - /v1/category?page=0&limit=10
+   *  @param query - /v1/category?start=0&count=20 default start=0&count=20
    *  @returns { object } - all category in db
    **/
 
   static async getAllCategory(req, res) {
+    const start = req.query.start || 0;
+    const count = req.query.count || 20;
 
-    const{ start , count} = req.query;
-
-    jwt.verify(req.token, process.env.AUTHKEY, async (err, authorizedData)=> {
-        if(err){
-            return res.status(403).json({
-                status: 'jwt error',
-                code: 403,
-                message: err
-            })
-        }else{
-            if(!req.query || !start || !count) return res.status(400).json({
-              status: 'failed',
-              code: 400,
-              message: 'query [start, count] are needed to fetch categories'
-            })
-        
+    const responseValidation = queryValidator({start, count})
+    if(responseValidation.error) return res.status(400).json({Error: `${responseValidation.error}`})
             try {
-              const getAllTaskQuery = `SELECT * FROM categories ORDER BY createdat OFFSET($1) LIMIT($2)`;
+              const getAllTaskQuery = `SELECT * FROM categories ORDER BY createdat DESC OFFSET($1) LIMIT($2)`;
               const values = [start, count]
               const allCategory = await pool.query(getAllTaskQuery, values);
               return res.status(200).json({
@@ -40,12 +30,10 @@ class categoryController {
                   data: allCategory.rows,
               });
             } catch (error) {
-              res.status(500).json({
+             return res.status(500).json({
                 message: ' Error from server' + error,
               });
             }
-        }
-    })
   }
 
   /**
@@ -58,14 +46,9 @@ class categoryController {
   static async getSingleCategory(req, res) {
     const { id } = req.params;
 
-    jwt.verify(req.token, process.env.AUTHKEY, async (err, authorizedData) => {
-        if(err){
-            return res.status(403).json({
-                status: 'failed',
-                code: 403,
-                message: err
-            })
-        }else{
+    const responseValidation = idValidator({id})
+    if(responseValidation.error) return res.status(400).json({Error: `${responseValidation.error}`})
+
             try {
               const getSingleTaskQuery = `SELECT * FROM categories WHERE id=$1`;
               const values = [id];
@@ -90,7 +73,6 @@ class categoryController {
                 status: failed,
               });
             }
-        }})
   }
 
   /**
@@ -101,23 +83,16 @@ class categoryController {
    **/
   static async createNewCategory(req, res) {
     const { slug, name } = req.body;
-
-    jwt.verify(req.token, process.env.AUTHKEY, async(err, authorizedData)=> {
-        if(err){
-            return res.status(403).json({
-                status: 'jwt error',
-                code: 403,
-                message: err
-            })
-        }else{
-
             try {
               if (!slug || !name ) {
                 return res.status(400).json({
                   message: 'All fields are required',
                 });
               }
-        
+
+              const responseValidation = validateCategory({slug, name})
+              if(responseValidation.error) return res.status(400).json({Error: `${responseValidation.error}`})
+
               const createCategoryQuery = `INSERT INTO categories (slug, name) VALUES($1, $2) RETURNING *`;
               const values = [slug, name];
               const newCategory = await pool.query(createCategoryQuery, values);
@@ -132,7 +107,6 @@ class categoryController {
                 message: 'Server Error' + error,
               });
             }
-        }})
 }
 
  /**
@@ -145,20 +119,19 @@ class categoryController {
   static async updateCategory(req, res) {
     const { id } = req.params;
     const { slug, name } = req.body;
-    jwt.verify(req.token, process.env.AUTHKEY, async(err, authorizedData)=> {
-        if(err){
-            return res.status(403).json({
-                status: 'jwt error',
-                code: 403,
-                message: err
-            })
-        }else{
+
+    const responseValidation = idValidator({id})
+    if(responseValidation.error) return res.status(400).json({Error: `${responseValidation.error}`})
             try {
                 if ( !slug || !name ) {
                     return res.status(400).json({
                       message: 'All fields are required',
                     });
                   }
+
+                  const responseValidation = validateCategory({slug, name})
+                  if(responseValidation.error) return res.status(400).json({Error: `${responseValidation.error}`})
+
               const checkCategoryQuery = `SELECT * from categories WHERE id=$1`
               const checkIdValue = [id]
               const checkedCategory = await pool.query(checkCategoryQuery, checkIdValue);
@@ -179,14 +152,12 @@ class categoryController {
                 data: updatedCategory.rows[0],
               });
             } catch (error) {
-                console.log(error)
-              res.status({
+              return res.status({
                 message: 'Server error' + error,
                 status: 'failed',
                 code: 500,
               });
             }
-        }})
   }
 
   /**
@@ -196,14 +167,9 @@ class categoryController {
    */
   static async deleteCategory(req, res) {
     const {id} = req.params;
-    jwt.verify(req.token, process.env.AUTHKEY, async(err, authorizedData)=> {
-        if(err){
-            return res.status(403).json({
-                status: 'jwt error',
-                code: 403,
-                message: err
-            })
-        }else{
+
+    const responseValidation = idValidator({id})
+    if(responseValidation.error) return res.status(400).json({Error: `${responseValidation.error}`})
             try {
                 const checkCategoryQuery = `SELECT * from categories WHERE id=$1`
                 const checkIdValue = [id]
@@ -225,13 +191,12 @@ class categoryController {
                 });
         
             } catch (error) {
-                res.status(500).json({
+              return  res.status(500).json({
                     status: "failed",
                     code: 500,
                     message:  `Error occured ${error}`
                 })
             }
-        }})
     }
 }
 
