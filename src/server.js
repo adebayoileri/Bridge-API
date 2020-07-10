@@ -65,7 +65,7 @@ app.use('/api/v1/', userRouter);
 app.use('/api/v1/', adminRouter);
 
 const PORT = process.env.PORT || 3200;
-if(cluster.isMaster){
+if(cluster.isMaster && !process.env.NODE_ENV == 'test'){
   const numCPUs = os.cpus().length;
   for (let i = 0; i < numCPUs; i++) {
     cluster.fork();
