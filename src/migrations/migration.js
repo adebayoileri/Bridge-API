@@ -47,12 +47,10 @@ CREATE TABLE IF NOT EXISTS tasks(
 // DROP TABLE IF EXISTS genders CASCADE;
 const createGenderTable = `
 CREATE TABLE IF NOT EXISTS genders(
-    id SERIAL NOT NULL PRIMARY KEY,
-    gender VARCHAR(20) NOT NULL,
-    user_id int NOT NULL,
-    createdat TIMESTAMP NOT NULL DEFAULT NOW(),
-    updatedat TIMESTAMP NOT NULL DEFAULT NOW(),
-    FOREIGN KEY (user_id) REFERENCES "users" (id) ON UPDATE CASCADE ON DELETE CASCADE
+  id SERIAL NOT NULL PRIMARY KEY,
+  name VARCHAR(20) NOT NULL,
+  createdat TIMESTAMP NOT NULL DEFAULT NOW(),
+  updatedat TIMESTAMP NOT NULL DEFAULT NOW()
 )
 `;
 
@@ -99,6 +97,7 @@ CREATE TABLE IF NOT EXISTS task_user (
 
 const migrate = async (pool) => {
     try {
+      console.log('migrating now .....')
       await pool.query(createGenderTable);
       await pool.query(createUserTable);
       await pool.query(createCategoryTable);

@@ -8,5 +8,4 @@ router.get('/user', checkToken, userController.getProfile);
 
 router.put('/user/edit', checkToken, userController.editProfile);
 
-router.post('/user/gender/set', checkToken, userController.setGender);
 module.exports = router;

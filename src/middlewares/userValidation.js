@@ -13,18 +13,7 @@ const validateEditProfile = profile => {
     return JoiSchema.validate(profile)
 }
 
-const setGenderValidation = user => {
-    const JoiSchema = Joi.object({
-      GenderName: Joi.string().valid('Male')
-        .valid('Female').required(),
-    }).options({
-      abortEarly: false
-    });
-  
-    return JoiSchema.validate(user)
-  }
 
 export {
-    validateEditProfile,
-    setGenderValidation
+   validateEditProfile
 }
