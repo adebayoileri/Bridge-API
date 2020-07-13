@@ -47,10 +47,10 @@ CREATE TABLE IF NOT EXISTS tasks(
 // DROP TABLE IF EXISTS genders CASCADE;
 const createGenderTable = `
 CREATE TABLE IF NOT EXISTS genders(
-  id SERIAL NOT NULL PRIMARY KEY,
-  name VARCHAR(20) NOT NULL,
-  createdat TIMESTAMP NOT NULL DEFAULT NOW(),
-  updatedat TIMESTAMP NOT NULL DEFAULT NOW()
+    id SERIAL NOT NULL PRIMARY KEY,
+    gender VARCHAR(20) NOT NULL,
+    createdat TIMESTAMP NOT NULL DEFAULT NOW(),
+    updatedat TIMESTAMP NOT NULL DEFAULT NOW()
 )
 `;
 
@@ -62,7 +62,7 @@ CREATE TABLE IF NOT EXISTS categories(
         name VARCHAR(255) NOT NULL,
         createdat TIMESTAMP NOT NULL DEFAULT NOW(),
         updatedat TIMESTAMP NOT NULL DEFAULT NOW()
-    )
+    );
 `;
 
 // DROP TABLE IF EXISTS reviews CASCADE;
@@ -77,7 +77,7 @@ const createReviewTable = `
             updatedat TIMESTAMP NOT NULL DEFAULT NOW(),
             FOREIGN KEY (reviewer) REFERENCES "users" (id) ON UPDATE CASCADE ON DELETE CASCADE,
             FOREIGN KEY (reviewee) REFERENCES "users" (id) ON UPDATE CASCADE ON DELETE CASCADE
-        )
+        );
 `;
 
 // ,FOREIGN KEY (reviwee) REFERENCES "users" (id) ON UPDATE CASCADE ON DELETE CASCADE
