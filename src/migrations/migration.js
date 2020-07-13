@@ -48,7 +48,7 @@ CREATE TABLE IF NOT EXISTS tasks(
 const createGenderTable = `
 CREATE TABLE IF NOT EXISTS genders(
     id SERIAL NOT NULL PRIMARY KEY,
-    gender VARCHAR(20) NOT NULL,
+    name VARCHAR(20) NOT NULL,
     createdat TIMESTAMP NOT NULL DEFAULT NOW(),
     updatedat TIMESTAMP NOT NULL DEFAULT NOW()
 )
