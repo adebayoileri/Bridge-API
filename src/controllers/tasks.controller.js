@@ -444,9 +444,9 @@ class taskController {
     }
   }
 
-  static async closeTask() {
+  static async closeTask(req, res) {
     const { taskId } = req.params;
-    const { posterId } = req.body;
+    const  posterId  = req.user.id;
     try {
       const getTaskQuery = `SELECT * FROM tasks WHERE id = $1`;
       const taskValue = [taskId];
@@ -458,7 +458,7 @@ class taskController {
           message: "Task doesn't exists in db",
         });
       }
-      const closetaskQuery = `UPDATE tasks SET status = "approved" WHERE user_id = $1 AND task_id = $2 RETURNING *`;
+      const closetaskQuery = `UPDATE tasks SET status = "closed" WHERE user_id = $1 AND task_id = $2 RETURNING *`;
       const values = [posterId, taskId];
       await pool.query(closetaskQuery, values);
 
