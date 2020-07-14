@@ -415,6 +415,13 @@ class taskController {
     }
   }
 
+    /**
+   *  @description   Approve a task
+   *  @param  - taskid , applicantId
+   *  @param query - /v1/tasks/apply/:taskId
+   * @returns { object } - apply for a task
+   **/
+
   static async approveTask(req, res) {
     const { taskId } = req.params;
     const { applicantId } = req.body;
