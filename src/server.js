@@ -1,4 +1,5 @@
 import express from 'express';
+import cors from 'cors';
 import { json, urlencoded } from 'body-parser';
 import { config } from 'dotenv';
 import expressFileUpload from 'express-fileupload';
@@ -20,7 +21,10 @@ import os from "os";
 const app = express()
 config();
 
-app.use(logger('dev'));
+app.use(cors())
+
+// added condition for logger to use tiny in production, for improving load time in production
+app.use(logger(process.env.NODE_ENV === 'development' ? 'dev' : 'tiny'));
 app.use(helmet())
 app.use(compression())
 
