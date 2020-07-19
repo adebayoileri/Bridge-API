@@ -69,7 +69,7 @@ class taskController {
         const getUserQuery = `SELECT * FROM users WHERE id=$1`;
         const posterId = singleTask.rows[0].user_id;
         const value = [posterId];
-        const userInfo = await pool.query(getUserQuery, value);7
+        const userInfo = await pool.query(getUserQuery, value);
         delete userInfo.rows[0].email;
         delete userInfo.rows[0].phonenumber;
         delete userInfo.rows[0].password;
