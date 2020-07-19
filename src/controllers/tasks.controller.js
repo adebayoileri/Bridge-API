@@ -65,17 +65,27 @@ class taskController {
           message: "Task doesn't exists in db",
         });
       }
-      return res.status(200).json({
-        status: 'success',
-        code: 200,
-        message: `get task with id ${id} successfully`,
-        data: singleTask.rows[0],
-      });
+      if(singleTask.rows[0]){
+        const getUserQuery = `SELECT * FROM users WHERE id=$1`;
+        const posterId = singleTask.rows[0].user_id;
+        const value = [posterId];
+        const userInfo = await pool.query(getUserQuery, value);
+        delete userInfo.rows[0].email;
+        delete userInfo.rows[0].phonenumber;
+        delete userInfo.rows[0].password;
+        return res.status(200).json({
+          status: 'success',
+          code: 200,
+          message: `get task with id ${id} successfully`,
+          data: singleTask.rows[0],
+          user: userInfo.rows[0]
+        });
+      }
     } catch (error) {
       return res.status(500).json({
         message: 'Error occured' + error,
         code: 500,
-        status: failed,
+        status: "failed",
       });
     }
   }
