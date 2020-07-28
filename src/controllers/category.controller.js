@@ -14,15 +14,15 @@ class categoryController {
    **/
 
   static async getAllCategory(req, res) {
-    const start = req.query.start || 0;
-    const count = req.query.count || 20;
+    // const start = req.query.start || 0;
+    // const count = req.query.count || 20;
 
-    const responseValidation = queryValidator({start, count})
-    if(responseValidation.error) return res.status(400).json({Error: `${responseValidation.error}`})
+    // const responseValidation = queryValidator({start, count})
+    // if(responseValidation.error) return res.status(400).json({Error: `${responseValidation.error}`})
             try {
-              const getAllTaskQuery = `SELECT * FROM categories ORDER BY createdat DESC OFFSET($1) LIMIT($2)`;
-              const values = [start, count]
-              const allCategory = await pool.query(getAllTaskQuery, values);
+              const getAllTaskQuery = `SELECT * FROM categories ORDER BY createdat`;
+              // const values = [start, count]
+              const allCategory = await pool.query(getAllTaskQuery);
               return res.status(200).json({
                   status: 'success',
                   code: 200,
