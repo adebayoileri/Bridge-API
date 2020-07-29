@@ -16,7 +16,7 @@ class EmailSender {
    */
   static async sendEmail(userEmail, userName, mailSubject, mailBody) {
     const message = {
-      from: `Bridge Nigeria <adebayorilerioluwa@gmail.com>`,
+      from: `Bridge Nigeria <${process.env.SENDGRID_EMAIL}>`,
       to: userEmail,
       subject: mailSubject,
       html: `<body style="background-color: white"><h3 style="background: white;padding: .5em;">Hey, ${userName}
@@ -26,22 +26,35 @@ class EmailSender {
     };
 
     sendGrid.setApiKey(process.env.SENDGRID_API_KEY);
-    sendGrid.send(message).then(() => true).catch((err) => {
-        console.log(err)
-    });
+    sendGrid
+      .send(message)
+      .then(() => true)
+      .catch(err => {
+        console.log(err);
+      });
   }
 
-    /**
+  /**
    * Sends an email to a recipient
    *
    * @param {String} userEmail - The email address of the recipent
    * @param {String} mailSubject - The subject of the mail
    * @param {String} mailBody - The mail/message body
    */
-  static async sendApplyJobEmail({posterEmail, posterName, taskTitle, taskDescription, taskDueDate, taskBudget, applicantName, applicantProposal, applicantMail}) {
+  static async sendApplyJobEmail({
+    posterEmail,
+    posterName,
+    taskTitle,
+    taskDescription,
+    taskDueDate,
+    taskBudget,
+    applicantName,
+    applicantProposal,
+    applicantMail,
+  }) {
     const message = {
       fromname: applicantMail,
-      from: `Bridge Nigeria <adebayorilerioluwa@gmail.com>`,
+      from: `Bridge Nigeria <${process.env.SENDGRID_EMAIL}>`,
       to: posterEmail,
       replyto: applicantMail,
       subject: 'Bridge: A new offer for a task you posted',
@@ -89,13 +102,15 @@ class EmailSender {
     };
 
     sendGrid.setApiKey(process.env.SENDGRID_API_KEY);
-    sendGrid.send(message).then(() => true).catch((err) => {
-      return {
-        error: err
-      }
-    });
+    sendGrid
+      .send(message)
+      .then(() => true)
+      .catch(err => {
+        return {
+          error: err,
+        };
+      });
   }
-
 }
 
 export default EmailSender;
