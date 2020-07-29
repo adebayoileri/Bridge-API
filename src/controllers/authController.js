@@ -76,6 +76,7 @@ class Authentication {
                       id : returnedEmail.rows[0].id,
                       first_name: returnedEmail.rows[0].first_name,
                       last_name : returnedEmail.rows[0].last_name,
+                      profileimg: returnedEmail.rows[0].profileimg,
                       phonenumber: returnedEmail.rows[0].phonenumber,
                       admin : returnedEmail.rows[0].admin,
                       createdat: returnedEmail.rows[0].createdat,
@@ -113,6 +114,7 @@ class Authentication {
                   id : returnedEmail.rows[0].id,
                   first_name: returnedEmail.rows[0].first_name,
                   last_name : returnedEmail.rows[0].last_name,
+                  profileimg: returnedEmail.rows[0].profileimg,
                   phonenumber: returnedEmail.rows[0].phonenumber,
                   admin : returnedEmail.rows[0].admin,
                   createdat: returnedEmail.rows[0].createdat,
@@ -214,8 +216,8 @@ class Authentication {
       const salt = await bcrypt.genSalt(10);
       const hashedPassword = await bcrypt.hash(password, salt);
 
-      const userSignupQuery = `INSERT INTO users (email, first_name, last_name, phonenumber, admin, password)
-                  VALUES ($1, $2, $3, $4, $5, $6) RETURNING *`;
+      const userSignupQuery = `INSERT INTO users (email, first_name, last_name, phonenumber, admin, password, profileimg)
+                  VALUES ($1, $2, $3, $4, $5, $6, $7) RETURNING *`;
       const values = [
         email,
         first_name,
@@ -223,6 +225,7 @@ class Authentication {
         phonenumber,
         admin,
         hashedPassword,
+        'https://res.cloudinary.com/bridgeng/image/upload/v1595808372/blank-profile-picture_ndet1v.png'
       ];
       const signedUser = await pool.query(userSignupQuery, values);
       if(admin === 'false'){
@@ -244,6 +247,7 @@ class Authentication {
                   id : signedUser.rows[0].id,
                   first_name: signedUser.rows[0].first_name,
                   last_name : signedUser.rows[0].last_name,
+                  profileimg: signedUser.rows[0].profileimg,
                   phonenumber: signedUser.rows[0].phonenumber,
                   admin : signedUser.rows[0].admin,
                   createdat: signedUser.rows[0].createdat,
@@ -278,6 +282,7 @@ class Authentication {
                   id : signedUser.rows[0].id,
                   first_name: signedUser.rows[0].first_name,
                   last_name : signedUser.rows[0].last_name,
+                  profileimg: signedUser.rows[0].profileimg,
                   phonenumber: signedUser.rows[0].phonenumber,
                   admin : signedUser.rows[0].admin,
                   createdat: signedUser.rows[0].createdat,

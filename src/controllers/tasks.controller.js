@@ -5,8 +5,10 @@ import idValidator from '../middlewares/idValidator';
 import {
   validateCreateNewTask,
   validateUpdateTask,
+  searchTask,
   filterTask,
 } from '../middlewares/taskValidator';
+import EmailSender from '../services/emailSender';
 
 dotenv.config();
 class taskController {
@@ -70,7 +72,7 @@ class taskController {
         const posterId = singleTask.rows[0].user_id;
         const value = [posterId];
         const userInfo = await pool.query(getUserQuery, value);
-        delete userInfo.rows[0].email;
+        // delete userInfo.rows[0].email;
         delete userInfo.rows[0].phonenumber;
         delete userInfo.rows[0].password;
         return res.status(200).json({
@@ -102,7 +104,10 @@ class taskController {
       bannerImg,
       category,
       description,
-      category_id,
+      // category_id,
+      jobtype,
+      pricetype,
+      fixedprice,
       location,
       minbudget,
       maxbudget,
@@ -115,29 +120,33 @@ class taskController {
     try {
       if (
         !title ||
-        !bannerImg ||
+        // !bannerImg ||
         !category ||
         !description ||
         !user_id ||
-        !category_id ||
+        // !category_id ||
+        !jobtype ||
+        !pricetype ||
         !location ||
-        !minbudget ||
-        !maxbudget ||
         !startdate ||
-        !enddate
+        !enddate ||
+        !user_id
       ) {
         return res.status(400).json({
           message: 'All fields are required',
         });
       }
-
+      
       const responseValidation = validateCreateNewTask({
         title,
-        bannerImg,
+        bannerImg ,
         category,
         description,
         user_id,
-        category_id,
+        // category_id,
+        jobtype,
+        pricetype,
+        fixedprice,
         location,
         minbudget,
         maxbudget,
@@ -147,20 +156,24 @@ class taskController {
       if (responseValidation.error)
         return res.status(400).json({ Error: `${responseValidation.error}` });
 
-      const createTaskQuery = `INSERT INTO tasks (title, bannerImg, category, description, user_id, category_id, status,location, minbudget, maxbudget, startdate, enddate) VALUES($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11, $12) RETURNING *`;
+      const createTaskQuery = `INSERT INTO tasks (title, bannerImg, category, description, user_id,  jobtype, pricetype, fixedprice, status,location, minbudget, maxbudget, startdate, enddate, createdat) VALUES($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11, $12, $13, $14, $15) RETURNING *`;
       const values = [
         title,
         bannerImg,
         category,
         description,
         user_id,
-        category_id,
+        // category_id,
+        jobtype,
+        pricetype,
+        fixedprice,
         'pending',
-        location || 'remote',
+        location || 'lagos',
         minbudget,
         maxbudget,
         startdate,
         enddate,
+        new Date()
       ];
       const newTask = await pool.query(createTaskQuery, values);
       return res.status(201).json({
@@ -191,7 +204,7 @@ class taskController {
       bannerImg,
       category,
       description,
-      category_id,
+      // category_id,
       location,
       minbudget,
       maxbudget,
@@ -207,7 +220,7 @@ class taskController {
       bannerImg,
       category,
       description,
-      category_id,
+      // category_id,
       location,
       minbudget,
       maxbudget,
@@ -235,19 +248,19 @@ class taskController {
         const newBannerImg = bannerImg || TaskToUpdate.bannerimg;
         const newCategory = category || TaskToUpdate.category;
         const newDescription = description || TaskToUpdate.description;
-        const newCategory_id = category_id || TaskToUpdate.category_id;
+        // const newCategory_id = category_id || TaskToUpdate.category_id;
         const newLocation = location || TaskToUpdate.location;
         const newMinbudget = minbudget || TaskToUpdate.minbudget;
         const newMaxbudget = maxbudget || TaskToUpdate.maxbudget;
         const newStartdate = startdate || TaskToUpdate.startdate;
         const newEnddate = enddate || TaskToUpdate.enddate;
-        const updateTaskQuery = `UPDATE tasks SET title = $1, bannerImg = $2, category = $3, description = $4, category_id = $5,location = $6, minbudget = $7, maxbudget = $8, startdate = $9, enddate = $10, updatedat=CURRENT_TIMESTAMP WHERE id = $11 RETURNING *`;
+        const updateTaskQuery = `UPDATE tasks SET title = $1, bannerImg = $2, category = $3, description = $4,location = $5, minbudget = $6, maxbudget = $7, startdate = $8, enddate = $9, updatedat=CURRENT_TIMESTAMP WHERE id = $10 RETURNING *`;
         const valuesToUpdate = [
           newTitle,
           newBannerImg,
           newCategory,
           newDescription,
-          newCategory_id,
+          // newCategory_id,
           newLocation,
           newMinbudget,
           newMaxbudget,
@@ -342,6 +355,8 @@ class taskController {
     const status = req.query.status || 'pending';
     const category = req.query.category || 'one-time';
     const location = req.query.location || 'lagos';
+    const minbudget = req.query.minBudget || 500;
+    const maxbudget = req.query.maxbudget || 5000;
     const start = req.query.start || 0;
     const count = req.query.count || 20;
 
@@ -358,12 +373,14 @@ class taskController {
 
     try {
       const getFilteredTaskQuery = `SELECT * FROM tasks
-                                          WHERE location LIKE $1 OR status LIKE $2 OR category LIKE $3
-                                          ORDER BY createdat DESC OFFSET($4) LIMIT($5)`;
+                                          WHERE location LIKE $1 OR status LIKE $2 OR category LIKE $3 OR minbudget LIKE $4 OR maxbudget LIKE $5
+                                          ORDER BY createdat DESC OFFSET($6) LIMIT($7)`;
       const values = [
         `%${location}%`,
         `%${status}%`,
         `%${category}%`,
+        `%${minbudget}%`,
+        `%${maxbudget}%`,
         start,
         count,
       ];
@@ -371,7 +388,48 @@ class taskController {
       return res.status(200).json({
         status: 'success',
         code: 200,
-        message: `showing results for tasks with location - ${location}, status - ${status} and category - ${category}`,
+        message: `showing results for tasks with location - ${location}, status - ${status}, category - ${category}, min-budget ${minbudget} and ${maxbudget}`,
+        data: allFiltered.rows,
+      });
+    } catch (error) {
+      return res.status(500).json({
+        message: ' Error from server' + error,
+      });
+    }
+  }
+
+
+  static async searchTask(req, res) {
+    const keyword = req.query.keyword || 'none';
+    const start = req.query.start || 0;
+    const count = req.query.count || 20;
+
+    const responseQueryValidation = queryValidator({ start, count });
+    if (responseQueryValidation.error)
+      return res
+        .status(400)
+        .json({ Error: `${responseQueryValidation.error}` });
+    const responsesearchValidation = searchTask({ keyword});
+    if (responsesearchValidation.error)
+      return res
+        .status(400)
+        .json({ Error: `${responsesearchValidation.error}` });
+
+    try {
+      const getFilteredTaskQuery = `SELECT * FROM tasks
+                                          WHERE title LIKE $1 OR description LIKE $2
+                                          ORDER BY createdat DESC OFFSET($3) LIMIT($4)`;
+      const values = [
+        `%${keyword}%`,
+        `%${keyword}%`,
+        start,
+        count,
+      ];
+      const allFiltered = await pool.query(getFilteredTaskQuery, values);
+      return res.status(200).json({
+        status: 'success',
+        code: 200,
+        message: `Avaliable results`,
         data: allFiltered.rows,
       });
     } catch (error) {
@@ -384,10 +442,16 @@ class taskController {
   static  async applyTask(req, res) {
     const {taskId} = req.params;
     const applicantId = req.user.id;
-    
+    const applicantMail = req.user.email;
+    console.log(applicantMail)
     const {
-      proposal,
-      posterId
+      posterId,
+      posterEmail,
+      posterName,
+      taskDueDate,
+      taskBudget,
+      applicantName,
+      proposal
     } = req.body;
     try{
       const getTaskQuery = `SELECT * FROM tasks WHERE id = $1`;
@@ -400,8 +464,8 @@ class taskController {
           message: "Task doesn't exists in db",
         });
       }
-      const getUserQuery = `SELECT * FROM task_user WHERE taskId = $1 AND applicant_id =$2`;
-      const theValue = [taskId, applicantId];
+      const getUserQuery = `SELECT * FROM task_user WHERE task_id = $1 AND applicant_id =$2 AND user_id=$3`;
+      const theValue = [taskId, applicantId, posterId];
       const userTaskQuery = await pool.query(getUserQuery, theValue);
       if (userTaskQuery.rows[0]) {
         return res.status(400).json({
@@ -410,6 +474,8 @@ class taskController {
           message: 'user already applied for task',
         });
       }
+
+      EmailSender.sendApplyJobEmail({posterEmail, posterName, taskTitle: singleTask.rows[0].title, taskDescription: singleTask.rows[0].description, taskDueDate, taskBudget, applicantName, applicantProposal: proposal, applicantMail})
       const applytaskQuery = `INSERT INTO task_user (proposal, applicant_id, task_id, user_id) VALUES($1, $2, $3, $4) RETURNING *`;
       const values = [proposal, applicantId, taskId, posterId];
       const appliedTask = await pool.query(applytaskQuery, values);

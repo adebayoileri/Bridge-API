@@ -30,8 +30,9 @@ class Upload {
    **/
 
   static async upLoadphoto(req, res) {
+
     const image = req.files.image;
-    console.log(image);
+
     jwt.verify(req.token, process.env.AUTHKEY, async (err, authorizedData) => {
       if (err) {
         return res.status(403).json(err);
@@ -40,7 +41,7 @@ class Upload {
           return res.status(400).json({ message: 'image file needed' });
         }
         try {
-          const imageSize = formatBytes(image.size, 3);
+          // const imageSize = formatBytes(image.size, 3);
           cloudinary.v2.uploader
             .upload(image.tempFilePath, { resourse_type: 'auto' })
             .then(async result => {
@@ -50,7 +51,7 @@ class Upload {
               return res.status(200).json({
                 status: 'Ok',
                 data: result,
-                size: imageSize,
+                // size: imageSize,
               });
             })
             .catch(err =>

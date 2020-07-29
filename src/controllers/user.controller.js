@@ -14,8 +14,10 @@ class userController {
                     code: 200,
                     data: {
                         id : userData.rows[0].id,
+                        email: email,
                         first_name: userData.rows[0].first_name,
                         last_name : userData.rows[0].last_name,
+                        profileimg : userData.rows[0].profileimg,
                         phonenumber: userData.rows[0].phonenumber,
                         admin : userData.rows[0].admin,
                         createdat: userData.rows[0].createdat,
@@ -44,6 +46,7 @@ class userController {
     static async editProfile(req, res){
         const {email} = req.user;
         const {
+            profileimg,
             first_name,
             last_name,
             phonenumber
@@ -64,12 +67,14 @@ class userController {
                         message: "user does not exist"
                     })
                 }
+                const newProfileimg = profileimg || user.profileimg;
             const newFirstname = first_name || user.first_name;
             const newLastname = last_name || user.last_name;
             const newNumber = phonenumber || user.phonenumber;
 
-            const editQuery = `UPDATE users SET  first_name=$1, last_name=$2, phonenumber=$3, WHERE email=$4 RETURNING *`;
+            const editQuery = `UPDATE users SET profileimg=$1, first_name=$2, last_name=$3, phonenumber=$4, WHERE email=$5 RETURNING *`;
             const values = [
+                newProfileimg,
                 newFirstname,
                 newLastname,
                 newNumber,
@@ -81,6 +86,7 @@ class userController {
                     code: 200,
                     data: {
                         id : editedUser.rows[0].id,
+                        profileImg: editedUser.rows[0].profileimg,
                         first_name: editedUser.rows[0].first_name,
                         last_name : editedUser.rows[0].last_name,
                         phonenumber: editedUser.rows[0].phonenumber,

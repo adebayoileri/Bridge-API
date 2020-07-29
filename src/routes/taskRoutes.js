@@ -6,9 +6,9 @@ const router = express.Router();
 
 router.get('/tasks/filter',checkToken, taskController.filterTask);
 
-router.get('/tasks', checkToken ,taskController.getAllTasks);
+router.get('/tasks', taskController.getAllTasks);
 
-router.get('/tasks/:id', checkToken ,taskController.getSingleTask)
+router.get('/tasks/:id' ,taskController.getSingleTask)
 
 router.post('/tasks/create', checkToken ,taskController.createNewTask)
 

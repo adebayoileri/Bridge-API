@@ -4,6 +4,7 @@ const createUserTable = `
     id SERIAL PRIMARY KEY UNIQUE,
     first_name VARCHAR(50) NOT NULL,
     last_name VARCHAR(50) NOT NULL,
+    profileimg VARCHAR(225) NULL,
     phonenumber VARCHAR(50) NULL,
     email VARCHAR(50) NOT NULL UNIQUE,
     admin BOOLEAN NOT NULL DEFAULT false,
@@ -21,28 +22,31 @@ const createUserTable = `
     `;
     // auth_id int NULL, remember to add this in new migrated DB
 
+    // category_id int NOT NULL,
     // DROP TABLE IF EXISTS tasks CASCADE;
-const createTaskTable = `
-CREATE TABLE IF NOT EXISTS tasks(
+    const createTaskTable = `
+    CREATE TABLE IF NOT EXISTS tasks(
       id SERIAL NOT NULL PRIMARY KEY,
       title VARCHAR(255) NOT NULL,
       bannerImg VARCHAR(255) NOT NULL,
       category VARCHAR(30) NOT NULL,
-      description VARCHAR(255) NOT NULL,
+      description VARCHAR(1000) NOT NULL,
       user_id int NOT NULL,
-      category_id int NOT NULL,
       status VARCHAR(30) NOT NULL DEFAULT 'pending',
       location VARCHAR(255) NOT NULL DEFAULT 'remote',
-      minbudget VARCHAR(20) NOT NULL DEFAULT '0',
-      maxbudget VARCHAR(20) NOT NULL,
+      jobtype VARCHAR(20) NOT NULL DEFAULT 'part-time',
+      pricetype VARCHAR(20) NOT NULL,
+      fixedprice VARCHAR(20) NULL,
+      minbudget VARCHAR(20) DEFAULT '0',
+      maxbudget VARCHAR(20) NULL,
       createdat TIMESTAMP NOT NULL DEFAULT NOW(),
       updatedat TIMESTAMP NOT NULL DEFAULT NOW(),
       startdate DATE NOT NULL,
       enddate DATE NOT NULL,
-      FOREIGN KEY (user_id) REFERENCES "users" (id) ON UPDATE CASCADE ON DELETE CASCADE,
-      FOREIGN KEY (category_id) REFERENCES "categories" (id) ON UPDATE CASCADE ON DELETE CASCADE
-    );
+      FOREIGN KEY (user_id) REFERENCES "users" (id) ON UPDATE CASCADE ON DELETE CASCADE
+      );
 `;
+// FOREIGN KEY (category_id) REFERENCES "categories" (id) ON UPDATE CASCADE ON DELETE CASCADE
 
 // DROP TABLE IF EXISTS genders CASCADE;
 const createGenderTable = `
