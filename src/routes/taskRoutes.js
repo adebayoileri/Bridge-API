@@ -8,6 +8,8 @@ router.get('/tasks/filter',checkToken, taskController.filterTask);
 
 router.get('/tasks', taskController.getAllTasks);
 
+router.get('/tasks/search', taskController.searchTask);
+
 router.get('/tasks/:id' ,taskController.getSingleTask)
 
 router.post('/tasks/create', checkToken ,taskController.createNewTask)
