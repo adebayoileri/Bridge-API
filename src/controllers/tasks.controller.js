@@ -27,7 +27,7 @@ class taskController {
       return res.status(400).json({ Error: `${responseValidation.error}` });
 
     try {
-      const getAllTaskQuery = `SELECT * FROM tasks taskTable INNER JOIN users userTable ON userTable.id = taskTable.user_id ORDER BY taskTable.createdat DESC OFFSET($1) LIMIT($2)`;
+      const getAllTaskQuery = `SELECT * FROM tasks ORDER BY createdat DESC OFFSET($1) LIMIT($2)`;
       const values = [start, count];
       const allTasks = await pool.query(getAllTaskQuery, values);
       return res.status(200).json({
@@ -184,6 +184,7 @@ class taskController {
         data: newTask.rows[0],
       });
     } catch (error) {
+      console.log(error)
       return res.status(500).json({
         message: 'Server Error' + error,
       });
