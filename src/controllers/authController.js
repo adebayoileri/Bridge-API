@@ -140,7 +140,7 @@ class Authentication {
           },
         );
       } else {
-        res.status(400).json({
+       return res.status(400).json({
           status: 'bad request',
           message: 'incorrect email or password',
         });

@@ -34,9 +34,10 @@ class taskController {
         status: 'success',
         code: 200,
         message: 'get all tasks sucessfully',
-        data: allTasks.rows,
+        data: allTasks.rows
       });
     } catch (error) {
+      console.log(error)
       return res.status(500).json({
         message: ' Error from server' + error,
       });
@@ -183,6 +184,7 @@ class taskController {
         data: newTask.rows[0],
       });
     } catch (error) {
+      console.log(error)
       return res.status(500).json({
         message: 'Server Error' + error,
       });
@@ -373,7 +375,7 @@ class taskController {
 
     try {
       const getFilteredTaskQuery = `SELECT * FROM tasks
-                                          WHERE location LIKE $1 OR status LIKE $2 OR category LIKE $3 OR minbudget LIKE $4 OR maxbudget LIKE $5
+                                          WHERE location ILIKE $1 OR status ILIKE $2 OR category ILIKE $3 OR minbudget ILIKE $4 OR maxbudget ILIKE $5
                                           ORDER BY createdat DESC OFFSET($6) LIMIT($7)`;
       const values = [
         `%${location}%`,
@@ -417,11 +419,10 @@ class taskController {
 
     try {
       const getFilteredTaskQuery = `SELECT * FROM tasks
-                                          WHERE title LIKE $1 OR description LIKE $2
-                                          ORDER BY createdat DESC OFFSET($3) LIMIT($4)`;
+                                          WHERE to_tsvector(tasks.title || ' ' || tasks.description || ' ' || tasks.location ) @@ plainto_tsquery($1)
+                                          ORDER BY createdat DESC OFFSET($2) LIMIT($3)`;
       const values = [
-        `%${keyword}%`,
-        `%${keyword}%`,
+        `${keyword}`,
         start,
         count,
       ];
@@ -433,6 +434,7 @@ class taskController {
         data: allFiltered.rows,
       });
     } catch (error) {
+      console.log(error)
       return res.status(500).json({
         message: ' Error from server' + error,
       });
