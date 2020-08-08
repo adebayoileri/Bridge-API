@@ -309,7 +309,7 @@ class taskController {
 
     try {
       const getSingleTaskQuery = `SELECT * FROM tasks WHERE id = $1`;
-      const values = [parseInt(id)];
+      const values = [id];
       const singleTask = await pool.query(getSingleTaskQuery, values);
       if (!singleTask.rows[0]) {
         return res.status(400).json({
@@ -320,7 +320,7 @@ class taskController {
       }
       if (singleTask.rows[0].user_id === userId) {
         const deleteTaskQuery = `DELETE FROM tasks WHERE id = $1`;
-        const value = [parseInt(id)];
+        const value = [id];
         await pool.query(deleteTaskQuery, value);
         return res.status(200).json({
           status: 'sucess',

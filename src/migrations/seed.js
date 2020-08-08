@@ -4,15 +4,15 @@ const userpassword = hashSync(process.env.DEFAULT_KEY, 10);
 const adminpassword = hashSync(process.env.DEFAULT_KEY, 16);
 
 
-const seedUserTable = `
-INSERT INTO users (first_name,last_name,email,phonenumber,admin,password)
-VALUES ('frryy','tytrt','ggtr@gmail.com','08082466922',false,'${userpassword}');
-`;
+// const seedUserTable = `
+// INSERT INTO users (first_name,last_name,email,phonenumber,admin,password)
+// VALUES ('frryy','tytrt','dfggtr@gmail.com','08082466922',false,'${userpassword}');
+// `;
 
-const seedAdminTable =`
-INSERT INTO users (first_name,last_name,email,phonenumber,admin,password)
-VALUES ('ilerioluwa','adebayo','adebayorilerioluwa@gmail.com','08082466922',true,'${adminpassword}');
-`;
+// const seedAdminTable =`
+// INSERT INTO users (first_name,last_name,email,phonenumber,admin,password)
+// VALUES ('ilerioluwa','adebayo','adebayorilerioluwa@gmail.com','08082466922',true,'${adminpassword}');
+// `;
 
 const seedCategorytable =`
 INSERT INTO categories (slug, name) VALUES('graphicsdesign', 'Graphics Design');
@@ -33,8 +33,8 @@ const seedGenderTable =`
 
 const seed = async (pool) =>{
     try {
-        await pool.query(seedUserTable);
-        await pool.query(seedAdminTable);
+        // await pool.query(seedUserTable);
+        // await pool.query(seedAdminTable);
         await pool.query(seedCategorytable);
         await pool.query(seedGenderTable);
         return true

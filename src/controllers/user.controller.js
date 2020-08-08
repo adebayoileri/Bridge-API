@@ -1,5 +1,6 @@
 import  pool  from "../models/db";
 import {validateEditProfile} from '../middlewares/userValidation';
+import { genSalt } from "bcryptjs";
 class userController {
     static async getProfile(req, res){
         const {email} = req.user;
@@ -111,6 +112,42 @@ class userController {
         }
     }
 
+    static async updatePassword(req, res){
+        try{
+            const {id, email} = req.user;
+            const {newPassword, oldPassword} = req.body;
+            const salt = await bcrypt.genSalt(10);
+            const newHashedPassword =await bcrypt.hash(newPassword, salt)
+            const getUserQuery = `SELECT * FROM users WHERE email=$1`;
+            const value = [email];
+            const user = await pool.query(getUserQuery, value)
+            if(!user.rows[0]){
+                return res.status(400).json({
+                    status: "failed",
+                    message: "user doesn't exist",
+                    code: 400
+                })
+            }
+            const hashValue = bcrypt.compareSync(oldPassword, user.rows[0].password);
+            if(!hashValue){
+                return res.status(400).json({
+                    status: "failed",
+                    message: "password is incorrect",
+                    code: 400
+                })
+            }
+            const updateUserQuery = `UPDATE users SET password=$1, createdat=CURRENT_TIMESTAMP WHERE id=$2`;
+            const newValue = [newHashedPassword, id];
+            await pool.query(updateUserQuery, newValue);
+            return res.status(200).json({
+                status: "success",
+                code: 200,
+                message: "password updated successfully"
+            })
+        }catch(error){
+
+        }
+    }
 }
 
 export default userController;
