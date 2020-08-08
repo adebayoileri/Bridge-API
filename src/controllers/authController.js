@@ -340,7 +340,7 @@ class Authentication {
     //sucess
     try {
       const { email } = req.body;
-      const confirmUniqueEmailQuery = `SELECT * FROM users WHERE email=$1 RETURING *`;
+      const confirmUniqueEmailQuery = `SELECT * FROM users WHERE email=$1 RETURNING *`;
       const value = [email];
       const existedUser = await pool.query(confirmUniqueEmailQuery, value);
 
