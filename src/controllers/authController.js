@@ -328,19 +328,10 @@ class Authentication {
     }
   }
 
-  static async forgotPassword() {
-    // reqest for password
-    // send email
-    // check if email exists
-    //generate verify code
-    // send verify code to email
-    // click on link in email
-    // verify code else failed
-    // given token access to update password
-    //sucess
+  static async forgotPassword(req, res) {
     try {
       const { email } = req.body;
-      const confirmUniqueEmailQuery = `SELECT * FROM users WHERE email=$1 RETURING *`;
+      const confirmUniqueEmailQuery = `SELECT * FROM users WHERE email=$1`;
       const value = [email];
       const existedUser = await pool.query(confirmUniqueEmailQuery, value);
 
@@ -359,18 +350,23 @@ class Authentication {
         await pool.query(updateUserQuery, value);
         EmailSender.sendEmail(
           email,
-          ' Password Reset For Bridge Nigeria ',
-          `<p>Hey ${existedUser.rows[0].first_name}</p><p>You requested password reset link</p> <p>Click on this <a href="${process.env.APP_URL}/api/v1/auth/resetpassword?token=${reset_token}">link</a></p> <p>If you didn't request for this. Please login to update your password for security reasons</p>`,
+          'Password Reset For Bridge Nigeria', 'Greeder'
+          // `<p>Hey ${existedUser.rows[0].first_name}</p>
+          // <p>You requested password reset link</p>
+          //  <p>Click on this <a href="${process.env.APP_URL}/api/v1/auth/resetpassword?token=${reset_token}">link</a></p> 
+          //  <p>If you didn't request for this. Please login to update your password for security reasons</p>`,
         );
-        res.status(200).json({
+       return res.status(200).json({
           status: 'success',
           message: 'password reset email sent',
           code: 200,
         });
       }
-    } catch (error) {}
+    } catch (error) {
+      console.log(error)
+    }
   }
-  static async resetPassword() {
+  static async resetPassword(req, res) {
     try {
       const { token } = req.query;
       const { newPassword, confirmPassword } = req.body;

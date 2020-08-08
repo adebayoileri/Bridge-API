@@ -11,7 +11,7 @@ const router = Router();
 
 router.post('/signup', Authentication.signUp);
 router.post('/login', Authentication.login);
-router.put('/forgotpassword', Authentication.forgotPassword);
+router.post('/forgotpassword', Authentication.forgotPassword);
 router.put('/resetpassword', Authentication.resetPassword);
 router.get(
   '/login/google',
