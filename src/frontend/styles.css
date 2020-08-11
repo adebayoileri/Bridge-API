@@ -81,6 +81,7 @@ a {
     color: #757575;
     font-weight: 700;
     font-size: 14px;
+    z-index: 1;
   }
 
   @media all and (max-width: 850px){

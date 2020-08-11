@@ -1,7 +1,7 @@
 // const apiBase = "https://bridgetaskerapi.herokuapp.com/api/v1/auth";
-const apiBase = "http://localhost:3000/api/v1/auth";
+// const apiBase = "http://localhost:5000/api/v1/auth";
 
-// const apiBase = "https://bridge-task-test-api.herokuapp.com/api/v1/auth"
+const apiBase = "https://bridge-task-test-api.herokuapp.com/api/v1/auth"
 const email = document.getElementById("email");
 const password  = document.getElementById('password');
 const loginForm = document.querySelector("#login-form");
@@ -63,7 +63,6 @@ function loginInUser(){
       })
         .then((response) => response.json())
         .then(response  =>  {
-          console.log(response)
           loader.stop();
             if (response.code === 200) {
               // save the token in the localstroage and redirect users here
@@ -71,7 +70,7 @@ function loginInUser(){
               // check if the users tried to access a route using web storage before but was redirected here
 
               // else redirect to all tasks page
-              window.location.href = "./index.html";
+              window.location.href = "/feed";
             }else if(response.status === 'bad request'){
               // display incorrect username and password
               return Alert.add_danger({message : 'Incorrect username or password'})

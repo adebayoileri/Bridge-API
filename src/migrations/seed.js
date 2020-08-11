@@ -15,14 +15,14 @@ const adminpassword = hashSync(process.env.DEFAULT_KEY, 16);
 // `;
 
 const seedCategorytable =`
-INSERT INTO categories (slug, name) VALUES('graphicsdesign', 'Graphics Design');
-INSERT INTO categories (slug, name) VALUES('webdevelopment', 'Web Development');
-INSERT INTO categories (slug, name) VALUES('errands', 'City Errands');
-INSERT INTO categories (slug, name) VALUES('laundry', 'Cleaning and laundry');
-INSERT INTO categories (slug, name) VALUES('electrician', 'Electrician');
-INSERT INTO categories (slug, name) VALUES('plumbing', 'Plumbing');
+INSERT INTO categories (slug, name) VALUES('business', 'Business');
+INSERT INTO categories (slug, name) VALUES('Cleaning and lundry', 'Cleaning and Laundry');
+INSERT INTO categories (slug, name) VALUES('technology', 'Technology');
+INSERT INTO categories (slug, name) VALUES('arts and craft', 'Arts and Craft');
+INSERT INTO categories (slug, name) VALUES('repairs and installation', 'Repairs and Installation');
+INSERT INTO categories (slug, name) VALUES('education', 'Education');
 INSERT INTO categories (slug, name) VALUES('tutoring', 'Tutoring');
-INSERT INTO categories (slug, name) VALUES('shopping', 'Grocery shopping');
+INSERT INTO categories (slug, name) VALUES('others', 'Others');
 `;
 
 const seedGenderTable =`

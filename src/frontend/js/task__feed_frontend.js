@@ -1,8 +1,8 @@
 // const apiBase = "https://bridgetaskerapi.herokuapp.com/api/v1";
-const apiBase = "http://localhost:3000/api/v1";
+// const apiBase = "http://localhost:5000/api/v1";
 let fullPageBody = document.querySelector('body');
 
-// const apiBase = "https://bridge-task-test-api.herokuapp.com/api/v1"
+const apiBase = "https://bridge-task-test-api.herokuapp.com/api/v1"
 const token = window.localStorage.getItem('token')
 
 const recommendationContainer = document.querySelector('.recommendation-container');
@@ -379,7 +379,7 @@ function fetchWithId(task) {
                   <div> <img src="../assets/images/briefcase.svg"/> </div>
                   <div class="js-icon-info"> 
                     <div class="js-icon-info-one">Job Type</div>
-                    <div class="js-icon-info-two">${response.data.jobtype === 'part-time' ? 'Part Time' : 'Full Time'}</div>
+                    <div class="js-icon-info-two">${response.data.jobtype === 'Full Time' ? 'Full Time' : 'Part Time'}</div>
                   </div>
                 </div> <!--end-->
               <!--icon and details-->
@@ -825,7 +825,7 @@ function searchTask({
                    </div>
                    <div class="sub-jobpost-cover">
                        <div class="sub-jobpost-image"> <img src="../assets/images/briefcase.svg" /> </div>
-                       <div class="sub-jobpost-text">${response.jobtype === 'full-time' ? 'Full time' : 'Part time' }</div>
+                       <div class="sub-jobpost-text">${response.jobtype === 'Full time' ? 'Full time' : 'Part time' }</div>
                    </div>
                    <div class="sub-jobpost-cover">
                        <div class="sub-jobpost-image"> <img src="../assets/images/time.svg" /> </div>
@@ -1180,9 +1180,11 @@ function formatBytes(bytes, decimals = 2) {
 // ------------------------- FETCHING CATEGORIES ------
 const jobCategoryDropdown = document.getElementById('job-category');
 
-const categoryStorage = JSON.parse(window.sessionStorage.getItem('categories'));
+// const categoryStorage = JSON.parse(window.sessionStorage.getItem('categories'));
 
-if (!categoryStorage) {
+// if (!categoryStorage) {
+
+function fetchCategory(){
 
   fetch(`${apiBase}/category`, {
       method: "GET",
@@ -1199,18 +1201,20 @@ if (!categoryStorage) {
           newOption.innerText = `${response.name}`;
           jobCategoryDropdown.appendChild(newOption);
         })
-      } else {
-        return console.log({
-          message: 'something went wrong, please try again'
-        });
-      }
+      } 
+      // else {
+      //   return console.log({
+      //     message: 'something went wrong, please try again'
+      //   });
+      // }
     })
     .catch((err) => {
       if (err.message.indexOf('Failed to fetch') === 0) {
         // display internet error message
-        return console.log({
-          message: 'Could not connect to the internet, looks like you are offline'
-        })
+        // return console.log({
+        //   message: 'Could not connect to the internet, looks like you are offline'
+        // })
+        setTimeout(() => fetchCategory(), 4000)
       } else {
         // display something went wrong message
         // return console.log({
@@ -1219,13 +1223,17 @@ if (!categoryStorage) {
         // console.log("An error occur while connecting to our servers" + err);
       }
     })
-} else {
-  categoryStorage.data.forEach((response) => {
-    var newOption = document.createElement("option");
-    newOption.innerText = `${response.name}`;
-    jobCategoryDropdown.appendChild(newOption);
-  })
+// }
+//  else {
+  // categoryStorage.data.forEach((response) => {
+//     var newOption = document.createElement("option");
+//     newOption.innerText = `${response.name}`;
+//     jobCategoryDropdown.appendChild(newOption);
+//   })
+// }
 }
+
+fetchCategory()
 
 // ---------------------- UPLOADING task TO DB ----
 const formSpinner = document.querySelector('.form-spinner');
@@ -1282,7 +1290,7 @@ function uploadImageToCloudinary_And_submit_form() {
         if (response.status === 'Ok') {
           uploadTask(response.data.secure_url);
         } else if (response.code === 403) {
-          return window.location.href = './login.html';
+          return window.location.href = '/login';
         } else {
           formSpinLoader.hide();
           formErrorMessage.show({
@@ -1370,7 +1378,7 @@ function uploadTask(uploadedImage = 'null') {
         refreshPostAjobForm()
         return refreshTask();
       } else if (response.code === 403) {
-        return window.location.href = './login.html';
+        return window.location.href = '/login';
       } else {
         formSpinLoader.hide();
         formErrorMessage.show({
