@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link
+        href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;1,100;1,200;1,300&display=swap"
+        rel="stylesheet">
+    <link rel="stylesheet" href="../assets/mdl/material.min.css">
+    <link rel="stylesheet" href="../css/auth.css">
+    <title>Log In</title>
+</head>
+
+<body>
+        <!-- modal starts V2-->
+        <div class="auth-modal-container" id="create-account-div">
+          <!-- MDL Progress Bar with Indeterminate Progress -->
+          <div id="p2" style="width: 100%; position: absolute; z-index: 1000; left: 0; top: 0;" class="mdl-js-progress mdl-progress__indeterminate"></div>
+          <div class="loader-login-overlay"></div>
+         
+
+            <div class="top-form-design">
+                <p class="side-word">Log in</p>
+            </div>
+    
+            <!-- ALERT STARTS -->
+            <div class="alertModal" role="alert"></div>
+            <!-- ALERT ENDS -->
+
+              <form class="form" id="login-form">
+              <div class="form-group-container">
+                <div class="form-group">
+                        <label for="email" class="form-label signup-label-email">Email</label>
+                  <div class="form-input">
+                    <input name="email" type="email" class="form-input-signup login-input create-acc-input form-control-input create-email" id="email">
+                    <span id="login-acc-email-error-span"></span>
+                  </div>
+                </div>
+                <div class="form-group">
+                    <label for="password" class="form-label signup-label-password">Password</label>
+                    <div class="form-input">
+                        <input name="password" type="password" class="form-input-signup login-input create-acc-input form-control-input create-password" id="password">
+                        <span id="login-acc-password-error-span"></span>
+                    </div>
+                  </div>
+                <div class="orange-color small-text forgot-password-text"><a href="#">Forgot Password?</a></div>
+                <button class="btn-auth orange-color-bg" id="login-btn" type="submit">Log in</button>
+            </form>
+       
+
+            <!-- second login auth starts -->
+          <div class="external-auth-container">
+            <p class="or-divider">OR</p>
+          <!-- second login auth ends -->
+          <button class="btn-fb"><img src="../assets/images/facebook icon.svg" alt="FB">Log in with Facebook</button>
+          <button class="btn-google"><img src="../assets/images/google icon.svg" alt="google"> Log in with Google</button>
+        </div>
+        <!--login if you have an account-->
+        <div class="small-text" style="margin: 20px 0px; text-align: center; font-weight: 100;">
+            Don't have an account? <a href="./createaccount.html">Create account</a>
+          </div>
+        <!-- modal ends -->
+        </div>
+
+        <script src="../assets/mdl/material.min.js"></script>
+        <script src="../js/auth.js"></script>
+        <script src="../js/login.js"></script>
+
+  </body>
+
+</html>

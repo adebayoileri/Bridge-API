@@ -1,0 +1,52 @@
+.top-main-content {
+    padding: 0px 0px;
+}
+
+.location, .categories, .price {
+    margin-right: 5%;
+}
+
+/*change padding of logo in navigation*/
+.mdl-layout__header-row {
+    padding: 0 16px 0 50px!important;
+}
+
+.pag-num span {
+    display: none;
+}
+
+
+/*show toggle*/
+#header-box-shadow > div.mdl-layout__drawer-button, .desktop-hide {
+    display: block;
+}
+
+/*hide login in mobile feed*/
+/* #header-box-shadow > div.mdl-layout__header-row > div.android-header-spacer.mdl-layout-spacer > nav > a:nth-child(3) {
+    display: none;
+} */
+
+/* extend search bar on mobile viw*/
+.search-input-form-tag {
+    width: 100vw;
+}
+
+
+/*media query to remove post a job on log in */
+@media (max-width: 430px) {
+/* #header-box-shadow > div.mdl-layout__header-row > div.android-header-spacer.mdl-layout-spacer > nav > a {
+    display: none!important
+} */
+
+/*CTA mobilea*/
+.plus-cta {
+    width: 60px;
+    height: 59px;
+    right: 35px;
+    border-radius: 20vw;
+    background-color: #228dfe;
+    display: flex;
+    cursor: pointer;
+}
+
+}

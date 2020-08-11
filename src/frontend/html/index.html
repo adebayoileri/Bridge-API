@@ -1,0 +1,599 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="description" content="Bridge - connecting locals with jobs in their neighborhood.">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0">
+  <title>Task Feed</title>
+
+  <script src="https://use.fontawesome.com/857595fcb1.js"></script>
+  <script src="../../frontend/assets/tinyModal/micromodal.min.js"></script>
+  <link rel="shortcut icon" href="../../frontend/assets/images/">
+  <!-- Page styles -->
+  <link rel="stylesheet"
+    href="https://fonts.googleapis.com/css?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;1,100;1,200;1,300&family=Roboto:regular,bold,italic,thin,light,bolditalic,black,medium&amp;lang=en">
+  <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+  <!--Material Design Lite-->
+  <link rel="stylesheet" href="../../frontend/assets/mdl/material.min.css">
+  <link rel="stylesheet" href="../../frontend/assets/tinyModal/tinyModal.css">
+  <link rel="stylesheet" href="../../frontend/assets/styles.css">
+  <!--CSS-->
+  <link rel="stylesheet" href="../../frontend/assets/css/style.css">
+  <!--Media queries-->
+  <link rel="stylesheet" media="(max-width: 900px) and (min-width: 1px)" href="../../frontend/assets/css/mobile/feed-md.css">
+
+  <!-- imported from job details -->
+  <!--CSS-->
+  <link rel="stylesheet" href="../../frontend/assets/css/style.css">
+  <link rel="stylesheet" href="../../frontend/assets/css/jobdetails.css">
+  <link rel="stylesheet" href="../../frontend/assets/css/applypop.css">
+  <!--Media queries-->
+  <link rel="stylesheet" media="(max-width: 900px) and (min-width: 1px)" href="../../frontend/assets/css/mobile/feed-md.css">
+  <!-- post a job CSS-->
+  <link rel="stylesheet" href="../../frontend/assets/css/postajob.css">
+
+  <style>
+    #view-source {
+      position: fixed;
+      display: block;
+      right: 0;
+      bottom: 0;
+      margin-right: 40px;
+      margin-bottom: 40px;
+      z-index: 900;
+    }
+  </style>
+</head>
+
+<body>
+  <div class="mdl-layout mdl-js-layout mdl-layout--fixed-header">
+    <div class="android-header mdl-layout__header" id="header-box-shadow">
+      <div class="mdl-layout__header-row">
+        <span class="android-title mdl-layout-title bridge-logo">
+          <img class="bridge-logo-image" src="../assets/images/logo.png">
+        </span>
+        <!-- Add spacer, to align navigation to the right in desktop -->
+        <div style="width: 89%; display: flex; justify-content: flex-end;"
+          class="android-header-spacer mdl-layout-spacer">
+          <nav class="android-navigation mdl-navigation top-task-feed-nav">
+            <!-- <a class="mdl-navigation__link mdl-typography--text-uppercase" href="">Blog</a> -->
+            <!-- <a class="mdl-navigation__link mdl-typography--text-uppercase" href="">Send Feedback</a> -->
+            <!-- <a class="mdl-navigation__link mdl-typography--text-uppercase" href="">FAQ</a> -->
+            <!-- <a class="mdl-navigation__link mdl-typography--text-uppercase" href="">Contact us</a> -->
+            <!-- <a class="mdl-navigation__link mdl-typography--text-uppercase post-job" href="./postjob.html">Post a job</a> -->
+            <!-- <div class="android-search-box mdl-textfield mdl-js-textfield mdl-textfield--expandable mdl-textfield--floating-label mdl-textfield--align-right mdl-textfield--full-width remove-mdl-float">
+                  <label class="mdl-button mdl-js-button mdl-button--icon" for="search-field">
+                    <i class="material-icons">search</i>
+                  </label>
+                  <div class="mdl-textfield__expandable-holder">
+                    <input class="mdl-textfield__input" type="text" id="search-field">
+                  </div>
+                </div> -->
+            <!-- User profile image -->
+            <!-- <a class="mdl-navigation__link mdl-typography--text-uppercase auth-nav-btn" href="./createaccount.html">sign up</a>
+                <a class="mdl-navigation__link mdl-typography--text-uppercase auth-nav-btn" href="./login.html">login in</a> -->
+            <!-- <div class="user-image">
+                  <img src="../assets/images/user-image.jpg"/>
+                </div> -->
+          </nav>
+        </div>
+
+        <!-- this is kept for logout button -->
+        <div style="position: absolute; right: 4px; top: 10px; height: 20px; padding: 0;"
+          class="android-navigation-container"></div>
+
+
+        <span class="android-mobile-title mdl-layout-title">
+          <img class="android-logo-image bridge-logo" src="../assets/images/logo.png">
+        </span>
+      </div>
+    </div>
+
+    <div class="android-drawer mdl-layout__drawer">
+      <span class="mdl-layout-title">
+        <img class="android-logo-image bridge-logo" src="../assets/images/logo.png">
+      </span>
+      <nav class="mdl-navigation task-feed-side-bar">
+        <a class="mdl-navigation__link" href="">Blog</a>
+        <a class="mdl-navigation__link" href="">Send feedback</a>
+        <a class="mdl-navigation__link" href="">FAQ</a>
+        <a class="mdl-navigation__link" href="">Contact us</a>
+      </nav>
+    </div>
+
+    <!--Search filters-->
+    <div class="main-content">
+      <!--complete CSS-->
+      <!-- margin-left: 10px; top: 105px;
+      left: 23px; z-index: 2; height: 0px;
+      position: absolute; -->
+
+      <!-- <form style="margin-left: 10px;" onSubmit="getSearchKeyWord()">
+  <div class="mdl-textfield mdl-js-textfield mdl-textfield--expandable">
+    <div style="min-width: 270px;" class="mdl-textfield__expandable-holder">
+      <input class="mdl-textfield__input" type="text" style="background-color: white;" id="search-task-input">
+      <label class="mdl-textfield__label" for="sample-expandable">Expandable Input</label>
+    </div> -->
+    <!--search-->
+    <!-- <label class="mdl-button mdl-js-button mdl-button--icon" for="search-task-input">
+      <i class="material-icons" id="search-task-btn">search</i>
+    </label>
+  </div>
+</form> -->
+<form class="search-input-form-tag" id="search-form">
+  <input class="search-input-query" type="text" id="search-task-input" placeholder="search...">
+  <button type="submit" id="search-task-btn" class="search-icon-query"> <img src="../assets/images/search.svg"/> </button>
+</form>
+    <!--
+      <div class="top-main-content">
+       <div class="location">Location <img src="../assets/images/dropdown.svg" /> </div>
+        <div class="categories">Categories <img src="../assets/images/dropdown.svg" /></div>
+        <div class="price">Price <img src="../assets/images/dropdown.svg" /></div> -->
+        <!--
+        <form style="margin-left: 10px; " id="search-form">
+            <div class="mdl-textfield mdl-js-textfield mdl-textfield--expandable">
+              <label class="mdl-button mdl-js-button mdl-button--icon" for="search-task-input">
+                <i class="material-icons" id="search-task-btn">search</i>
+              </label>
+              <div style="min-width: 270px;" class="mdl-textfield__expandable-holder">
+                <input class="mdl-textfield__input" type="text" style="background-color: white;" id="search-task-input">
+                <label class="mdl-textfield__label" for="sample-expandable">Expandable Input</label>
+              </div>
+            </div>
+          </form>
+
+      </div>
+    -->
+      <button onClick="refreshTask()" class="refresh-task-btn">
+        Refresh Feed
+      </button>
+    </div>
+
+    <!--Search for mobile-->
+    <!-- <div class="android-search-box mdl-textfield mdl-js-textfield mdl-textfield--expandable mdl-textfield--floating-label mdl-textfield--align-right mdl-textfield--full-width remove-mdl-float">
+        <label class="mdl-button mdl-js-button mdl-button--icon" for="search-field">
+          <i class="material-icons">search</i>
+        </label>
+        <div class="mdl-textfield__expandable-holder">
+          <input class="mdl-textfield__input" type="text" id="search-field">
+        </div>
+      </div> -->
+
+    <!-- Expandable Textfield -->
+    <!-- Expandable Textfield -->
+    <!-- Expandable Textfield -->
+    <!-- Floating Multiline Textfield -->
+    <!-- <form style="height: 48px" action="#">
+      <div style="display: flex; float: right; margin-right: 15px;" class="mdl-textfield mdl-js-textfield">
+        <input class="mdl-textfield__input" type="search" id="search-task-input">
+        <label style="padding-left: 13px" class="mdl-textfield__label" for="search-task-input">search...</label>
+        <button id="search-task-btn">search</button>
+      </div>
+    </form> -->
+    <!-- end -->
+
+    <div id="feed-container" class="android-content mdl-layout__content">
+      <!-- MDL Progress Bar with Indeterminate Progress -->
+      <div id="p2" style="width: 100%; position: absolute; z-index: 1000; left: 0; top: 0;"
+        class="mdl-js-progress mdl-progress__indeterminate"></div>
+      <!-- task container -->
+      <div class="jobpost-card-parent">
+
+      </div>
+
+      <div class="infinite-loader-and-message-container error-msg-stylefix">
+        <div class="infinite-scroll-spinner mdl-spinner mdl-js-spinner"></div>
+
+        <div class="loader-message-container">
+          <div class="error-message"></div>
+          <button onClick="fetchTask()"
+            class="retry-btn mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect">
+            Retry
+          </button>
+        </div>
+      </div>
+      <div style="left: 151px;" id="demo-toast-example" class="mdl-js-snackbar mdl-snackbar">
+        <div class="mdl-snackbar__text"></div>
+        <button class="mdl-snackbar__action" type="button"></button>
+      </div>
+      <!--Floating post a job button-->
+      <!-- Rich Tooltip -->
+      <span class="mdl-tooltip--top mdl-tooltip--large mdl-tooltip" data-mdl-for="tt3">
+        Post a Job
+      </span>
+      <div onClick="postAjob()" class="plus-cta">
+        <div id="tt3">
+          <img src="../assets/images/plus.svg" />
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!------------- job details container starts - -------- -->
+  <div class="job-details-container">
+    <div class="android-content mdl-layout__content">
+      <!--Job Details-->
+      <div class="job-details-parent">
+        <div class="job-title">
+          <!--back-->
+          <div style="cursor: pointer;" class="back-icon"><img src="../assets/images/direction.svg" /></div>
+          <h4 id="task-details-title"></h4>
+        </div>
+
+        <!--details-->
+        <div class="job-details-grid">
+
+          <div class="jd-one">
+
+            <!-- spinner starts -->
+            <div class="spinner-container">
+              <div class="job-details-spinner mdl-spinner mdl-js-spinner"></div>
+            </div>
+            <!-- spinner ends -->
+            <!-- error container starts -->
+            <div id="task-details-error"></div>
+            <!-- error container ends -->
+
+            <div class="job-description-text"></div>
+            <div class="job-picture-gallery"></div>
+          </div>
+
+          <!--job summary-->
+          <div class="jd-two">
+
+          </div>
+
+        </div>
+        <!----->
+        <!--simlilar jobs-->
+        <div>
+          <div class="recommend">See latest recommendations</div>
+          <br>
+          <!--3-->
+          <div class="jobpost-card-parent recommendation-container">
+
+          </div>
+        </div>
+        <!--Footer-->
+        <footer>
+          <div class="copyright">© 2020 <span>Bridge</span> | All Rights Reserved</div>
+          <!--socials-->
+          <div class="socials">
+            <img src="../assets/images/facebook.svg" />
+            <img src="../assets/images/twitter.svg" />
+            <img src="../assets/images/instagram.svg" />
+            <img src="../assets/images/linkedin.svg" />
+          </div>
+        </footer>
+      </div>
+
+    </div>
+
+  </div>
+  <!-- --------- job details container ends ------------ -->
+
+  <!-- apply for job modal starts -->
+
+  <div class="modal micromodal-slide" id="apply-for-job-modal" aria-hidden="true">
+    <div class="modal__overlay" tabindex="-1" data-micromodal-close>
+      <div class="modal__container" id="apply-for-job-main" style=" overflow: hidden; width: 100%;" role="dialog" aria-modal="true" aria-labelledby="modal-1-title">
+        <header class="modal__header">
+          <h2 class="modal__title" id="modal-1-title">
+            Apply for job
+          </h2>
+          <button style="cursor: pointer;" class="plus" id="plus">+</button>
+          <!-- <button class="modal__close" aria-label="Close modal" data-micromodal-close></button> -->
+        </header>
+        <main class="modal__content" id="modal-1-content">
+          <div class="overlay-apply-loader">
+            <div class="apply-spinner mdl-spinner mdl-js-spinner"></div>
+          </div>
+          <!---begining-->
+          <!------------------------------------------>
+          <!-- <div class="applyjob make-offer-btn makeoffer">Apply for job</div> -->
+  
+          <!-- display error starts -->
+          <div class="apply-job-error-div"></div>
+          <!-- display error ends -->
+  
+          <div class="task-title offer-pad tt-margin"></div>
+          <!--Comment-->
+          <textarea maxlength="250" class="apply-text"></textarea>
+          <span class="apply-error-span"></span>
+        </main>
+        <footer class="modal__footer">
+          <button class="modal__btn modal__btn-primary next">Apply</button>
+          <!-- <button class="modal__btn" data-micromodal-close aria-label="Close this dialog window">Close</button> -->
+        </footer>  
+      </div>
+
+      <!-- success arena -->
+        <div style="background-color: white;position:relative; max-width: 65%; padding: 30px; height: auto;" class="step-one success-modal">
+            <div class="apply-success-parent">
+              <button style="cursor: pointer;" class="plus">+</button>
+              <div class="apply-success"></div>
+              <div class="giphy"> <img src="../assets/images/loadergif.gif" noloop loop="noloop" /> </div>
+            </div>
+          </div>
+      </div>
+  </div>
+<!-- 
+  <div class="bg-modal" style="z-index: 10000; height: 100%;">
+    <div class="modal-content">
+      <button style="cursor: pointer;" class="plus" id="plus">+</button>
+      <div class="divi">
+        <div class="overlay-apply-loader">
+          <div class="apply-spinner mdl-spinner mdl-js-spinner"></div>
+        </div> -->
+        <!---begining-->
+        <!------------------------------------------>
+        <!-- <div class="applyjob make-offer-btn makeoffer">Apply for job</div> -->
+
+        <!-- display error starts -->
+        <!-- <div class="apply-job-error-div"></div> -->
+        <!-- display error ends -->
+
+        <!-- <div class="task-title offer-pad tt-margin"></div> -->
+        <!--Comment-->
+        <!-- <textarea maxlength="250" class="apply-text"></textarea>
+        <span class="apply-error-span"></span> -->
+        <!--------------------------------------------->
+        <!-- <div class="next-cover"> <button class="next">Apply now</button> </div>
+      </div> -->
+
+      <!--Progress Bar-->
+      <div class="step-one">
+        <div class="apply-success-parent">
+          <div class="apply-success"></div>
+          <div class="giphy"> <img src="../assets/images/loadergif.gif" noloop loop="noloop" /> </div>
+        </div>
+      </div>
+      <!--end-->
+    </div>
+  </div>
+  <!--popup end-->
+
+  <!-- pop up form for post a job-->
+
+  <div class="modal micromodal-slide" id="modal-1" aria-hidden="true">
+    <div class="modal__overlay" tabindex="-1" data-micromodal-close>
+      <div class="modal__container post-job-modal-container" style="max-width: fit-content; min-width: 85%;" role="dialog" aria-modal="true"
+        aria-labelledby="modal-1-title">
+        <header style="height: 20px;" class="modal__header">
+          <h2 class="modal__title" id="modal-1-title">
+            <div class="page-title">
+              <h4>Post a Job</h4>
+            </div>
+          </h2>
+          <button class="modal__close" aria-label="Close modal" data-micromodal-close></button>
+        </header>
+        <main class="modal__content" id="modal-1-content">
+
+
+
+          <!--form-->
+          <form id="post-task-form">
+            <!-- for showing loader and form errors -->
+            <div class="error-message"></div>
+            <div style="display:none" class="form-loader-overlay">
+              <div class="form-spinner mdl-spinner mdl-js-spinner"></div>
+            </div>
+
+            <div class="sub-form">
+              <!--Job title | Select category | sub-category-->
+              <div class="three-in-input">
+                <div class="input-cover">
+                  <h5>Job title</h5>
+                  <div>
+                    <input id="job-title" placeholder="e.g hire a driver" class="input" />
+                  </div>
+                </div>
+
+                <div class="input-cover">
+                  <h5>Select category</h5>
+                  <select id="job-category" class="select">
+                    <option>others</option>
+                  </select>
+                </div>
+
+                <!-- <div class="input-cover">
+            <h5 class="hide-fl">Sub categories</h5>
+            <select id="job-subcategory" class="select mid-margin"> 
+                    <option>Sub Categories</option>
+                    <option>2</option>
+                    <option>3</option>
+            </select>
+            </div> -->
+              </div>
+
+              <!-- LOCATION - ADDRESS, LGA, STATE-->
+              <div class="three-in-input">
+                <!-- <div class="input-cover"> -->
+                <!-- <h5>Location</h5> -->
+                <!-- <div><input id="address" placeholder="Address" class="input"/></div> -->
+                <!-- </div> -->
+
+                <div class="input-cover">
+                  <h5 class="hide-fl">State</h5>
+                  <select id="state" class="select mid-margin" placeholder="tesr">
+                    <option>Select state</option>
+                    <option>Abia State</option>
+                    <option>Adamawa State</option>
+                    <options>Akwa Ibom State</options>
+                    <option>Anambra State</option>
+                    <option>Bauchi State</option>
+                    <option>Bayelsa State</option>
+                    <option>Benue State</option>
+                    <option>Borno State</option>
+                    <option>Cross River State</option>
+                    <option>Delta State</option>
+                    <option>Ebonyi State</option>
+                    <option>Edo State</option>
+                    <option>Ekiti State</option>
+                    <option>Enugu State</option>
+                    <option>Federal Capital Territory</option>
+                    <option>Gombe State</option>
+                    <option>Imo State</option>
+                    <option>Jigawa State</option>
+                    <option>Kaduna State</option>
+                    <option>Kano State</option>
+                    <option>Katsina State</option>
+                    <option>Kebbi State</option>
+                    <option>Kogi State</option>
+                    <option>Kwara State</option>
+                    <option>Lagos State</option>
+                    <option>Nasarawa State</option>
+                    <option> Niger State</option>
+                    <option>Ogun State</option>
+                    <option>Ondo State</option>
+                    <option>Osun State</option>
+                    <option>Oyo State</option>
+                    <option>Plateau State</option>
+                    <option>Rivers State</option>
+                    <option>Sokoto State</option>
+                    <option>Taraba State</option>
+                    <option>Yobe State</option>
+                    <option>Zamfara State</option>
+                  </select>
+                </div>
+
+                <div class="input-cover">
+                  <h5 class="hide-fl">LGA</h5>
+                  <input type="text" id="local-government" placeholder="local government" class="select mid-margin" />
+                </div>
+              </div>
+
+              <!-- Jobtype | Due date | conditions-->
+              <div class="three-in-input">
+                <div class="input-cover">
+                  <h5>Job type</h5>
+                  <select id="job-type" class="select" placeholder="tesr">
+                    <option>Select job type </option>
+                    <option>Full time</option>
+                    <option>Part time</option>
+                  </select>
+                </div>
+
+                <div class="input-cover">
+                  <h5>Due date</h5>
+                  <div><input id="due-date" placeholder="data" class="input" type="date" /></div>
+                </div>
+
+                <div class="input-cover">
+                  <h5>Conditions (optional)
+                    <!-- Rich Tooltip -->
+                    <i id="condition-icon" class="form-condition-icon fa fa-info" aria-hidden="true"></i>
+                    <div class="mdl-tooltip mdl-tooltip--right" data-mdl-for="condition-icon">eg, conditions to be met
+                      before application</div>
+                  </h5>
+                  <div class="condition-input-container"><input id="job-conditions" placeholder="Condition"
+                      class="input" /><button>+</button></div>
+                </div>
+              </div>
+
+              <!--second part-->
+              <div class="three-in-input">
+                <div class="price-cover">
+                  <h5>Select your budget</h5>
+                  <div class="job-price-range-container">
+                    <input name="price-range" value="fixed-price" type="radio" /> Fixed price
+                    <input name="price-range" value="price-range" type="radio" /> Price range
+                  </div>
+
+                  <!-- price range container -->
+                  <div style="display: none;" id="price-range-input-container" class="price-input">
+                    <input id="minimum-price-range" type="number" placeholder="Minimum"
+                      class="marg-right  mid-margin" />
+                    <input id="maximum-price-range" type="number" placeholder="Maximum"
+                      class="marg-right  mid-margin" />
+                    <!--days-->
+                    <!-- <select id="duration-of-payment" class="mid-margin">
+                    <option>Per hour</option>
+                    <option>Per day</option>
+                    <option>Per month</option>
+            </select> -->
+                  </div>
+
+                  <!-- fixed price container -->
+                  <div style="display: none;" id="fixed-price-input-container" class="price-input">
+                    <input id="fixed-price-input" type="number" placeholder="Fixed price"
+                      class="marg-right  mid-margin" />
+                  </div>
+                </div>
+              </div>
+
+              <!--describe your project-->
+              <div class="project-details">
+                <div class="project-cover">
+                  <h5>Describe your project</h5>
+                  <textarea id="project-description" class="textarea"> </textarea>
+                  <span class="error-span"></span>
+                </div>
+
+                <!--upload files-->
+                <div class="upload-div">
+                  <input id="bannerImg" type="file" />
+                  <span>Upload picture</span>
+                </div>
+                <div class="upload-description">Image that might be helpful in describing your task</div>
+                <!-- MDL Spinner Component -->
+                <div class="upload-spinner mdl-spinner mdl-js-spinner"></div>
+                <!-- image preview container -->
+                <div class="preview-pics-container"></div>
+              </div>
+              <!--end-->
+            </div>
+          </form>
+        </main>
+        <footer class="modal__footer">
+          <button class="modal__btn modal__btn-primary post-job-modal-btn" id="submit-form">Post Job</button>
+          <button class="modal__btn post-job-modal-btn" data-micromodal-close
+            aria-label="Close this dialog window">Close</button>
+        </footer>
+      </div>
+    </div>
+  </div>
+
+  <!-- snackbar container -->
+  <div style="background-color: #F44336; z-index: 10000; left: 22%;" id="post-a-job-snackbar" class="mdl-js-snackbar mdl-snackbar">
+    <div class="mdl-snackbar__text"></div>
+    <button style="display: none;" class="mdl-snackbar__action" type="button"></button>
+  </div>
+
+
+  <!--  login modal error -->
+  <div class="modal micromodal-slide" id="login-warning-modal" aria-hidden="true">
+    <div class="modal__overlay" tabindex="-1" data-micromodal-close>
+      <div class="modal__container" role="dialog" aria-modal="true" aria-labelledby="modal-1-title">
+        <header class="modal__header">
+          <h2 style="color: red" class="modal__title" id="modal-1-title">
+            Error
+          </h2>
+          <button class="modal__close" aria-label="Close modal" data-micromodal-close></button>
+        </header>
+        <main class="modal__content" id="modal-1-content">
+          <b>
+            Sorry, Please login to perform the task
+          </b>
+        </main>
+        <footer class="modal__footer">
+          <button class="modal__btn modal__btn-primary"> <a
+              style="color: white;padding: 7px 20px; margin: -13px;" href="./login.html">Login</a>
+          </button>
+          <button class="modal__btn" data-micromodal-close aria-label="Close this dialog window">Cancel</button>
+        </footer>
+      </div>
+    </div>
+  </div>
+
+  <!-- <a href="https://github.com/google/material-design-lite/blob/mdl-1.x/templates/android-dot-com/" target="_blank" id="view-source" class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-color--accent mdl-color-text--accent-contrast">View Source</a> -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/numeral.js/2.0.6/numeral.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/mark.js/8.11.1/mark.min.js"></script>
+  <script src="../../frontend/js/moment.js"></script>
+  <script src="../../frontend/assets/mdl/material.min.js"></script>
+  <script src="../../frontend/js/task__feed_frontend.js"></script>
+</body>
+
+</html>

@@ -1,0 +1,444 @@
+.colors {
+    color: #f68A1E;
+    color: #007CFE;
+    color: #ABA6AA;
+}
+
+body {
+    margin: 0;
+    margin-top: 5px;
+    padding: 0;
+    justify-content: center;
+    align-items: center;
+    font-family: 'Poppins', sans-serif;
+    background: #f5f4f4;
+}
+
+
+.auth-modal-container {
+    width: 90%;
+    margin: 0px auto;
+}
+
+.top-form-design {
+    height: 50px;
+}
+
+/* design for the form svg starts*/
+.bg-svg {
+    width: 404px;
+    height: 77px;
+    position: absolute;
+    left: -46px;
+    z-index: 1;
+}
+
+.bg-svg-2 {
+    width: 339px;
+    position: absolute;
+    top: -54px;
+    left: -15px;
+}
+
+.bg-svg-2>path {
+    fill: #6cb4fd;
+}
+
+.bg-svg-3 {
+    width: 339px;
+    position: absolute;
+    top: -47px;
+    left: -15px;
+}
+
+.bg-svg-3>path {
+    fill: #7bc3fe82;
+}
+
+/*design for the form svg ends */
+.side-word {
+    z-index: 10;
+    font-size: 22px;
+    position: absolute;
+    padding-left: 4px;
+    font-weight: bolder;
+    color: black;
+}
+
+.side-word:before {
+    content: '';
+    height: 28px;
+    width: 4px;
+    border-radius: 3px;
+    position: absolute;
+    background-color: #007CFE;
+    left: -5px;
+}
+
+#close-form {
+    position: absolute;
+    width: 30px;
+    justify-content: center;
+    align-items: center;
+    display: flex;
+    height: 30px;
+    font-size: 21px;
+    font-weight: 300;
+    z-index: 10;
+    border-radius: 22px;
+    right: 9px;
+    top: -15px;
+    color: white;
+    cursor: pointer;
+}
+
+.form {
+    margin: 5px;
+    display: flex;
+    flex-direction: column;
+    padding: 0px 15px;
+}
+
+.flex {
+    display: flex;
+    margin-top: 16px;
+}
+
+.flex-space-evenly {
+    display: flex;
+    justify-content: space-between;
+    padding: 0px 20px;
+}
+
+/*Login Button 50px down*/
+.login-marg-btm {
+    margin-bottom: 50px;
+}
+
+.small-text,
+.typesOfJobs {
+    font-size: 16px;
+    margin: 0;
+    font-weight: 600;
+    color: gray;
+}
+
+.orange-color {
+    color: #007CFE;
+    cursor: pointer;
+}
+
+.orange-color-bg {
+    color: white;
+    cursor: pointer;
+    background-color: #007CFE;
+}
+
+.blue-bg {
+    color: rgb(132, 191, 255);
+    font-weight: bold;
+}
+
+.forgot-password-text {
+    display: flex;
+    font-size: 13px;
+    justify-content: flex-end;
+}
+
+.form-label {
+    transform: translate(10px, 16px);
+    color: #ABA6AA;
+    transition: 0.5s ease;
+    position: absolute;
+    z-index: 100;
+}
+
+.form-control-input {
+    width: 98%;
+    height: 45px;
+    font-size: 14px;
+    border-radius: .25rem;
+    border: 1px solid lightgray;
+    text-indent: 8px;
+    /*box-shadow: 3px 4px 4px #d8d8d8;*/
+}
+
+.form-input {
+    position: relative;
+}
+
+.form-group {
+    padding: 10px 0px;
+}
+
+/* Javascript class */
+.label-up {
+    transform: translate(9px, -5px);
+    color: #007CFE;
+    font-size: 13px;
+    height: 15px;
+    transition: 0.5s ease;
+    position: absolute;
+    background-color: white;
+    padding: 0px 3px;
+}
+
+.btn-auth {
+    width: 100%;
+    height: 40px;
+    font-weight: bold;
+    font-size: 17px;
+    cursor: pointer;
+    border-radius: .25rem;
+    border: 1px solid #007CFE;
+    box-shadow: 3px 4px 4px #9E9E9E;
+    padding: 0px;
+    margin: 35px 0px 5px 0px;
+}
+
+.or-divider {
+    margin: 0;
+    text-align: center;
+    color: #ABA6AA;
+    position: relative;
+}
+
+.or-divider:before {
+    content: '';
+    right: 40px;
+    position: absolute;
+    width: 104px;
+    top: 11px;
+    height: 1px;
+    background-color: #9E9E9E;
+}
+
+.or-divider:after {
+    content: '';
+    left: 38px;
+    position: absolute;
+    width: 104px;
+    top: 11px;
+    height: 1px;
+    background-color: #9E9E9E;
+}
+
+.external-auth-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-top: 10px;
+}
+
+.btn-fb,
+.btn-google {
+    display: flex;
+    align-items: center;
+    width: 100%;
+    height: 47px;
+    font-size: 15px;
+    margin-top: 15px;
+    cursor: pointer;
+    border-radius: .25rem;
+    border: 1px solid #d8d8d8;
+    text-indent: 8px;
+    color: #9E9E9E;
+    background-color: white;
+    box-shadow: 2px 2px 2px #d8d8d8;
+}
+
+.btn-fb img,
+.btn-google img {
+    width: 25px;
+    height: 22px;
+    margin: 0px 5px;
+}
+
+/*Terms and Conditions*/
+body>div>div>div.congrats>div>div.small-text>p {
+    padding: 0px 15px;
+    margin: 0px;
+    text-align: left;
+    font-weight: 300;
+}
+
+/*Remove magin for terms text*/
+body>div>div>div.congrats>div>div.small-text {
+    text-align: left !important;
+}
+
+/*Forgot password color*/
+body>div>div>div.congrats>div>form>div.orange-color.small-text.forgot-password-text>a {
+    color: #007CFE;
+}
+
+.ca-have-acc {
+    margin-bottom: 20px;
+}
+
+/*CSS Fixes*/
+.auth-modal-container {
+    position: relative;
+    width: unset !important;
+    margin: 20px 20%;
+    padding: 10px 20px;
+    background-color: white;
+    margin-bottom: 0px;
+}
+
+/*Media Querirs*/
+/*On a smaller desktop screen, reduce icon and text size*/
+@media (max-width: 425px) {
+    .auth-modal-container {
+        margin: unset !important;
+        padding-top: 20px;
+    }
+
+    body {
+        background: unset !important;
+    }
+}
+
+.double-option {
+    display: flex;
+}
+
+.double-option div {
+    display: flex;
+}
+
+input[type="checkbox"i] {
+    height: 20px !important;
+    width: 20px !important;
+}
+
+.right-mag {
+    margin-right: 20px;
+}
+
+.typesOfJobs {
+    margin-bottom: 10px;
+}
+
+.jobsNotify {
+    display: none !important;
+}
+
+.test1 {
+    display: block !important;
+}
+
+.loader-login-overlay {
+    position: absolute;
+    top: 0;
+    right: 0;
+    left: 0;
+    bottom: 0;
+    background: white;
+    opacity: 0.5;
+    display: none;
+}
+
+/* ALERT STYLES STARTS */
+.alert {
+    position: relative;
+    margin-bottom: 1rem;
+    padding: 1px 9px;
+    margin: 5px;
+    border: 1px solid transparent;
+    border-radius: 0.30rem;
+}
+
+.alertModal {
+    display: none !important;
+    min-height: 45px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-radius: 5px;
+    width: 89%;
+    margin: 15px auto 0px;
+}
+
+.alert-danger {
+    display: flex !important;
+    padding: 0px 5px;
+    color: rgb(114, 28, 36);
+    border-left: 5px solid #ff0505;
+    border-right: 5px solid #ff2200;
+    border-bottom: 1px solid #b4b4b4;
+    background-color: white;
+    border-top: 1px solid #b4b4b4;
+}
+
+.alert-warning {
+    display: flex !important;
+    color: rgb(114, 28, 36);
+    border-left: 5px solid #e99700;
+    border-right: 5px solid #e99700;
+    border-bottom: 1px solid #b4b4b4;
+    background-color: white;
+    border-top: 1px solid #b4b4b4;
+}
+
+
+/* javascript validation class */
+#login-acc-email-error-span,
+#login-acc-password-error-span {
+    font-size: 14px;
+    margin-left: 4px;
+    color: red;
+    font-weight: bold;
+}
+
+.border-error-indicator {
+    border: 1px solid red;
+}
+
+.error-span-indicator:after {
+    content: '❌';
+    position: absolute;
+    top: 20%;
+    right: 15px;
+}
+
+
+/* error spans for signup */
+#create-acc-email-error-span,
+#create-acc-firstname-error-span,
+#create-acc-lastname-error-span,
+#create-acc-phonenumber-error-span,
+#create-acc-password-error-span {
+    font-size: 14px;
+    margin-left: 4px;
+    color: red;
+    font-weight: bold;
+}
+
+/* for the overlay login loader */
+.overlay-loading {
+    z-index: 100;
+    display: block;
+}
+
+.phonenumber-div{
+    position: absolute;
+    border-right: 1px solid lightgray;
+    height: 47px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.signup-label-phonenumber{
+    transform: translate(50px, 15px);
+}
+
+.signup-label-phonenumber.label-up{
+    transform: translate(50px, -8px);
+}
+
+/*flag margin*/
+.phonenumber-div img  {
+    margin: 0px 10px;
+}
