@@ -18,7 +18,6 @@ if (process.env.NODE_ENV === 'development') {
     rejectUnauthorized: false,
   });
 }
-console.log(pool)
 pool.on('connect', () => {
   console.log('DB Connected');
 });
