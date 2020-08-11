@@ -1,7 +1,7 @@
 // const apiBase = "https://bridgetaskerapi.herokuapp.com/api/v1/auth";
-// const apiBase = "http://localhost:5000/api/v1/auth";
+const apiBase = "http://localhost:5000/api/v1/auth";
 
-const apiBase = "https://bridge-task-test-api.herokuapp.com/api/v1/auth"
+// const apiBase = "https://bridge-task-test-api.herokuapp.com/api/v1/auth"
 const email = document.getElementById("email");
 const password  = document.getElementById('password');
 const loginForm = document.querySelector("#login-form");

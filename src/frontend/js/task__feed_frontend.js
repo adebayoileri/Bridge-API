@@ -1,8 +1,8 @@
 // const apiBase = "https://bridgetaskerapi.herokuapp.com/api/v1";
-// const apiBase = "http://localhost:5000/api/v1";
+const apiBase = "http://localhost:5000/api/v1";
 let fullPageBody = document.querySelector('body');
 
-const apiBase = "https://bridge-task-test-api.herokuapp.com/api/v1"
+// const apiBase = "https://bridge-task-test-api.herokuapp.com/api/v1"
 const token = window.localStorage.getItem('token')
 
 const recommendationContainer = document.querySelector('.recommendation-container');

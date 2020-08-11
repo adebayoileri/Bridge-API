@@ -1,0 +1,355 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <meta name="description" content="Bridge - Nigeria's No 1 local job search engine and connecting locals with jobs in their neighborhood.">
+    <title>Nigeria's No 1 local job search engine - Bridge </title>
+    <!-- Latest compiled and minified CSS -->
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+    <!--bootstrap-->
+    <link rel="stylesheet" href="./bootstrap/css/bootstrap.min.css"/>
+    <!--css-->
+    <link rel="stylesheet" href="./home-style.css"/>
+    <link rel="stylesheet" href="./doing.css" />
+    
+    <!--responsive-mini laptop-
+    <link rel="stylesheet" media="(max-width: 1000px) and (min-width: 601px)" href="./responsive/minilaptop.css"> -->
+    <!--responsive-tablet-->
+    <link rel="stylesheet" media="(max-width: 1000px) and (min-width: 751px)" href="./responsive/tablet.css">
+    <!--responsive-mobile-->
+    <link rel="stylesheet" media="(max-width: 750px)" href="./responsive/mobile.css">
+    <!--favicon-->
+    <link rel='icon' href='./bridge-favicon.ico' type='image/x-icon'/>
+    <!--<script type="text/javascript">
+        (function(g,r,s,f){g.growsurf={};g.grsfSettings={campaignId:"fgdy6b",version:"2.0.0"};s=r.getElementsByTagName("head")[0];f=r.createElement("script");f.async=1;f.src="https://growsurf.com/growsurf.js"+"?v="+g.grsfSettings.version;f.setAttribute("grsf-campaign", g.grsfSettings.campaignId);!g.grsfInit?s.appendChild(f):"";})(window,document);
+      </script> -->
+      <!-- Global site tag (gtag.js) - Google Analytics -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=UA-164345349-1"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'UA-164345349-1');
+</script>
+
+<!--Full Story-->
+<script>
+    window['_fs_debug'] = false;
+    window['_fs_host'] = 'fullstory.com';
+    window['_fs_script'] = 'edge.fullstory.com/s/fs.js';
+    window['_fs_org'] = 'W7N10';
+    window['_fs_namespace'] = 'FS';
+    (function(m,n,e,t,l,o,g,y){
+        if (e in m) {if(m.console && m.console.log) { m.console.log('FullStory namespace conflict. Please set window["_fs_namespace"].');} return;}
+        g=m[e]=function(a,b,s){g.q?g.q.push([a,b,s]):g._api(a,b,s);};g.q=[];
+        o=n.createElement(t);o.async=1;o.crossOrigin='anonymous';o.src='https://'+_fs_script;
+        y=n.getElementsByTagName(t)[0];y.parentNode.insertBefore(o,y);
+        g.identify=function(i,v,s){g(l,{uid:i},s);if(v)g(l,v,s)};g.setUserVars=function(v,s){g(l,v,s)};g.event=function(i,v,s){g('event',{n:i,p:v},s)};
+        g.anonymize=function(){g.identify(!!0)};
+        g.shutdown=function(){g("rec",!1)};g.restart=function(){g("rec",!0)};
+        g.log = function(a,b){g("log",[a,b])};
+        g.consent=function(a){g("consent",!arguments.length||a)};
+        g.identifyAccount=function(i,v){o='account';v=v||{};v.acctId=i;g(o,v)};
+        g.clearUserCookie=function(){};
+        g._w={};y='XMLHttpRequest';g._w[y]=m[y];y='fetch';g._w[y]=m[y];
+        if(m[y])m[y]=function(){return g._w[y].apply(this,arguments)};
+        g._v="1.2.0";
+    })(window,document,window['_fs_namespace'],'script','user');
+    </script>
+</head>
+<body>
+    <div class="nav-container">
+    <nav class="container nav-important">
+        <div class="row navigation margin-important">
+       <div class="logo col-2"> <a href="index.html"> <img src="./images/logo.png"/> </a> </div>
+       <ul class="col-10 menu-hide-mobile margin-important">
+           <a href="#howitworks"> <li class="font-list">How it works</li> </a>
+           <a href="#categories"> <li class="font-list">Categories</li> </a>
+           <a href="#makemoney"> <li class="font-list">Make money</li> </a>
+           <a href="#faq"> <li class="font-list">FAQ</li> </a>
+           <a href="#faq"> <li class="font-list">Contact</li> </a>
+           <a href="/login" id="contactid"> <li class="font-list"> <button class="contact">Sign in</button> </li> </a>
+       </ul>
+       </div>
+    </nav>
+    </div>
+
+<!--toggle-->
+    <div class="toggle" id="toggle"> 
+        <div class="t-a"></div>
+        <div class="t-b"></div>
+        <div class="t-c"></div>
+    </div>
+
+    <!--toggle list-->
+    <div class="toggle-cover" id="toggle-cover">
+        <ul class="toggle-list">
+            <a href="#howitworks" class="one-li" style="margin: 0px;"> <li>How it works</li> </a>
+            <a href="#categories"> <li>Categories</li> </a>
+            <a href="#makemoney"> <li>Make money</li> </a>
+            <a href="#faq"> <li>FAQ</li> </a>
+            <a href="#faq"> <li>Contact</li> </a>
+            <a href="/signup"> <li> <button class="contact contact-mobile">Sign up</button> </li> </a>
+        </ul>
+    </div>
+    <!--herobar-->
+    <div class="herobar">
+        <div class="hero-main z-upper">Get connected to jobs in your neighborhood </div>
+        <div class="hero-sub z-upper"><span class="hide-herotext"> 
+            Nigeria's No 1 local job search engine that helps you find jobs and get connected to professionals
+        </div>
+       
+         
+        <!--CTA-->
+       <div class="CTA">
+        <a href="/signup" style="text-decoration: none;"><button class="post"> <span> Get started now </span> <img src="./images/direction.svg"/> </button> </a>
+        <!-- <span class="or">or</span>
+        <a href="./signup.html"> <button class="render"> <img src="./images/worker.svg"/> <span>Create account</span> </button> </a>
+         -->
+    </div>
+        <!--https://bit.ly/joinbridgetoday-->
+        
+    </div>
+    <!--How does bridge work-->
+    <div class="how-container" id="howitworks">
+        <div class="how"> How does Bridge work?</div>
+        <div class="how-sub">
+            We easily connect you to experienced and trustworthy proffessionals;
+            for small businesses that might mean hiring an office assistant and for individuals that might be finding an electrician
+
+        </div>
+        
+        <!--video screen-->
+        <!-- <div class="video-screen">
+            <iframe width="560" height="315" src="https://www.youtube.com/embed/EsLNFwUrK4E" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+        </div> -->
+        <!--3 steps-->
+        <div class="three-cover">
+        <!--one-->
+        <!-- <div class="margin">
+            <img src="./images/one.svg" class="step-icons resize-one"/>
+            <div class="step-main">After sign up, click "Post a job" </div>
+            <div class="step-sub">Complete the form by including relevant details about the job</div>
+
+        </div> -->
+        <div class="margin">
+            <img src="./images/one.svg" class="step-icons resize-one"/>
+            <div class="step-main">After sign up, click the "post a job" button</div>
+            <div class="step-sub">Complete the form and submit, it's FREE to post </div>
+
+        </div>
+        <!--two-->
+        <div class="margin">
+            <img src="./images/two.svg" class="step-icons resize-two"/>
+            <div class="step-main">In a few minutes, you will start getting applications</div>
+            <div class="step-sub">Review applications and choose from the best.</div>
+
+        </div>
+        <!--three-->
+        <div class="margin">
+            <img src="./images/three.svg" class="step-icons resize-three"/>
+            <div class="step-main">Accept offer and proceed to complete your job</div>
+            <div class="step-sub">Hire the right person for the job instantly</div>
+
+        </div>
+        </div>
+    </div>
+    </div>
+
+
+    <!--EXPLORE-->
+    <div class="explore" id="categories">
+        <div class="explore-main">Explore  Our Categories</div>
+        <!--Icons-->
+        <div class="explore-icons">
+        <!--1-->
+        <div>
+            <div class="icon-cover"> <img src="./images/note.svg"/> </div>
+            <div class="icon-text">Business</div>
+        </div>
+
+         <!--2-->
+         <div>
+                <div class="icon-cover"> <img src="./images/spray.svg"/> </div>
+                <div class="icon-text"> Cleaning & Laundry </div>
+        </div>
+
+        <!--3-->
+        <div>
+                <div class="icon-cover"> <img src="./images/language.svg "/> </div>
+                <div class="icon-text">Technology</div>
+        </div>
+        
+        <!--4-->
+        <div>
+                <div class="icon-cover"> <img src="./images/ruler.svg"/> </div>
+                <div class="icon-text">Arts & Crafts</div>
+        </div>
+
+        <!--5 - second part-->
+        <div>
+                <div class="icon-cover"> <img src="./images/tools.svg"/> </div>
+                <div class="icon-text">Repairs & Installation</div>
+        </div>
+
+        <!--6-->
+        <div>
+            <div class="icon-cover"> <img src="./images/book.svg"/> </div>
+            <div class="icon-text">Education</div>
+    </div>
+
+    <!--7-->
+    <div>
+            <div class="icon-cover"> <img src="./images/grocery.svg"/> </div>
+            <div class="icon-text">Shopping & Errands</div>
+    </div>
+    
+    <!--8-->
+    <div>
+            <div class="icon-cover"> <img src="./images/question.svg"/> </div>
+            <div class="icon-text">Anything</div>
+    </div>
+        <!--end-->
+        </div>
+
+        <!-- can't get what you want? -->
+        <div class="explore-side"> </div> 
+    </div>
+
+    <!--Earn on bridge-->
+    <div class="earn-cover" id="makemoney">
+        <div class="earn-main">Make money with your skills</div>
+        <div class="earn-sub">
+            You can apply for full-time jobs (e.g office assistant) or find one time jobs (gigs) that can help you earn over 5,000 Naira per day (e.g grocery shopping & errand running).
+        </div>
+        <!--email and CTA-->
+        <div class="cta-cover2 z-upper2 censter"><a href="/signup"><button style="width: 226px" class="access-btn2">Create account</button></a></div>
+    </div>
+    
+    <!--See what others are doing on bridge-->
+    <!-- <div class="parent-cont">
+        <div class="cont">
+          <div class="see-main">See what others are doing </div> -->
+          <!-- <ul class="nav nav-tabs doing-tab">
+            <li class="active tab-active"><a href="#home">Starting a business</a></li>
+            <li><a href="#menu1">Home services</a></li>
+            <li><a href="#menu2">Repairs and installation</a></li>
+            <li><a href="#menu3">Others</a></li>
+          </ul> -->
+        
+          <div class="parent-mama">
+          <div class="see-main">See what others are doing </div>
+          <div class="see-main-sub"> 
+            From simple jobs like finding a reliable electrician, hiring a private Spanish 
+            tutor for your kids, to jobs that can help your small business grow like hiring product marketers. We connect you to over 5,000 qualified professionals across Nigeria.
+
+          </div>
+              <div class="mama">
+              <div class="scroll-image"> 
+                <img src="./images/img-1.png" class="a"/>
+                <img src="./images/img-2.png" class="a"/>
+                <img src="./images/img-3.png" class="a"/>
+                <img src="./images/img-4.png" class="a"/>
+                <img src="./images/img-5.png" class="a"/>
+                <img src="./images/img-6.png" class="a"/>
+                <img src="./images/img-7.png" class="a"/>
+                <img src="./images/img-8.png" class="a"/>
+                <img src="./images/img-9.png" class="a"/>
+              </div>
+              <!--2-->
+              <div class="scroll-image"> 
+                <img src="./images/img-10.png" class="b"/>
+                <img src="./images/img-11.png" class="b"/>
+                <img src="./images/img-12.png" class="b"/>
+                <img src="./images/img-2.png" class="b"/>
+                <img src="./images/img-4.png" class="b"/>
+                <img src="./images/img-6.png" class="b"/>
+                <img src="./images/img-8.png" class="b"/>
+                <img src="./images/img-1.png" class="b"/>
+                <img src="./images/img-5.png" class="b"/>
+              </div>
+            </div>
+            </div>
+        </div>
+      <!--end-->
+
+    <!--FAQ-->
+    <div class="faq-main" id="faq">Frequently asked questions</div>
+    <div class="faq-sub">We are always available to answer your questions, click on the WhatsApp icon below to speak to any of our customer representatives or send us a direct message on any of our social media pages.</div>
+    <!--faq box-->
+    <div class="faq-container">
+        <!--question box-->
+        <div class="faq-box">
+            <div class="faq-question"> <span> Q. </span> <span> What type of jobs can I get on Bridge? </span> </div>
+            <div class="faq-answer"> A. We like to group all the jobs posted on our platform into 3 main categories; <br> (1) One-Time jobs e.g finding an electrician <br> (2) Part-Time jobs e.g hiring sales agents <br> (3) Full-Time jobs e.g product marketing.
+            </div>
+        </div>
+
+        <!--question box 2-->
+        <div class="faq-box">
+            <div class="faq-question">Q. Is Bridge safe to use?</div>
+            <div class="faq-answer"> A. Yes, Bridge is 100% safe to use, we run a series of background checks and verifications on our users.
+                <br> <br>
+                However, you are advised to use your discretion when you don't feel safe about hire and report to us immediately.
+            </div>
+        </div>
+
+        <!--question box 3-->
+        <div class="faq-box">
+            <div class="faq-question">Q. How can I start using Bridge?</div>
+            <div class="faq-answer"> A. Click the "Get started" button and create an account, you can search through the feed to
+                see the type of jobs you would like to apply for.
+                <br> <br>
+                If you would like to hire someone instead, click the "Post a job" button after sign up and complete the form.
+                <br> <br>
+                PS: For mobile phone users, the "Post a job" button is a round blue button with a white "plus sign" in it.
+            
+
+            </div>
+        </div>
+
+        <!--question box 4-->
+        <div class="faq-box">
+            <div class="faq-question">Q. How are you ensuring safety against COVID 19?</div>
+            <div class="faq-answer"> A. We advise everyone hiring workers on Bridge to ensure the workers come with protective equipment like nose masks, face shields, sanitizers.
+                <br> <br> 
+                We also encourage you to deny entry to whoever doesn't obey these safety conditions and report them to us immediately.
+            </div>
+        </div>
+        <!--end FAQ-->
+    </div>
+
+    <!--begin contacts-->
+    <div class="contact-tab" id="contact">
+        <div class="contact-main">Contact us</div>
+        <div class="social-icons">
+            <!--social icons-->
+            <a href="https://fb.me/getbridgeng"> <img src="./images/facebook.svg"/> </a>
+            <a href="https://twitter.com/getbridge_app"> <img src="./images/twitter.svg"/> </a>
+            <a href="https://instagram.com/getbridge_app"> <img src="./images/instagram.svg"/> </a>
+        </div>
+        <div>Customer Care: +2349033292522</div>
+        <div class="copyright">&copy Copyright 2020 - Bridge | All Rights Reserved</div>
+        <!--floating whatsApp icon-->
+        
+        <a href="http://wa.me/2349033292522" target="_blank" style="cursor: pointer;">
+        <div class="float-whatsapp">
+            <img src="./images/whatsapp-color.svg"/>
+        </div> </a>
+    </div>
+<!--end-->
+<!--JS-->
+<script>
+    $(document).ready(function(){
+      $(".nav-tabs a").click(function(){
+        $(this).tab('show');
+      });
+    });
+    </script>
+<script src="./main.js"> </script>
+<!-- <script src="./client/sendMail.js"></script> -->
+</body>
+</html>

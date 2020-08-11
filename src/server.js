@@ -56,11 +56,19 @@ const limiter = rateLimit({
 app.use(limiter);
 
 app.get('/',(req, res)=>{
-  res.status(200).send('Welcome to Bridge home page ====> <a href="/login">Login</a><br> <a href="/signup">signup</a> <br> <a href="/feed">feed</a>')
+  res.sendFile(__dirname + '/frontend/homepage.html');
 });
 
 app.get('/feed',(req, res)=>{
   res.sendFile(__dirname + '/frontend/html/index.html');
+});
+
+app.get('/faq',(req, res)=>{
+  res.sendFile(__dirname + '/frontend/html/faq.html');
+});
+
+app.get('/sendfeedback',(req, res)=>{
+  res.sendFile(__dirname + '/frontend/html/feedback.html');
 });
 
 app.get('/login',(req, res)=>{

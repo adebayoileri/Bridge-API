@@ -1,0 +1,213 @@
+.mama {
+    overflow: hidden!important;
+    max-width: 1440px!important;
+    height: auto!important;
+    margin: 0px auto!important;
+}
+
+/* 
+@-webkit-keyframes slideReverse{
+    0%{-webkit-transform:translateZ(0);
+        transform:translateZ(0)
+    }
+    to{-webkit-transform:translate3d(100vw,0,0);
+        transform:translate3d(100vw,0,0)}
+    } */
+@keyframes slideReverse {
+    0%{
+        /* transform:translateZ(0px) */
+        transform:translate3d(99vw,0,0)
+    }
+        100% {
+            /* transform:translate3d(99vw,0,0) */
+            transform:translateZ(0px)
+        }
+    }
+
+
+    @keyframes slide {
+    0%{
+        transform:translateZ(0px)
+    }
+        100% {
+            transform:translate3d(99vw,0,0)
+        }
+    }
+
+    /*Media queries for bigger screens*/
+    @media (min-width: 1441px) {
+        /* body {
+            background: red!important;
+        } */
+
+        @keyframes slideReverse {
+            0%{
+                /* transform:translateZ(0px) */
+                transform:translate3d(1440px,0,0)
+            }
+                100% {
+                    /* transform:translate3d(99vw,0,0) */
+                    transform:translateZ(0px)
+                }
+            }
+        
+        
+            @keyframes slide {
+            0%{
+                transform:translateZ(0px)
+            }
+                100% {
+                    transform:translate3d(1440px,0,0)
+                }
+            }
+    }
+    /* @keyframes slie{
+        0%{
+            transform:translateZ(0)}
+            to{
+                transform:translate3d(40vw,0,0)}
+        } */
+
+    .a {
+    -webkit-animation: slideReverse 70s linear infinite;
+    animation: slideReverse 70s linear infinite;
+    webkit-transform-style: preserve-3d;
+    white-space: nowrap!important;
+    -webkit-transition: all 0.1s ease;
+    -o-transition: all 0.1s ease;
+    transition: all 0.1s ease;
+    -webkit-backface-visibility: hidden;
+    backface-visibility: hidden;
+    -webkit-perspective: 1000;
+    perspective: 1000;
+    transform-style: preserve-3d;
+}
+
+
+.b {
+    -webkit-animation: slide 70s linear infinite;
+    animation: slide 70s linear infinite;
+    webkit-transform-style: preserve-3d;
+    white-space: nowrap!important;
+    -webkit-transition: all 0.1s ease;
+    -o-transition: all 0.1s ease;
+    transition: all 0.1s ease;
+    -webkit-backface-visibility: hidden;
+    backface-visibility: hidden;
+    -webkit-perspective: 1000;
+    perspective: 1000;
+    transform-style: preserve-3d;
+}
+
+
+/* .b {
+    -webkit-animation: slideReverse 3s linear infinite;
+    animation: slideReverse 3s linear infinite;
+    webkit-transform-style: preserve-3d;
+    white-space: nowrap;
+    -webkit-transition: all 2s ease;
+    -o-transition: all 2s ease;
+    transition: all 2s ease;
+    -webkit-backface-visibility: hidden;
+    backface-visibility: hidden;
+    -webkit-perspective: 1000;
+    perspective: 1000;
+    transform-style: preserve-3d;
+} */
+
+.flx {
+    display: flex;
+}
+
+.overflow {
+    position: relative;
+    overflow: hiddden;
+}
+
+/******/
+.h1 {
+    display: block!important;
+}
+
+/************/
+.doing-tab {
+    display: flex;
+    margin: 0px 15%!important;
+    /* border: 2px solid black; */
+    justify-content: space-between;
+}
+
+.doing-tab li:active {
+    background: blue;
+    border-radius: 50px;
+    color: white;
+    font-weight: bold;
+}
+
+.doing-tab li {
+    padding: 5px 45px;
+    font-weight: 100px;
+    font-size: 20px;
+}
+
+.doing-tab li a {
+    color: #212529;
+    text-decoration: none;
+}
+
+.tab-active {
+    background: #F68A1E;
+    border-radius: 50px;
+    font-weight: bold;
+}
+
+.doing-tab .tab-active a {
+    color: white!important;
+}
+
+.active{
+    opacity: 1!important;
+}
+
+.nav-tabs {
+    border: none!important;
+}
+
+.scroll-image img {
+    width: 330px!important;
+    height: auto!important;
+    margin-right: 8px!important;
+}
+
+.scroll-image {
+    display: flex;
+    /* flex-direction: column; */
+    position: relative!important;
+    left: -100%!important;
+    margin-bottom: 8px!important;
+}
+
+.see-main {
+    text-align: center;
+    font-weight: bold;
+    font-size: 30px;
+    color: #746F6B;
+}
+
+.tab-pane .tab-sub {
+    font-size: 20px;
+    margin: 20px 15%;
+}
+
+.parent-mama {
+    position: relative;
+    top: -100px;
+}
+
+.see-main-sub {
+    text-align: center;
+    font-size: 20px;
+    width: 50%;
+    margin: 0px auto;
+    margin-bottom: 50px;
+}

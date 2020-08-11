@@ -1,0 +1,169 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="description" content="Bridge - connecting locals with jobs in their neighborhood.">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0">
+  <title>Feed - Nigeria's No 1 local job search engine - Bridge</title>
+<!--FAVICON-->
+<link rel='icon' href='../bridge-favicon.ico' type='image/x-icon'/>
+
+  <script src="https://use.fontawesome.com/857595fcb1.js"></script>
+  <link rel="shortcut icon" href="../bridge-favicon.ico">
+  <!-- Page styles -->
+  <link rel="stylesheet"
+    href="https://fonts.googleapis.com/css?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;1,100;1,200;1,300&family=Roboto:regular,bold,italic,thin,light,bolditalic,black,medium&amp;lang=en">
+  <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+  <!--Material Design Lite-->
+  <link rel="stylesheet" href="../assets/mdl/material.min.css">
+  <link rel="stylesheet" href="../assets/tinyModal/tinyModal.css">
+  <link rel="stylesheet" href="../materialStyles.css">
+  <!--CSS-->
+  <link rel="stylesheet" href="../css/style.css">
+  <link rel="stylesheet" href="../css/faq.css">
+  <!--Media queries-->
+  <link rel="stylesheet" media="(max-width: 900px) and (min-width: 1px)" href="../css/mobile/feed-md.css">
+
+  <!-- imported from job details -->
+  <!--CSS-->
+  <!-- <link rel="stylesheet" href="../css/jobdetails.css">
+  <link rel="stylesheet" href="../css/applypop.css"> -->
+  <!-- post a job CSS-->
+  <!-- <link rel="stylesheet" href="../css/postajob.css"> -->
+
+  <style>
+    #view-source {
+      position: fixed;
+      display: block;
+      right: 0;
+      bottom: 0;
+      margin-right: 40px;
+      margin-bottom: 40px;
+      z-index: 900;
+    }
+  </style>
+</head>
+
+<body>
+  <div class="mdl-layout mdl-js-layout mdl-layout--fixed-header">
+    <div class="android-header mdl-layout__header" id="header-box-shadow">
+      <div class="mdl-layout__header-row">
+        <span class="android-title mdl-layout-title bridge-logo">
+          <img class="bridge-logo-image" src="../assets/images/logo.png">
+        </span>
+        <!-- Add spacer, to align navigation to the right in desktop -->
+        <div style="width: 89%; display: flex; justify-content: flex-end;"
+          class="android-header-spacer mdl-layout-spacer">
+          <nav class="android-navigation mdl-navigation top-task-feed-nav">
+            <!-- <a class="mdl-navigation__link mdl-typography--text-uppercase" href="">Blog</a> -->
+            <!-- <a class="mdl-navigation__link mdl-typography--text-uppercase" href="">Send Feedback</a> -->
+            <!-- <a class="mdl-navigation__link mdl-typography--text-uppercase" href="">FAQ</a> -->
+            <!-- <a class="mdl-navigation__link mdl-typography--text-uppercase" href="">Contact us</a> -->
+            <!-- <a class="mdl-navigation__link mdl-typography--text-uppercase post-job" href="./postjob.html">Post a job</a> -->
+            <!-- <div class="android-search-box mdl-textfield mdl-js-textfield mdl-textfield--expandable mdl-textfield--floating-label mdl-textfield--align-right mdl-textfield--full-width remove-mdl-float">
+                  <label class="mdl-button mdl-js-button mdl-button--icon" for="search-field">
+                    <i class="material-icons">search</i>
+                  </label>
+                  <div class="mdl-textfield__expandable-holder">
+                    <input class="mdl-textfield__input" type="text" id="search-field">
+                  </div>
+                </div> -->
+            <!-- User profile image -->
+            <!-- <a class="mdl-navigation__link mdl-typography--text-uppercase auth-nav-btn" href="./createaccount.html">sign up</a>
+                <a class="mdl-navigation__link mdl-typography--text-uppercase auth-nav-btn" href="./login.html">login in</a> -->
+            <!-- <div class="user-image">
+                  <img src="../assets/images/user-image.jpg"/>
+                </div> -->
+          </nav>
+        </div>
+
+        <!-- this is kept for logout button -->
+        <div style="position: absolute; right: 4px; top: 10px; height: 20px; padding: 0;"
+          class="android-navigation-container"></div>
+
+
+        <span class="android-mobile-title mdl-layout-title">
+          <img class="android-logo-image bridge-logo" src="../assets/images/logo.png">
+        </span>
+      </div>
+    </div>
+
+    <div class="android-drawer mdl-layout__drawer">
+      <span class="mdl-layout-title">
+        <img class="android-logo-image bridge-logo" src="../assets/images/logo.png">
+      </span>
+      <nav class="mdl-navigation task-feed-side-bar">
+        <!-- <a class="mdl-navigation__link" href="">Blog</a> -->
+        <a class="mdl-navigation__link" href="./feedback.html">Send feedback</a>
+        <a class="mdl-navigation__link" href="./faq.html">FAQ</a>
+        <!-- <a class="mdl-navigation__link" href="">Contact us</a> -->
+      </nav>
+    </div>
+
+    <div id="feed-container" class="android-content mdl-layout__content">
+    <!--back-->
+    <a href="./index.html" style="text-decoration: none;">
+    <div class="back-icon"> <img src="../assets/images/direction.svg"/> <span style="margin-left: 10px;">Go back</span> </div> </a>
+        <!--FAQ-->
+    <div class="faq-main" id="faq">Frequently asked questions</div>
+    <div class="faq-sub" style="margin-bottom: 30px;">We are always available to answer your questions, click on the WhatsApp icon below to speak to any of our customer representatives or send us a direct message on any of our social media pages.</div>
+    <!--faq box-->
+    <div class="faq-container">
+        <!--question box-->
+        <div class="faq-box">
+            <div class="faq-question"> <span> Q. </span> <span> What type of jobs can I get on Bridge? </span> </div>
+            <div class="faq-answer"> A. We like to group all the jobs posted on our platform into 3 main categories; <br> (1) One-Time jobs e.g finding an electrician <br> (2) Part-Time jobs e.g hiring sales agents <br> (3) Full-Time jobs e.g product marketing.
+            </div>
+        </div>
+
+        <!--question box 2-->
+        <div class="faq-box">
+            <div class="faq-question">Q. Is Bridge safe to use?</div>
+            <div class="faq-answer"> A. Yes, Bridge is 100% safe to use, we run a series of background checks and verifications on our users.
+                <br> <br>
+                However, you are advised to use your discretion when you don't feel safe about hire and report to us immediately.
+            </div>
+        </div>
+
+        <!--question box 3-->
+        <div class="faq-box">
+            <div class="faq-question">Q. How can I start using Bridge?</div>
+            <div class="faq-answer"> A. Click the "Get started" button and create an account, you can search through the feed to
+                see the type of jobs you would like to apply for.
+                <br> <br>
+                If you would like to hire someone instead, click the "Post a job" button after sign up and complete the form.
+                <br> <br>
+                PS: For mobile phone users, the "Post a job" button is a round blue button with a white "plus sign" in it.
+            
+
+            </div>
+        </div>
+
+        <!--question box 4-->
+        <div class="faq-box">
+            <div class="faq-question">Q. How are you ensuring safety against COVID 19?</div>
+            <div class="faq-answer"> A. We advise everyone hiring workers on Bridge to ensure the workers come with protective equipment like nose masks, face shields, sanitizers.
+                <br> <br> 
+                We also encourage you to deny entry to whoever doesn't obey these safety conditions and report them to us immediately.
+            </div>
+        </div>
+        <!--end FAQ-->
+    </div>
+    <a href="http://wa.me/2349033292522" style="cursor: pointer;">
+        <div class="float-whatsapp">
+            <img src="../images/whatsapp-color.svg"/>
+    </div> </a>
+    </div>
+</div>
+
+  <!-- <a href="https://github.com/google/material-design-lite/blob/mdl-1.x/templates/android-dot-com/" target="_blank" id="view-source" class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-color--accent mdl-color-text--accent-contrast">View Source</a> -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/numeral.js/2.0.6/numeral.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/mark.js/8.11.1/mark.min.js"></script>
+  <script src="../js/moment.js"></script>
+  <script src="../assets/mdl/material.min.js"></script>
+  <script src="../js/task__feed_frontend.js"></script>
+</body>
+
+</html>

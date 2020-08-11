@@ -1,0 +1,668 @@
+body {
+    padding: 0px;
+    margin: 0px;
+}
+
+.navigation {  
+    width: 100%;
+    height: 60px;
+    display: flex;
+    display: -webkit-box;
+    display: -webkit-flex;
+    display: -ms-flexbox;
+}
+
+/*logo styles*/
+.logo {
+    display: flex;
+    display: -webkit-box;
+    display: -webkit-flex;
+    display: -ms-flexbox;
+    align-items: center;
+}
+
+.logo img {
+    width: 120px;
+    height: 45px;
+}
+
+/*covid 19*/
+.covid {
+    width: 100%;
+    min-height: 50px;
+    background: #F68A1E;
+    color: white;
+    font-size: 18px;
+    font-weight: bold;
+    display: flex;
+    display: -webkit-box;
+    display: -webkit-flex;
+    display: -ms-flexbox;
+    padding: 5px 10px;
+    padding-right: 50px;
+}
+
+.covid-img {
+    width: 40px;
+    height: 40px;
+}
+
+/*plus*/
+.plus-min {
+    font-size: 50px;
+    font-weight: lighter;
+    position: absolute;
+    right: 0px;
+    top: 0px;
+    background: none;
+    outline: none;
+    border: none;
+    transform: rotate(45deg);
+    z-index: 1000000;
+    height: 20px;
+    width: 20px;
+}
+
+/*list item styles*/
+ul {
+    display: flex;
+    display: -webkit-box;
+    display: -webkit-flex;
+    display: -ms-flexbox;
+    list-style: none;
+    align-items: center;
+    justify-content: flex-end;
+    margin: 0px!important;
+    color: white;
+    font-weight: bold;
+}
+
+.font-list {
+    margin: 0px 10px;
+    font-size: 18px;
+}
+
+ul li {
+    margin: 0px;
+}
+
+/*nav bg color*/
+.nav-container {
+    background-color: #007CFE;
+}
+
+/*button*/
+.contact {
+    width: 150px;
+    height: 35px;
+    border-radius: 50px;
+    border: 0px;
+    outline: none;
+    background-color: white;
+    color: #007CFE;
+    font-weight: bold;
+}
+
+/*hero text*/
+.hero-main {
+    font-size: calc(3vw + 10px);
+    font-weight: bold;
+    color: white;
+    width: 65%;
+}
+
+.hero-sub {
+    font-size: calc(1.3vw + 10px);
+    width: 50%;
+}
+
+.herobar {
+    padding-top: 20px;
+    padding-left: 15%;
+    position: relative;
+    width: 100%;
+    min-height: 400px;
+    /*background-color: violet;*/
+    z-index: 0;
+    background: url('./images/banner.png') no-repeat center;
+    background-size: cover;
+    background-position: 80% 80%;
+    border-top-right-radius: 500px;
+    border-bottom-right-radius: 500px;
+    position: relative;
+    left: -10vw;
+}
+
+/*CTA*/
+.email-input, .email-input2 {
+    width: 30%;
+    height: 40px;
+    border: 2px solid lightgray;
+    box-shadow: 5px 5px 5px lightgray;
+    text-indent: 10px;
+}
+
+/*extend input size in earn*/
+.email-input2 {
+    width: 50%;
+}
+
+/*access btn*/
+.access-btn, .access-btn2 {
+    background-color: #F68A1E;
+    color: white;
+    font-weight: bold;
+    outline: none;
+    border: none;
+    box-shadow: 5px 5px 5px lightgray;
+    position: relative;
+    left: -10px;
+}
+.access-btn2 {
+    min-width: 50%!important;
+    left: 0px;
+    border-radius: 10px!important;
+    height: 50px;
+ }
+
+.cta-cover, .cta-cover2 {
+    margin-top: 50px;
+}
+
+/*floating phone*/
+.phone-ui {
+    /*width: calc(781px - 25vw);
+    height: calc(723px - 25vw);*/
+    width: calc(350px - 1vw);
+    height: calc(394.12px - 1vw);
+    position: absolute;
+    bottom: 0;
+    right: 0;
+    z-index: -1;
+}
+
+/*hide hidden phone -- in desktop mode*/
+.hidden-phone {
+    display: none;
+}
+
+/*z-index for hero lements*/
+.z-upper, .z-upper2 {
+    z-index: 10;
+}
+
+/*step icons*/
+.step-icons {
+    display: flex;
+    display: -webkit-box;
+    display: -webkit-flex;
+    display: -ms-flexbox;
+    margin: 0px auto;
+}
+
+/*add margin to 3 icons box*/
+.margin {
+    margin: 10px auto;
+}
+
+.step-main {
+    font-weight: bold;
+    font-size: 20px;
+    width: 70%;
+    margin: 0px auto;
+    text-align: center;
+}
+
+/*step sub*/
+.step-sub {
+    width: 60%;
+    margin: 0px auto;
+    text-align: center; 
+}
+
+/*three step cover*/
+.three-cover {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    padding: 0px 10%;
+}
+
+/*res-sizng 3 icons*/
+.resize-one {
+    width: calc(222px  - 100px);
+    height: calc(274px - 100px);
+}
+
+.resize-two {
+    width: calc(280px - 104px);
+    height: calc(278px - 104px);
+}
+
+.resize-three {
+    width: calc(311px  - 135px);
+    height: calc(311px - 135px);
+}
+
+/*how does bridge work*/
+.how {
+    text-align: center;
+    font-weight: bold;
+    font-size: 30px;
+    color: #746F6B;
+}
+
+.how-sub {
+    text-align: center;
+    font-size: 20px;
+    width: 50%;
+    margin: 0px auto;
+}
+
+.how-container {
+    margin-top: 50px;
+}
+
+/*video screen*/
+.video-screen {
+    width: 50%;
+    height: 350px;
+    /*background-color: rgb(4, 196, 90);*/
+    margin: 30px auto;
+}
+
+.video-screen iframe {
+    width: 100%;
+    height: 100%;
+}
+
+/*explore*/
+/*EXPLORE*/
+
+.explore {
+    margin-top: 50px;
+    background-color: #007CFE;
+    padding-bottom: 200px;
+}
+.explore-main {
+    text-align: center;
+    font-weight: bold;
+    font-size: 30px;
+    color: white;
+    padding-top: 50px;
+}
+
+.explore-icons {
+    display: grid;
+    column-gap: 10px;
+    justify-content: space-around;
+    margin: 0px 10%;
+    grid-template-columns: 1fr 1fr 1fr 1fr;
+}
+
+.icon-cover {
+    width: 60px;
+    height: 60px;
+    margin: 0px auto;
+}
+
+.icon-cover img {
+    width: 100%;
+    height: 100%;
+}
+
+.icon-text {
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+    font-size: 18px;
+    font-weight: 500;
+    text-align: center;
+    color: white;
+}
+
+.explore-icons > div {
+    margin-top: 100px;
+}
+
+/* see all categories */
+.explore-side {
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+    font-size: 18px;
+    font-weight: bold;
+    text-align: center;
+    margin-top: 50px;
+    color: #1D4354;
+    padding-bottom: 10px;
+}
+
+.explore-side span a{
+    color: #1D4354;
+    text-decoration: none;
+}
+
+/*center email CTA in EARN*/
+.center {
+    display: flex;
+    display: -webkit-box;
+    display: -webkit-flex;
+    display: -ms-flexbox;
+    justify-content: center;
+}
+
+/*earn segment*/
+.earn-cover {
+    border: 2px solid lightgray;
+    box-shadow: 0px 5px 5px lightgray;
+    width: 50%;
+    margin: 0px auto;
+    padding: 40px 0px;
+    position: relative;
+    top: -180px;
+    background-color: white;
+    border-radius: 20px;
+}
+
+/*Earn on bridge*/
+.earn-main {
+    text-align: center;
+    font-weight: bold;
+    font-size: 30px;
+    color: #746F6B;
+}
+
+.earn-sub {
+    text-align: center;
+    font-size: 20px;
+    width: 70%;
+    margin: 0px auto;
+}
+
+/*FAQ*/
+.faq-container {
+    display: flex;
+    display: -webkit-box;
+    display: -webkit-flex;
+    display: -ms-flexbox;
+    justify-content: space-evenly;
+    flex-wrap: wrap;
+    padding: 0px 5%;
+}
+
+.faq-box {
+    border: 2px solid lightgray;
+    width: 40%;
+    min-height: 180px;
+    padding: 20px;
+    /*overflow: scroll;
+    border: 2px solid red;*/
+    box-shadow: 5px 5px 5px lightgray;
+    margin: 20px 0px;
+}
+
+.faq-question {
+    color: #F68A1E;
+    font-weight: bold;
+    font-size: 20px;
+}
+
+.faq-answer {
+    padding-left: 10px;
+    font-size: 16px;
+}
+
+.faq-main {
+    text-align: center;
+    font-weight: bold;
+    font-size: 30px;
+    color: #746F6B;
+    position: relative;
+    top: -50px;
+}
+
+/*faq sub*/
+.faq-sub {
+    text-align: center;
+    font-size: 20px;
+    width: 50%;
+    margin: 0px auto;
+    position: relative;
+    top: -50px;
+}
+
+/*contact style*/
+.contact-tab {
+    text-align: center;
+    font-size: 18px;
+}
+
+.copyright {
+    margin: 10px 0px;
+}
+
+.contact-main {
+    text-align: center;
+    font-weight: bold;
+    font-size: 30px;
+    color: #746F6B;
+    margin-top: 30px;
+}
+
+/*unstyle links*/
+body > div.nav-container > nav > div > ul > a > li {
+    color: white;
+    text-decoration: none;
+    text-align: center;
+}
+body > div.nav-container > nav > div > ul > a {
+    text-decoration: none;
+}
+
+/*togggle icon*/
+.toggle {
+    width: 40px;
+    height: 50px;
+    position: absolute;
+    right: 0px;
+    top: 0px;
+    margin: 15px 30px;
+}
+
+body {
+    position: relative;
+}
+.toggle .t-a {
+    background-color: white;
+    width: 100%;
+    height: 4px;
+    margin: 5px;
+}
+
+.toggle .t-b {
+    background-color: white;
+    width: 50%;
+    height: 4px;
+    margin: 5px;
+}
+
+.toggle .t-c {
+    background-color: white;
+    width: 80%;
+    height: 4px;
+    margin: 5px;
+}
+
+.toggle-list {    
+    display: flex;
+    display: -webkit-box;
+    display: -webkit-flex;
+    display: -ms-flexbox;
+    flex-direction: column;
+    text-align: center;
+    padding: 0px;
+    box-shadow: 10px 5px 5px lightgrey;
+}
+
+.toggle-list a {
+    background: #dee2e6;
+    width: 100%;
+    padding: 10px 0px;
+    margin-top: 2px;
+}
+
+.toggle-list a:hover, .toggle-list a:active {
+    background: #007CFE;
+    color: white;
+    text-decoration: none;
+}
+
+/*margin 1st child*/
+.toggle-list a:first-child:active , .toggle-list a:first-child:hover {
+    margin-top: 2px!important;
+}
+/**/
+.contact-mobile {
+        width: 200px;
+}
+
+/*hide toggle*/
+.toggle, .toggle-cover {
+    display: none;
+}
+
+/*show and hide*/
+.show {
+    display: block;
+}
+
+.hide {
+    display: none;
+}
+
+.social-icons {
+    display: flex;
+    display: -webkit-box;
+    display: -webkit-flex;
+    display: -ms-flexbox;
+    justify-content: center;
+}
+
+.social-icons img {
+    width: 50px;
+    height: 50px;
+    margin: 5px;
+    color: red!important;
+}
+
+/*increase input placeholder fnt*/
+.cta-cover input,  .cta-cover button{
+    font-size: 18px;
+}
+
+.cta-cover2 input,  .cta-cover2 button{
+    font-size: 20px;
+}
+
+
+.cta-cover2 button{
+    padding: 0px 20px;
+}
+.step-sub {
+    font-size: 20px;
+}
+
+/*CTA*/
+.CTA {
+    margin-top: 3%;
+    padding-bottom: 20px;
+}
+
+.post {
+    width: 250px;
+    height: 50px;
+    background: #F68A1E;
+    outline: none;
+    border: none;
+    color: white;
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+    font-weight: bold;
+    font-size: 20px;
+    border-radius: 5px;
+}
+
+/*transform image*/
+.post img {
+    transform: rotate(180deg);
+}
+
+.render {
+    width: 250px;
+    height: 50px;
+    color: white!important;
+    outline: none;
+    border: 2px solid white;
+    background: none;
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+    font-weight: bold;
+    font-size: 20px;
+    padding: 0px 10px;
+    margin-bottom: 20px;
+    border-radius: 5px;
+}
+
+.render a {
+    color: white!important;
+}
+
+.render img, .post img {
+    width: 30px;
+    height: 30px;
+    vertical-align: middle;
+}
+
+.or {
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+    font-size: 20px;
+    padding: 0px 20px;
+    font-weight: bold;
+    color: black;
+}
+   
+.render a:hover {
+    text-decoration: none;
+}
+
+a .render:focus, a .render:active {
+    outline: none;
+    border: 2px solid #F68A1E;
+}
+
+.svg {
+    width: 30px;
+    height: auto;
+}
+
+.back-btn {
+    background-color: #007CFE!important;
+}
+
+#dateTime {
+    background: none;
+}
+
+/*floating whatsapp icon*/
+.float-whatsapp {
+    width: 80px;
+    height: 80px;
+    z-index: 10000;
+    position: fixed;
+    bottom: 30px;
+    right: 10px;
+
+}
+
+.float-whatsapp img {
+    width: 100%;
+    height: 100%;
+}
+
+#contact {
+    position: relative;
+}

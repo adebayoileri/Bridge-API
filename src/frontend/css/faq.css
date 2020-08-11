@@ -1,0 +1,163 @@
+/*FAQ*/
+body {
+    line-height: 30px!important;
+}
+
+.faq-container {
+    display: flex;
+    display: -webkit-box;
+    display: -webkit-flex;
+    display: -ms-flexbox;
+    justify-content: space-evenly;
+    flex-wrap: wrap;
+    padding: 0px 5%;
+}
+
+.faq-box {
+    border: 2px solid lightgray;
+    width: 40%;
+    min-height: 50px;
+    padding: 20px;
+    /*overflow: scroll;
+    border: 2px solid red;*/
+    box-shadow: 5px 5px 5px lightgray;
+    margin: 20px 0px;
+}
+
+.faq-question {
+    color: #F68A1E;
+    font-weight: bold;
+    font-size: 20px;
+}
+
+.faq-answer {
+    padding-left: 10px;
+    font-size: 16px;
+}
+
+.faq-main {
+    text-align: center;
+    font-weight: bold;
+    font-size: 30px;
+    color: #746F6B;
+    margin: 20px 0px;
+}
+
+/*faq sub*/
+.faq-sub {
+    text-align: center;
+    font-size: 20px;
+    width: 50%;
+    margin: 0px auto;
+}
+
+/*back*/
+.back-icon {
+    min-width: 40px !important;
+    min-height: 40px !important;
+    border-radius: 50px;
+    background-color: lightgray;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: absolute;
+    left: 3%;
+    margin: 10px 0px;
+    padding: 0px 20px;
+}
+
+.back-icon img {
+    width: 30px;
+    height: 30px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+
+@media (max-width: 700px) {
+.back-icon {
+    margin: 0px 20px;
+    position: relative;
+    left: unset;
+}
+
+.faq-sub {
+    width: 80%;
+}
+
+.faq-box {
+    width: 100%;
+}
+}
+
+@media (max-width: 426px) {
+.faq-sub {
+    width: 95%;
+}
+.float-whatsapp {
+    width: 60px;
+    height: 60px;
+    z-index: 10000;
+    position: fixed;
+    bottom: 10px;
+    right: 10px;
+}
+
+form {
+    width: 90%!important;
+    margin: 50px auto;
+}
+}
+
+/*floating whatsapp icon*/
+.float-whatsapp {
+    width: 80px;
+    height: 80px;
+    z-index: 10000;
+    position: fixed;
+    bottom: 30px;
+    right: 30px;
+}
+
+.float-whatsapp img {
+    width: 100%;
+    height: 100%;
+}
+
+input, textarea {
+    border: 1px solid #e0e0e0;
+    box-shadow: 0 1px 4px 0px rgba(0, 0, 0, 0.05);
+    height: 50px;
+    width: 100%;
+    border-radius: 5px;
+    text-indent: 10px;
+}
+
+textarea {
+    height: 100px;
+}
+
+form {
+    width: 50%;
+    margin: 50px auto;
+}
+
+.submit {
+    background: #007cfe !important;
+    border-radius: 50px !important;
+    line-height: 0px !important;
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center;
+    border-bottom-width: 0px !important;
+    color: white !important;
+    border: none;
+    width: 100%;
+    height: 40px!important;
+    margin: 20px 0px;
+}
+
+.label {
+    margin-top: 20px;
+}
