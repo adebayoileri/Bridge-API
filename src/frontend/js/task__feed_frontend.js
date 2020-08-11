@@ -23,8 +23,8 @@ const handleNav = {
   showLoginAndSignupButtons() {
     topNav.innerHTML = `
    <a class="mdl-navigation__link mdl-typography--text-uppercase post-job post-a-job-with-auth" onClick="postAjob()" href="#">Post a job</a>
-    <a class="mdl-navigation__link mdl-typography--text-uppercase auth-nav-btn" href="./createaccount.html">sign up</a>
-    <a class="mdl-navigation__link mdl-typography--text-uppercase auth-nav-btn" href="./login.html">login in</a>`
+    <a class="mdl-navigation__link mdl-typography--text-uppercase auth-nav-btn" href="/signup">sign up</a>
+    <a class="mdl-navigation__link mdl-typography--text-uppercase auth-nav-btn" href="/login">login in</a>`
 
   },
   showLoggedInProfilePics({
@@ -532,7 +532,7 @@ function recommendation() {
 // ----------Logout function starts ---
 function logout() {
   window.localStorage.removeItem('token');
-  window.location.href = './login.html';
+  window.location.href = '/login';
 }
 
 
