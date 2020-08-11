@@ -2,7 +2,7 @@ import Joi from '@hapi/joi';
 
 const idValidator = id => {
     const JoiSchema = Joi.object({
-        id: Joi.min(6).required(),
+        id: Joi.string().min(6).required(),
     }).options({
         abortEarly: false
     });

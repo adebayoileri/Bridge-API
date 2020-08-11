@@ -9,7 +9,7 @@ const validateCreateNewTask = task => {
         jobtype: Joi.string().min(3).required(),
         pricetype: Joi.string().min(3).required(),
         description: Joi.string().min(3).required(),
-        user_id: Joi.number().integer().min(1).required(),
+        user_id: Joi.string().min(1).required(),
         // category_id: Joi.number().integer().min(1).required(),
         location: Joi.string().min(1).required(),
         fixedprice: Joi.string().min(1).optional(),
