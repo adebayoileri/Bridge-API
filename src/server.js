@@ -1,4 +1,5 @@
 import express from 'express';
+import path from 'path';
 import cors from 'cors';
 import { json, urlencoded } from 'body-parser';
 import { config } from 'dotenv';
@@ -20,6 +21,10 @@ import os from "os";
 
 const app = express()
 config();
+
+const frontend = path.join(__dirname, '/frontend');
+
+app.use(express.static(frontend));
 
 app.use(cors())
 
@@ -51,7 +56,27 @@ const limiter = rateLimit({
 app.use(limiter);
 
 app.get('/',(req, res)=>{
-  res.status(200).json('Welcome to Bridge API')
+  res.sendFile(__dirname + '/frontend/homepage.html');
+});
+
+app.get('/feed',(req, res)=>{
+  res.sendFile(__dirname + '/frontend/html/index.html');
+});
+
+app.get('/faq',(req, res)=>{
+  res.sendFile(__dirname + '/frontend/html/faq.html');
+});
+
+app.get('/sendfeedback',(req, res)=>{
+  res.sendFile(__dirname + '/frontend/html/feedback.html');
+});
+
+app.get('/login',(req, res)=>{
+  res.sendFile(__dirname + '/frontend/html/login.html');
+});
+
+app.get('/signup',(req, res)=>{
+  res.sendFile(__dirname + '/frontend/html/createaccount.html');
 });
 
 app.use('/api/v1/',taskRoutes);
@@ -88,11 +113,7 @@ if(cluster.isMaster && !process.env.NODE_ENV == 'test'){
 
 
 // Invalid Routes
-app.all('*', (req, res) => res.status(404).json({
-    status: 'error',
-    code: 404,
-    message: 'Route unavailable on server.',
-  }));
+app.all('*', (req, res) => res.status(404).sendFile(__dirname + '/frontend/html/404-page.html'));
 
 export const server = app;
 export default app;

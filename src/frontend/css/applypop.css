@@ -1,0 +1,230 @@
+/*apply table*/
+.apply-table {
+    display: flex;
+    justify-content: space-between;
+    padding: 15px;
+    margin: 0px 30px;
+    border-radius: 10px;
+    border: .5px solid #9e9e9e9e;
+    box-shadow: 3px 3px 5px #d2d1d1;
+}
+
+/*remove the useless scroll bar that appears when you click apply Lol*/
+/* body::-webkit-scrollbar {
+    display: none;
+} */
+
+.apply-table-min {
+    display: flex;
+    flex-direction: column;
+}
+
+.applyjob {
+    height: 50px;
+    background: gray;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.divi {
+    position: relative;
+    width: 100%;
+}
+
+.offer-pad {
+    padding: 0px 30px;
+}
+
+/*modal popup*/
+.bg-modal {
+    background-color: rgb(0, 0, 0, 0.7);
+    width: 100%;
+    height: calc(100vh - 65px);
+    position: absolute;
+    top: 0;
+    display: flex;
+    display: -webkit-box;
+    display: -webkit-flex;
+    display: -ms-flexbox;
+    justify-content: center;
+    align-items: center;
+    display: none;
+    /* overflow: hidden; */
+}
+
+.modal-content {
+    width: 700px;
+    min-height: 540px;
+    background: white;
+    display: flex;
+    display: -webkit-box;
+    display: -webkit-flex;
+    display: -ms-flexbox;
+    justify-content: center;
+    position: relative;
+}
+
+.popup-img {
+    width: 250px;
+    height: 200px;
+}
+
+.pop-main {
+    font-size: 30px;
+    font-weight: 500;   
+    text-align: center;
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+}
+
+/*plus*/
+.plus {
+    font-size: 50px;
+    font-weight: lighter;
+    position: absolute;
+    /* top: -10px; */
+    right: -10px;
+    /* margin: -10px 20px; */
+    background: none;
+    outline: none;
+    border: none;
+    transform: rotate(45deg);
+    padding: 20px;
+    z-index: 1000000;
+}
+
+/*step one*/
+.step-one, .step-two, .step-three {
+    display: none;
+    transition: .01s cubic-bezier(0.6, -0.28, 0.735, 0.045);
+}
+
+.tt-margin {
+    margin-top: 30px;
+    margin-bottom: 10px;
+    font-size: 30px;
+}
+
+.tab-input {
+    margin-top: 10px;
+}
+
+.tab-label {
+    font-weight: bold;
+}
+
+.apply-text {
+    border-radius: 5px;
+    padding: 10px;
+    overflow-wrap: break-word;
+    height: 200px;
+    width: -webkit-fill-available;
+    margin: 0px 30px;
+    margin-top: 30px;
+    transition: .5s ease;
+    border: 1px solid rgb(224, 224, 224);
+    box-shadow: rgba(0, 0, 0, 0.05) 0px 1px 4px 0px;
+}
+
+.next-cover {
+    margin: 0px 30px;
+}
+
+.next {
+    height: 40px;
+    border-radius: 5px;
+    background-color: #007CFE;
+    color: white;
+    display: flex;
+    width: 20%;
+    font-size: 18px;
+    font-weight: bold;
+    justify-content: center;
+    align-items: center;
+    border: none;
+    cursor: pointer;
+    margin-top: 10px;
+    float: right;
+}
+
+/**************************/
+.giphy {
+    width: 60%;
+    margin: 0px auto;
+    height: auto;
+}
+
+.giphy img {
+    width: 100%;
+    height: 100%;
+}
+
+.apply-success {
+    font-size: 21px;
+    text-align: center;
+    position: relative;
+    top: 40px;
+    padding: 0px 5%;
+    font-weight: bold;
+}
+
+.apply-success-parent{
+    display: flex;
+    flex-direction: column;
+}
+
+.apply-error-span{
+    margin-left: 35px;
+    color: red;
+    font-weight: bolder;
+    opacity: 0;
+    transition: .5s ease;
+}
+
+.apply-error-active{
+    opacity: 1;
+}
+
+.overlay-apply-loader{
+    position: absolute;
+    width: 100%;
+    border: 1px solid;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    z-index: 1;
+    top: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    transition: .5s ease;
+    background-color: rgba(255, 255, 255, 0.5);
+    visibility: hidden;
+}
+
+.overlay-apply-loader-active{
+    visibility: visible;
+}
+
+.apply-job-error-div{
+    text-align: center;
+    border-right: 3px solid red;
+    border-left: 3px solid red;
+    border-bottom: 1px solid #8080804f;
+    border-top: 1px solid #8080804f;
+    border-radius: 4px;
+    padding-top: 5px;
+    padding-bottom: 5px;
+    margin: 1px 10px 0px 10px;
+}
+
+.apply-job-error-div:empty{
+    display: none;
+}
+
+/*apply btn fixes*/
+#apply-for-job-main > footer > button {
+    margin-bottom: 50px;
+    width: 100%;
+    height: 50px;
+}

@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Bridge - create an account with bridge, its free">
+    <link
+        href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;1,100;1,200;1,300&display=swap"
+        rel="stylesheet">
+    <link rel="stylesheet" href="../assets/mdl/material.min.css">
+    <link rel="stylesheet" href="../css/auth.css">
+    <!--favicon-->
+    <link rel='icon' href='./bridge-favicon.ico' type='image/x-icon'/>
+    <title>Bridge || Create account</title>
+</head>
+
+<body>
+        <!-- modal starts V2-->
+        <div class="auth-modal-container" id="create-account-div">
+          <!-- MDL Progress Bar with Indeterminate Progress -->
+          <div id="p2" style="width: 100%; position: absolute; z-index: 1000; left: 0; top: 0;" class="mdl-js-progress mdl-progress__indeterminate"></div>
+          <div class="loader-login-overlay"></div>
+
+            <div class="top-form-design">
+                <p class="side-word">Create an account</p>
+            </div>
+    
+            <!-- ALERT STARTS -->
+            <div class="alertModal" role="alert"></div>
+            <!-- ALERT ENDS -->
+    
+            <!-- login form starts -->
+            <!-- <form class="form" name="contact" method="POST" data-netlify="true" action="./thankyou.html" netlify> -->
+              <form class="form" method="POST" id="signup-form">
+                <div class="form-group-container">
+                <div class="form-group">
+                        <label for="email" class="form-label signup-label-email">Email</label>
+                  <div class="form-input">
+                    <input name="email" type="email" class="login-input form-input-signup create-acc-input form-control-input create-email" id="email">
+                    <span id="create-acc-email-error-span"></span>
+                  </div>
+                </div>
+                <div class="form-group">
+                    <label for="First Name" class="form-label form-input-signup signup-label-firstname ">First Name</label>
+                    <div class="form-input">
+                        <input name="firstname" type="text" class="login-input form-input-signup create-acc-input form-control-input create-username" id="first_name">
+                        <span id="create-acc-firstname-error-span"></span>
+                    </div>
+                  </div>
+                  <div class="form-group">
+                    <label for="Last Name" class="form-label form-input-signup signup-label-lastname ">Last Name</label>
+                    <div class="form-input">
+                        <input name="lastname" type="text" class="login-input form-input-signup create-acc-input form-control-input create-username" id="last_name">
+                        <span id="create-acc-lastname-error-span"></span>
+                    </div>
+                  </div>
+                  <div class="form-group">
+                    <label for="phonenumber" class="form-label form-input-signup signup-label-phonenumber ">Phone Number</label>
+                    <div class="form-input">
+                        <div class="phonenumber-div"><img width="20px" height="20px" src="../assets/images/nigeriaFlag.svg" alt="flag of nigeria"></div>
+                        <input style="width: 88%; padding-left: 10%; display: block"  pattern="\d*" maxlength="11" name="phonenumber" type="text" class="login-input form-input-signup create-acc-input form-control-input create-username" id="phonenumber">
+                        <span id="create-acc-phonenumber-error-span"></span>
+                    </div>
+                  </div>
+                <div class="form-group">
+                    <label for="password" class="form-label signup-label-password">Password</label>
+                    <div class="form-input">
+                        <input name="password" type="password" class="login-input form-input-signup create-acc-input form-control-input create-password" id="password">
+                        <span id="create-acc-password-error-span"></span>
+                    </div>
+                  </div>
+                <!-- <div class="orange-color small-text forgot-password-text"><a href="#">Forgot Password?</a></div> -->
+                <button class="btn-auth orange-color-bg" id="signup-btn" type="submit">Create Account</button>
+            </form>
+           
+            <div class="small-text" style="margin: 6px; text-align: center;">
+              <p>By creating an account, I agree to Bridge's <span class="blue-bg">Terms & Conditions,</span> and <span class="blue-bg">Community Guildlines, Privacy Policy</span></p>
+            </div>
+            <!-- second login auth starts -->
+          <div class="external-auth-container">
+            <p class="or-divider">OR</p>
+          <!-- second login auth ends -->
+          <button class="btn-fb"><img src="../assets/images/facebook icon.svg" alt="FB">Sign up with Facebook</button>
+          <button class="btn-google"><img src="../assets/images/google icon.svg" alt="google"> Sign up with Google</button>
+        </div>
+
+        <!--login if you have an account-->
+        <div class="small-text" style="margin: 20px 0px; text-align: center; font-weight: 100;">
+            Do you have an account? <a href="/login">Log in</a>
+          </div>
+        <!-- modal ends -->
+        </div>
+
+        <script src="../js/auth.js"></script>
+        <script src="../js/signup.js"></script>
+        <script src="../assets/mdl/material.min.js"></script>
+</body>
+
+</html>

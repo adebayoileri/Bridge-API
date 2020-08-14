@@ -156,7 +156,6 @@ class taskController {
       });
       if (responseValidation.error)
         return res.status(400).json({ Error: `${responseValidation.error}` });
-
       const createTaskQuery = `INSERT INTO tasks (title, bannerImg, category, description, user_id,  jobtype, pricetype, fixedprice, status,location, minbudget, maxbudget, startdate, enddate, createdat) VALUES($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11, $12, $13, $14, $15) RETURNING *`;
       const values = [
         title,
@@ -445,7 +444,6 @@ class taskController {
     const {taskId} = req.params;
     const applicantId = req.user.id;
     const applicantMail = req.user.email;
-    console.log(applicantMail)
     const {
       posterId,
       posterEmail,

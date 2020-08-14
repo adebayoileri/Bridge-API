@@ -1,0 +1,336 @@
+/* body {
+    font-family: "Nunito", "HelveticaNeue", "Helvetica Neue", Helvetica, Arial, sans-serif;
+} */
+
+/* body {
+    width: 100%;
+    height: 100%;
+} */
+
+/* form {
+    margin: 0px 50px;
+} */
+
+.sub-form {
+    background-color: #fff;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.3);
+    padding: 20px 0px;
+}
+
+h5 {
+    font-size: 18px;
+}
+
+.three-in-input {
+    width: 100%;
+    display: flex;
+}
+
+.three-in-input, .project-cover {
+    margin-bottom: 20px;
+}
+
+form .input, form .select {
+    border: 1px solid #e0e0e0;
+    box-shadow: 0 1px 4px 0px rgba(0, 0, 0, 0.05);
+    height: 50px;
+    width: 100%;
+    border-radius: 5px;
+}
+
+form input, form select {
+    text-indent: 15px;
+}
+
+.input-cover {
+    width: calc(100% / 3);
+    padding: 0px 20px;
+}
+
+.price-cover {
+    width: 100%;
+    padding: 0px 20px;
+}
+
+.price-input {
+    display: flex;
+}
+
+.price-input input {
+    height: 50px;
+    width: 40%;
+    border: 1px solid #e0e0e0;
+    box-shadow: 0 1px 4px 0px rgba(0, 0, 0, 0.05);
+}
+
+.price-input select {
+    height: 50px;
+    width: 20%;
+    border: 1px solid #e0e0e0;
+    box-shadow: 0 1px 4px 0px rgba(0, 0, 0, 0.05);
+}
+
+.marg-right {
+    margin-right: 20px;
+}
+
+.project-details {
+    padding: 0px 20px;
+    margin-top: 50px;
+    margin-bottom: 50px;
+}
+
+/*page title*/
+.page-title {
+    border-left: 5px solid #2a41e8;
+    padding: 5px;
+    margin: 20px 20px;
+}
+
+.page-title h4 {
+    margin: 5px 0px;
+}
+
+/*hide for life*/
+.hide-fl {
+    visibility: hidden;
+}
+
+/*text-area*/
+.textarea {
+    width: 100%;
+    height: 200px;
+    font-size: 18px;
+    padding: 5px;
+    border: 1px solid #e0e0e0;
+    box-shadow: 0 1px 4px 0px rgba(0, 0, 0, 0.05);
+}
+
+
+
+/*post*/
+.cta-post button {
+    background: #2a41e8;
+    width: 200px;
+    height: 50px;
+    color: white;
+    font-size: 20px;
+    font-weight: bold;
+    outline: none;
+    border: none;
+    box-shadow: 0 1px 4px 0px rgba(0, 0, 0, 0.05);
+    margin: 50px 0px;
+}
+
+.upload-div{
+    width: 160px;
+    border: 1px solid #2a41e8;
+    display: inline-flex;
+    position: relative;
+    height: 50px;
+    justify-content: center;
+    align-items: center;
+    border-radius: 6px;
+}
+
+.upload-div>input{
+    position: absolute;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    width: 100%;
+    left: 0;
+    opacity: 0;
+    cursor: pointer;
+}
+
+.upload-description{
+    display: inline-flex;
+    margin-left: 10px;
+    color: gray;
+    text-align: center;
+    padding: 8px;
+}
+
+.form-condition-icon{
+    border: 1px solid #2a41e8;
+    border-radius: 20px;
+    width: 13px;
+    height: 13px;
+    display: inline-flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 10px;
+    color: #2a41e8;
+    cursor: pointer;
+}
+
+.condition-input-container{
+    position: relative;
+}
+
+.condition-input-container button{
+    position: absolute;
+    right: 0;
+    height: 36px;
+    width: 36px;
+    top: 0;
+    margin: 10px 2px 0px 0px;
+    cursor: pointer;
+    background-color: #2a41e8;
+    border: none;
+    color: white;
+    border-radius: 6px;
+    font-size: 28px;
+}
+
+.preview-pics-container{
+    position: relative;
+    border: 1px dashed;
+    width: 180px;
+    margin: 20px auto 0px;
+    transition: 1s ease;
+    height: 0px;
+    opacity: 0;
+    border-radius: 9px;
+}
+.preview-pics-container>img{
+    border-radius: 9px;
+    width: 100%;
+    height: 100%;
+}
+
+.preview-pics-container-is-active{
+    opacity: 1;
+    height: 180px;
+}
+
+.upload-spinner{
+    display: block;
+    margin: 15px auto 0px;
+}
+
+.pics-details{
+    text-align: center;
+    font-size: 12px;
+    font-weight: bold;
+    color: #686868;
+}
+
+.job-price-range-container{
+    border: 1px solid rgb(224, 224, 224);
+    width: fit-content;
+    margin-bottom: 15px;
+    border-radius: 20px;
+    padding: 4px;
+}
+
+.error-span{
+    opacity: 0;
+    transition: opacity 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+    color: red;
+    font-weight: bold;
+}
+
+.is-error-active{
+    opacity: 1;
+}
+#submit-form{
+    cursor: pointer;
+}
+
+.retry-btn{
+    display: none;
+}
+.is-retry-button-active{
+    display: block;
+}
+
+.form-loader-overlay{
+    position: absolute;
+    width: 100%;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    height: 215%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: #ffffff82;
+    flex-direction: column;
+    z-index: 10;
+}
+
+.loader-message-container{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    background-color: white;
+}
+
+.go-home{
+    padding: 13px 64px 13px 64px;
+    color: white;
+    text-decoration: none;
+}
+
+.post-job-modal-btn{
+    margin: 0px 25px !important;
+    width: 20% !important;
+    height: 40px !important;
+    font-size: 1rem !important;
+}
+
+.modal__btn-primary {
+    background-color: #007cfe !important;
+    color: #fff;
+}
+
+
+/*Media query: turn width to 100%*/
+@media (max-width: 900px) {
+    .three-in-input {
+        flex-wrap: wrap;
+    }
+
+    .input-cover {
+        width: 100%;
+    }
+
+    .hide-fl {
+        display: none;
+    }
+
+    .mid-margin {
+        margin-top: 20px;
+    }
+
+    /*flex wrap price*/
+    .price-input {
+        flex-wrap: wrap;
+    }
+
+    .price-input input {
+        width: 100%;
+    }
+
+    .price-input select {
+        width: 50%;
+    }
+    .post-job-modal-btn{
+     width: 32% !important;
+    }
+}
+
+/*Media query: turn width to 100%*/
+@media (max-width: 430px) {
+    form {
+        margin: 0px 15px;
+    }
+
+    .sub-form {
+        padding: 0px;
+        padding-bottom: 20px;
+    }
+}

@@ -1,5 +1,5 @@
-// DROP TABLE IF EXISTS users CASCADE;
 const createUserTable = `
+DROP TABLE IF EXISTS users CASCADE;
 CREATE EXTENSION IF NOT EXISTS "uuid-ossp";
     CREATE TABLE IF NOT EXISTS 
     users(
@@ -26,8 +26,8 @@ CREATE EXTENSION IF NOT EXISTS "uuid-ossp";
 // auth_id int NULL, remember to add this in new migrated DB
 
 // category_id int NOT NULL,
-// DROP TABLE IF EXISTS tasks CASCADE;
 const createTaskTable = `
+DROP TABLE IF EXISTS tasks CASCADE;
     CREATE EXTENSION IF NOT EXISTS "uuid-ossp";
     CREATE TABLE IF NOT EXISTS 
     tasks(
@@ -53,8 +53,8 @@ const createTaskTable = `
 `;
 // FOREIGN KEY (category_id) REFERENCES "categories" (id) ON UPDATE CASCADE ON DELETE CASCADE
 
-// DROP TABLE IF EXISTS genders CASCADE;
 const createGenderTable = `
+DROP TABLE IF EXISTS genders CASCADE;
 CREATE TABLE IF NOT EXISTS 
 genders(
     id SERIAL PRIMARY KEY NOT NULL UNIQUE,
@@ -64,8 +64,8 @@ genders(
 )
 `;
 
-// DROP TABLE IF EXISTS categories CASCADE;
 const createCategoryTable = `
+DROP TABLE IF EXISTS categories CASCADE;
 CREATE EXTENSION IF NOT EXISTS "uuid-ossp";
 CREATE TABLE IF NOT EXISTS 
 categories(
@@ -77,8 +77,8 @@ categories(
     );
 `;
 
-// DROP TABLE IF EXISTS reviews CASCADE;
 const createReviewTable = `
+DROP TABLE IF EXISTS reviews CASCADE;
     CREATE EXTENSION IF NOT EXISTS "uuid-ossp";
     CREATE TABLE IF NOT EXISTS reviews(
            id UUID PRIMARY KEY NOT NULL UNIQUE DEFAULT uuid_generate_v4(),
@@ -95,8 +95,8 @@ const createReviewTable = `
 
 // ,FOREIGN KEY (reviwee) REFERENCES "users" (id) ON UPDATE CASCADE ON DELETE CASCADE
 
-// DROP TABLE IF EXISTS task_user CASCADE;
 const createTaskUsersTable = `
+DROP TABLE IF EXISTS task_user CASCADE;
 CREATE EXTENSION IF NOT EXISTS "uuid-ossp";
 CREATE TABLE IF NOT EXISTS task_user (
         task_id UUID REFERENCES tasks (id) ON UPDATE CASCADE ON DELETE CASCADE,

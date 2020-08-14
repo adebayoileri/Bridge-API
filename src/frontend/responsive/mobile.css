@@ -1,0 +1,414 @@
+/*body {
+    /*background-color: rgb(255, 166, 0);
+}*/
+
+/*hide floating phone*/
+.phone-ui { 
+    display: none;
+}
+
+/*show hidden phone*/
+.hidden-phone {
+    /*width: calc(781px - 25vw);
+    height: calc(723px - 25vw);*/
+    width: calc(380px - 10vw);
+    height: calc(394.12px - 10vw);
+    display: block;
+    margin: 0px auto;
+    margin-top: 5%!important;
+}
+
+/* .hide-herotext {
+    display: none;
+} */
+/****************************************/
+/*hero btn*/
+.access-btn, .access-btn2 {
+    min-width: 30%;
+    padding-left: 15px;
+    padding-right: 15px;
+}
+
+.access-btn2 {
+    min-width: 80%!important;
+    border-radius: 5px!important;
+ }
+
+/*hero input*/
+.email-input {
+    min-width: 50%;
+}
+
+/*center CTA*/
+.cta-cover {
+    display: flex;
+    display: -webkit-box;
+    display: -webkit-flex;
+    display: -ms-flexbox;
+    justify-content: center;
+}
+
+/*center hero texts*/
+.hero-main {
+    font-size: calc(3vw + 15px);
+    width: 100%;
+    text-align: center;
+    padding: 0px 5px;
+}
+
+.hero-sub {
+    /*font-size: calc(1.3vw + 10px); */
+    font-size: 16px;
+    width: 100%;
+    text-align: center;
+    padding: 0px 40px;
+}
+
+.herobar {
+    padding-left: 0%;
+    min-height: 300px;
+}
+
+/*access btn*/
+.access-btn {
+    font-size: 13px;
+}
+
+/*flex wrap on mobile*/
+.three-cover {
+    display: flex;
+    flex-wrap: wrap;
+    padding: 0px 5%;
+}
+
+/*video screen*/
+.video-screen {
+    width: 80%;
+    height: 50%;
+}
+
+.how-sub {
+    text-align: center;
+    font-size: 18px;
+    width: 95%;
+    margin: 0px auto;
+}
+
+.see-main-sub {
+    width: 95%;
+}
+
+/*EXPOLRE*/
+.explore-main {
+    font-size: 8vw;
+}
+
+.explore-icons {
+    display: grid;
+    justify-content: space-around;
+    margin: 0px 10%;
+    grid-template-columns: 1fr 1fr;
+}
+
+.explore-icons > div {
+    margin-top: 50px;
+}
+
+/* see all categories */
+.explore-side {
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+    font-size: 18px;
+    font-weight: bold;
+    text-align: center;
+}
+
+/*earn segment*/
+.earn-cover {
+    width: 95%;
+    padding: 20px 0px;
+    top: -140px;
+    border-radius: 10px!important;
+}
+
+.earn-main { 
+    font-size: 25px;
+    margin: 0px 10px;
+}
+
+.earn-sub {
+    font-size: 16px;
+    width: 90%;
+}
+
+.cta-cover2 {
+    margin-top: 30px;
+}
+
+.access-btn2 {
+    font-size: 12px;
+}
+
+.email-input2 {
+    font-size: 12px;
+}
+
+/*explore -- reduce padding bottom*/
+.explore {
+    padding-bottom: 150px;
+}
+
+/*flexwrap faq*/
+/*FAQ*/
+.faq-box {
+    width: 90%;
+}
+
+.faq-b {
+    width: 90%;
+}
+
+/*faq sub*/
+.faq-sub {
+    width: 90%;
+}
+
+/*show*/
+.toggle {
+    display: block;
+}
+
+/*hide menu on mobile*/
+.menu-hide-mobile {
+    display: none;
+}
+
+/*hide menu on load*/
+.toggle-cover {
+    display: none;
+}
+
+/*margin-important*/ 
+.nav-important {
+    margin: 0px!important;
+    padding: 0px!important;
+}
+
+/*margin to image*/
+body > div.nav-container > nav > div > div > img {
+    margin-left: 20px;
+}
+
+/*make logo size compulsory*/
+.logo img, .logo {
+    width: 120px!important;
+    height: 45px!important;
+    margin-top: 5px!important;
+}
+
+/*give margin-top*/
+@media (max-width: 325px) and (min-width: 100px) {
+    .hidden-phone {
+        width: calc(380px - 50vw);
+        height: calc(394.12px - 50vw);
+    }
+
+    /*increase input placeholder fnt*/
+.cta-cover input,  .cta-cover button{
+    font-size: 12px!important;
+}
+
+.cta-cover2 button{
+    font-size: 10px!important;
+}
+
+    /*body {
+        background-color: red;
+    }*/
+}
+
+
+/*video mobile*/
+/*video screen*/
+.video-screen {
+    width: 80%!important;
+    height: 300px;
+    /*background-color: rgb(4, 196, 90);*/
+    margin: 30px auto;
+}
+
+/*increase font*/
+ul li {
+    font-size: 18px;
+}
+
+/*increase input placeholder fnt*/
+.cta-cover input,  .cta-cover button{
+    font-size: 16px;
+}
+
+.cta-cover2 input,  .cta-cover2 button{
+    font-size: 20px;
+}
+
+
+.cta-cover2 button{
+    padding: 0px 20px;
+}
+.step-sub {
+    font-size: 18px;
+}
+
+.logo {
+    margin-left: 10px;
+}
+
+.contact-tab {
+    text-align: center;
+    font-size: 16px;
+}
+/*CTA*/
+.CTA {
+    display: flex;
+    display: -webkit-box;
+    display: -webkit-flex;
+    display: -ms-flexbox;
+    flex-direction: column;
+    margin-left: 0px;
+    padding-bottom: 25vw;
+}
+
+/*center CTA*/
+.CTA a {
+    display: flex;
+    display: -webkit-box;
+    display: -webkit-flex;
+    display: -ms-flexbox;
+    justify-content: center;
+}
+
+/*center OR*/
+.CTA .or {
+    display: block;
+    text-align: center;
+}
+
+.post, .render {
+    align-self: center;
+}
+
+.or {
+    margin: 5px 0px;
+}
+
+.one-li {
+    height: 40px;
+}
+
+.modal-content {
+    margin: 0px 10px;
+}
+
+/*mobile button*/
+#next-two, #back, #next-three, #back-two, #back-three {
+    background: #ff9b05;
+    outline: none;
+    border: none;
+    width: 45%;
+    height: 50px;
+    border-radius: 10px;
+    color: white;
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+    font-size: 20px;
+    margin: 0px auto;
+}
+
+.plus {
+    font-size: 50px;
+    font-weight: lighter;
+    position: absolute;
+    top: -22px;
+    right: -30px;
+}
+
+.main-progress-content {
+    padding: 0px 20px;
+}
+
+.congrats-text {
+    font-size: 25px;
+    text-align: center;
+    position: relative;
+    top: 50px;
+    padding: 0px 5%;
+    font-weight: bold;
+}
+
+.herobar {
+    background-blend-mode: overlay;
+    background-color: rgba(0, 0, 0, 0.7);
+    /*fancy hero-mobile */
+    border-top-right-radius: 0px;
+    border-bottom-right-radius: 50vw;
+    position: relative;
+    left: 0px;
+}
+
+.hero-sub {
+    color:white;
+    font-size: calc(2vw + 15px)!important;
+    padding: 0px 5px
+}
+
+/*render: big bottom margin*/
+.render {
+    margin-bottom: 80px;
+}
+
+.hero-main {
+    font-size: calc(4.5vw + 15px);
+}
+
+.hero-sub {
+    font-size: calc(2vw + 10px);
+    margin-bottom: 50px; 
+}
+
+.popup-img {
+    height: auto;
+    margin: 0px auto;
+}
+
+#address, #dateTime, #price__value {
+    width: 90%;
+}
+
+/*scrolling fast*/
+.a {
+    -webkit-animation: slideReverse 30s linear infinite;
+    animation: slideReverse 30s linear infinite;
+}
+
+.b {
+    -webkit-animation: slide 30s linear infinite;
+    animation: slide 30s linear infinite;
+}
+
+/*reduce img size on scroll*/
+.scroll-image img {
+    width: 280px!important;
+    height: auto!important;
+    margin-right: 8px!important;
+}
+
+.see-main {
+    margin:0px 10px;
+}
+
+.float-whatsapp {
+    width: 60px;
+    height: 60px;
+    z-index: 10000;
+    position: fixed;
+    bottom: 10px;
+    right: 10px;
+}

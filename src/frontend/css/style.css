@@ -1,0 +1,461 @@
+.user-image {
+    width: 40px;
+    height: 40px;
+    border-radius: 40px;
+}
+
+.user-image img {
+    width: 100%;
+    height: 100%;
+    border-radius: 100%;
+}
+
+/*Logo*/
+.bridge-logo {
+    width: 105px;
+    height: 35px;
+}
+
+.bridge-logo-image {
+    width: 100%;
+    height: 100%;
+}
+
+/*Remove MDL float on search*/
+.remove-mdl-float {
+    -webkit-order: 0 !important;
+    -ms-flex-order: 0 !important;
+    order: 0 !important;
+}
+
+/*search filters: location, category, job type & price*/
+.top-main-content {
+    display: flex;
+    background-color: white;
+    height: 50px;
+    padding: 0px 40px;
+    align-items: center;
+    /* box-shadow: 3px 3px 5px #c0c0c0; */
+    border-top: 1px solid #F2F2F2;
+}
+
+.location,
+.categories,
+.price {
+    /*border: 2px solid black;*/
+    margin-right: 40px;
+    display: flex;
+    align-items: center;
+    font-size: 12px;
+}
+
+.location img,
+.categories img,
+.price img {
+    width: 25px;
+    height: 25px;
+    margin-left: 5px;
+}
+
+/*job post*/
+.jobpost-card {
+    position: relative;
+    margin-top: 12px;
+    width: 100%;
+    /* min-height: 300px; */
+    box-shadow: 0 2px 12px rgba(0, 0, 0, 0.12);
+    background-color: #fff;
+    transition: 0.3s;
+    padding-top: 2px;
+    margin: 20px;
+}
+
+.jobpost-card-overlay {
+    position: absolute;
+    cursor: pointer;
+    z-index: 10;
+    width: 100%;
+    top: 0;
+    right: 0;
+    left: 0;
+    bottom: 0;
+}
+
+.jobpost-card:hover {
+    box-shadow: 0 2px 18px rgba(0, 0, 0, 0.14);
+    transform: translateY(-4px);
+}
+
+/*sub jobpost*/
+.jobpost-card-parent {
+    display: flex;
+    background-color: #ffff;
+    flex-wrap: wrap;
+    justify-content: space-evenly;
+}
+
+.sub-jobpost {
+    display: flex;
+    flex-wrap: wrap;
+    background: #F9F9F9;
+    padding: 20px 30px;
+}
+
+.sub-jobpost-cover {
+    display: flex;
+    align-items: center;
+    margin-top: 5px;
+}
+
+.sub-jobpost-text {
+    margin-left: 10px;
+    margin-right: 20px;
+}
+
+.sub-jobpost-image img {
+    width: 20px;
+    height: 20px;
+    border-radius: 15px;
+}
+
+/*padding to card*/
+.jobpost-title,
+.jobpost-details {
+    padding: 0px 30px;
+    word-break: break-word;
+}
+
+
+/*pagination*/
+.pagination {
+    display: flex;
+    justify-content: center;
+    margin-top: 50px;
+    margin-bottom: 20px;
+    padding: 0px;
+}
+
+.pagination li {
+    list-style: none;
+}
+
+.pag-num {
+    /* height: 10px;
+    width: 10px; */
+    padding: 10px 17px;
+    box-shadow: 0 2px 8px rgba(42, 65, 232, 0.25);
+    margin: 0px 5px;
+    border-radius: 4px;
+    /*Transition*/
+    -webkit-transition: all 200ms ease-in-out;
+    -moz-transition: all 200ms ease-in-out;
+    -o-transition: all 200ms ease-in-out;
+    -ms-transition: all 200ms ease-in-out;
+    transition: all 200ms ease-in-out;
+}
+
+.page-num-active {
+    background-color: #2a41e8;
+    color: white;
+}
+
+.pag-next img {
+    transform: rotateY(180deg);
+}
+
+/*Header box-shadow*/
+#header-box-shadow {
+    box-shadow: none;
+}
+
+/*Z-index to maian content*/
+.main-content {
+    z-index: 3;
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+    padding-right: 15px;
+}
+
+/*Media query: turn width to 100%*/
+@media (max-width: 900px) {
+    .jobpost-card {
+        width: unset;
+    }
+
+    /*change Bridge to left*/
+    .android-mobile-title {
+        left: unset;
+    }
+
+    .job-link {
+        width: 100%;
+        margin: 0px;
+        cursor: pointer;
+    }
+}
+
+/*Center footer*/
+footer {
+    text-align: center;
+    padding: 30px;
+    border-top: 1px solid #E0E0E0;
+}
+
+/*Change toggle navigation display*/
+.android-drawer .mdl-layout-title {
+    height: 70px;
+}
+
+.android-drawer .mdl-layout-title {
+    background-color: whitesmoke;
+}
+
+/*social media handles*/
+.socials img {
+    width: 25px;
+    height: 25px;
+    margin: 0px 5px;
+}
+
+.copyright {
+    font-size: 16px;
+    margin-bottom: 10px;
+}
+
+.copyright span {
+    font-weight: bold;
+}
+
+/*hide toggle*/
+/* .hide-toggle {
+    display: none;
+} */
+
+.post-job {
+    background: #007cfe !important;
+    border-radius: 50px !important;
+    height: 30px !important;
+    line-height: 0px !important;
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center;
+    border-bottom-width: 0px !important;
+    color: white !important;
+    margin-right: 20px;
+}
+
+/*CTA mobilea*/
+.plus-cta {
+    height: 80px;
+    width: 80px;
+    z-index: 10000;
+    border-radius: 50px;
+    background-color: #2a41e8;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: fixed;
+    bottom: 20px;
+    right: 10px;
+    box-shadow: 0 2px 8px rgba(42, 65, 232, 0.25);
+    display: none;
+}
+
+.plus-cta img {
+    width: 50px;
+    height: 50px;
+}
+
+/*remove toggle*/
+#header-box-shadow>div.mdl-layout__drawer-button,
+.desktop-hide {
+    display: none;
+}
+
+/*change layout*/
+#header-box-shadow>div.mdl-layout__header-row {
+    padding: 0 40px 0 40px;
+}
+
+/* feed spinner */
+
+.infinite-scroll-spinner {
+    margin: auto;
+}
+
+.infinite-loader-and-message-container {
+    display: flex;
+    padding: 10px;
+    align-items: center;
+    flex-direction: column;
+}
+
+.mdl-button {
+    border-radius: 23px;
+    background-color: #007cfe;
+    color: white;
+}
+
+.is-retry-button-active {
+    display: block;
+}
+
+.loader-message-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.mdl-button:hover {
+    background-color: rgba(158, 158, 158, .2);
+    color: #274c5c;
+}
+
+.refresh-task-btn {
+    border-radius: 25px;
+    font-size: 9px;
+    display: flex;
+    color: #228dfe;
+    font-weight: 700;
+    cursor: pointer;
+    align-items: center;
+    height: 29px;
+    border: 1px solid #228dfe;
+    background-color: white;
+    width: 100px;
+    justify-content: center;
+    margin-right: 15px;
+}
+
+/*CSS fixes*/
+#header-box-shadow>div.mdl-layout__header-row {
+    border-bottom: 1px solid #F2F2F2;
+}
+
+body>div>div>div.main-content {
+    border-bottom: 1px solid #F2F2F2;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.12);
+}
+.modal__overlay{
+    z-index: 10000
+}
+
+@media all and (max-width: 600px){
+    .post-job-modal-container{
+       padding: 18px 0px !important;
+    }
+}
+
+@media all and (max-width: 555px){
+    .post-a-job-with-auth{
+        display: none !important;
+    }
+}
+
+/*Error message style fixes*/
+.error-msg-stylefix {
+    margin-top: 10vw;
+    text-align: center;
+    padding: 0px 20px;
+    margin-bottom: 50px;
+}
+
+.error-message {
+    margin-bottom: 10px;
+}
+
+.retry-btn {
+    padding: 0px 25px;
+}
+
+/*style fixes for search field*/
+body > div.mdl-layout__container > div > div.main-content > form > div > div {
+    margin-left: 0px;
+}
+
+/*search icon*/
+/*remove later*/
+.main-content {
+    padding: 10px 0px;
+    /* background: red; */
+}
+
+.search-input-query {
+    background: white;
+    /* float: right; */
+    width: 100%;
+    height: 30px;
+    border-radius: 30px!important;
+    border: 1px solid #dadada;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.12);
+}
+
+.search-input-form-tag {
+    /* background-color: yellow; */
+    width: 30%;
+    position: relative;
+    display: flex;
+}
+
+.search-icon-query {
+    height: 40px;
+    width: 40px;
+    margin: 0px;
+    border-radius: 50px;
+    border: none;
+    /* color: green; */
+    align-self: center;
+    outline: none;
+    position: absolute;
+    right: 0px;
+    background: #007cfe;
+}
+
+form {
+    margin: 0px 15px;
+}
+
+/*increase search img*/
+#search-task-btn > img{
+    width: 25px;
+    height: 25px;
+}
+
+/*fade bg no network*/
+#task-details-error {
+margin-top: 0px;
+padding: 10vw 0px;
+opacity: 1;
+background: #000000c7;
+color: white;
+top: 90px;
+display: flex;
+width: 100%;
+align-items: center;
+/*network error*/
+display: none
+}
+
+
+/*height*/
+body > div.job-details-container.open-jobdetails-modal > div {
+    min-height: 300px;
+}
+
+/*image added*/
+.body > div.job-details-container.open-jobdetails-modal > div > div > div.job-details-grid > div.jd-one > div.job-picture-gallery > img {
+    margin: 0px auto;
+    display: flex;
+    margin-bottom: 50px;
+}
+
+/*remove excess margin in location icon*/
+#feed-container > div.jobpost-card-parent > div:nth-child(1) > div.sub-jobpost > div:nth-child(1) > div.sub-jobpost-text {
+    margin-left: 5px;
+}
+
+/*back in desktop, not scaling well*/
+body > div.job-details-container.open-jobdetails-modal > div > div > div.job-title {
+    height: 60px;
+}
