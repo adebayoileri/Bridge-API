@@ -13,7 +13,7 @@ passport.deserializeUser(function(user, done) {
 passport.use(new GoogleStrategy({
     clientID: process.env.GOOGLE_CLIENT_ID,
     clientSecret: process.env.GOOGLE_CLIENT_SECRET,
-    callbackURL:"http://localhost:3200/api/v1/auth/login/google/callback"
+    callbackURL:"https://bridge-task-test-api.herokuapp.com/api/v1/auth/login/google/callback"
   },
   function(accessToken, refreshToken, profile, cb) {
     return cb(null, profile);
