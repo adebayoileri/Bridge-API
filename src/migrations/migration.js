@@ -112,11 +112,18 @@ CREATE TABLE IF NOT EXISTS task_user (
 const migrate = async pool => {
   try {
     await pool.query(createGenderTable);
+    console.log('user gender table migrated');
     await pool.query(createUserTable);
+    console.log('user  table migrated');
     await pool.query(createCategoryTable);
+    console.log('category table migrated');
     await pool.query(createTaskTable);
+    console.log('tasks table migrated');
     await pool.query(createReviewTable);
+    console.log('user review table migrated');
     await pool.query(createTaskUsersTable);
+    console.log('task_user table migrated');
+
     return true;
   } catch (err) {
     throw err;

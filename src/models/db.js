@@ -20,7 +20,10 @@ if (process.env.NODE_ENV === 'development') {
 }
 pool.on('connect', () => {
   console.log('DB Connected');
-});
+})
+pool.on('error', (err)=> {
+  console.log(err)
+})
 
 // UserTable();
 
