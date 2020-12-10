@@ -13,6 +13,7 @@ router.post('/signup', Authentication.signUp);
 router.post('/login', Authentication.login);
 router.post('/forgotpassword', Authentication.forgotPassword);
 router.put('/resetpassword', Authentication.resetPassword);
+router.post('/firebase', Authentication.firebaseSignIn)
 router.get(
   '/login/google',
   passport.authenticate('google', { scope: ['profile', 'email'] }),

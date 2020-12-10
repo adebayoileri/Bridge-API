@@ -6,6 +6,8 @@ const router = Router();
 
 router.get('/user', checkToken, userController.getProfile);
 
+router.get('/user/applied/tasks', checkToken, userController.getAppliedTasks);
+
 router.put('/user/edit', checkToken, userController.editProfile);
 
 router.put('/user/updatepasword', checkToken, userController.updatePassword);

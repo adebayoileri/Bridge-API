@@ -140,7 +140,7 @@ class Authentication {
           },
         );
       } else {
-       return res.status(400).json({
+        return res.status(400).json({
           status: 'bad request',
           message: 'incorrect email or password',
         });
@@ -350,20 +350,21 @@ class Authentication {
         await pool.query(updateUserQuery, value);
         EmailSender.sendEmail(
           email,
-          'Password Reset For Bridge Nigeria', 'Greeder'
+          'Password Reset For Bridge Nigeria',
+          'Greeder',
           // `<p>Hey ${existedUser.rows[0].first_name}</p>
           // <p>You requested password reset link</p>
-          //  <p>Click on this <a href="${process.env.APP_URL}/api/v1/auth/resetpassword?token=${reset_token}">link</a></p> 
+          //  <p>Click on this <a href="${process.env.APP_URL}/api/v1/auth/resetpassword?token=${reset_token}">link</a></p>
           //  <p>If you didn't request for this. Please login to update your password for security reasons</p>`,
         );
-       return res.status(200).json({
+        return res.status(200).json({
           status: 'success',
           message: 'password reset email sent',
           code: 200,
         });
       }
     } catch (error) {
-      console.log(error)
+      console.log(error);
     }
   }
   static async resetPassword(req, res) {
@@ -404,6 +405,131 @@ class Authentication {
         message: 'password updated sucessfully',
       });
     } catch (error) {}
+  }
+
+  static async firebaseSignIn(req, res) {
+    const { email, first_name, last_name, profileimg, email_verfied , auth_id} = req.body;
+    const admin = false;
+    const auth_provider = 'google';
+    const password = await bcrypt.hash(process.env.DEFAULT_KEY, 10);
+    try {
+      if (!email || !password) {
+        return res.status(400).json({
+          status: 'bad request',
+          code: 400,
+          message: 'All fields are required',
+        });
+      }
+
+      const confirmUniqueEmailQuery = `SELECT * FROM users WHERE email=$1`;
+      const value = [email];
+      const existedUser = await pool.query(confirmUniqueEmailQuery, value);
+
+      if (existedUser.rows[0]) {
+        jwt.sign(
+          {
+            email,
+            password,
+            id: existedUser.rows[0].id,
+          },
+          process.env.AUTHKEY,
+          { expiresIn: '30d' },
+          (err, token) => {
+            if (err) {
+              return res.status(400).json(err);
+            } else {
+              return res.status(200).json({
+                status: 'ok',
+                code: 200,
+                message: 'signed in successfully with firebase',
+                data: {
+                  id: existedUser.rows[0].id,
+                  first_name: existedUser.rows[0].first_name,
+                  last_name: existedUser.rows[0].last_name,
+                  profileimg: existedUser.rows[0].profileimg,
+                  phonenumber: existedUser.rows[0].phonenumber,
+                  admin: existedUser.rows[0].admin,
+                  createdat: existedUser.rows[0].createdat,
+                  updatedat: existedUser.rows[0].updatedat,
+                  pro: existedUser.rows[0].pro,
+                  suspend_status: existedUser.rows[0].suspend_status,
+                  email_verified: existedUser.rows[0].email_verified,
+                  auth_id: existedUser.rows[0].auth_id,
+                  auth_provider: existedUser.rows[0].auth_provider,
+                  gender_id: existedUser.rows[0].gender_id,
+                },
+                token: token,
+              });
+            }
+          },
+        );
+      }
+
+      //  hash the incoming password
+      // const salt = await bcrypt.genSalt(10);
+
+      const userSignupQuery = `INSERT INTO users (email, first_name, last_name, admin, password, auth_id, auth_provider, email_verified, profileimg)
+                  VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9) RETURNING *`;
+      const values = [
+        email,
+        first_name,
+        last_name,
+        admin,
+        password,
+        auth_id,
+        auth_provider,
+        email_verfied,
+        profileimg ||
+          'https://res.cloudinary.com/bridgeng/image/upload/v1595808372/blank-profile-picture_ndet1v.png',
+      ];
+      const signedUser = await pool.query(userSignupQuery, values);
+      jwt.sign(
+        {
+          email,
+          password,
+          id: signedUser.rows[0].id,
+          admin: signedUser.rows[0].admin,
+        },
+        process.env.AUTHKEY,
+        { expiresIn: '30d' },
+        (err, token) => {
+          if (err) {
+            return res.status(400).json(err);
+          } else {
+            EmailSender.sendEmail(
+              signedUser.rows[0]['email'],
+              signedUser.rows[0]['first_name'],
+              'Welcome to Bridge',
+              'Your signup was sucessful. Please verify your email',
+            );
+            return res.status(200).json({
+              status: 'ok',
+              code: 200,
+              message: 'Signed up successful',
+              data: {
+                id: signedUser.rows[0].id,
+                first_name: signedUser.rows[0].first_name,
+                last_name: signedUser.rows[0].last_name,
+                profileimg: signedUser.rows[0].profileimg,
+                phonenumber: signedUser.rows[0].phonenumber,
+                admin: signedUser.rows[0].admin,
+                createdat: signedUser.rows[0].createdat,
+                updatedat: signedUser.rows[0].updatedat,
+                pro: signedUser.rows[0].pro,
+                suspend_status: signedUser.rows[0].suspend_status,
+                email_verified,
+                auth_id: signedUser.rows[0].auth_id,
+                auth_provider: signedUser.rows[0].auth_provider,
+                gender_id: signedUser.rows[0].gender_id,
+              },
+              token: token,
+            });
+          }
+        },
+      );
+    } catch (err) {
+      console.log(err);
+    }
   }
 }
 
